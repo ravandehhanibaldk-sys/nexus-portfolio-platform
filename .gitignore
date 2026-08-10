@@ -11,3 +11,6 @@ next-env.d.ts
 # Raw source-asset dump, duplicated by public/images/villa-red-sun/ — not
 # used by any code, not needed for the deployed site.
 /A-villa-red-sun-Final-1920-1080/
+
+.vercel
+.env*

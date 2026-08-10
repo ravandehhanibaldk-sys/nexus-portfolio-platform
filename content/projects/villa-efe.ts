@@ -74,16 +74,22 @@ const villaEfe: ProjectInput = {
           caption: "Airflow diagram — site.",
         },
         {
-          src: "DayLight-5-Plan-Top-Site_result.png",
-          alt: "Site daylight diagram.",
-          category: "daylight-diagram",
-          caption: "Daylight diagram — site.",
-        },
-        {
           src: "PrivacyGradient-5-Plan-Top-Site_result.png",
           alt: "Site privacy gradient diagram.",
           category: "privacy-diagram",
           caption: "Privacy gradient diagram — site.",
+        },
+        {
+          src: "B-44-solar-path-diagram-project-coordinates-villa-efe_result.png",
+          alt: "Solar path diagram for the Villa Efe site, showing sun-angle geometry across the year.",
+          category: "solar-path-diagram",
+          caption: "Solar path analysis — site coordinates.",
+        },
+        {
+          src: "B-24-illustration-section-plan-top-site-villa-efe_result.png",
+          alt: "Illustrated site plan with section cut-lines.",
+          category: "plan",
+          caption: "Site plan with section cut-lines.",
         },
       ],
     },
@@ -111,8 +117,8 @@ const villaEfe: ProjectInput = {
             { src: "1-Plan-Top-BS_result.png", alt: "Basement floor plan.", category: "plan", caption: "Floor plan — Basement." },
             { src: "1-Plan-Top-BS-AirFlow_result.png", alt: "Basement airflow diagram.", category: "airflow-diagram", caption: "Airflow diagram — Basement." },
             { src: "Circulation-1-Plan-Top-BS_result.png", alt: "Basement circulation diagram.", category: "circulation-diagram", caption: "Circulation diagram — Basement." },
-            { src: "DayLight-1-Plan-Top-BS_result.png", alt: "Basement daylight diagram.", category: "daylight-diagram", caption: "Daylight diagram — Basement." },
             { src: "PrivacyGradient-1-Plan-Top-BS_result.png", alt: "Basement privacy gradient diagram.", category: "privacy-diagram", caption: "Privacy gradient diagram — Basement." },
+            { src: "B-20-illustration-section-plan-top-bs-villa-efe_result.png", alt: "Illustrated Basement plan with section cut-lines.", category: "plan", caption: "Basement plan with section cut-lines." },
           ],
         },
         {
@@ -123,9 +129,8 @@ const villaEfe: ProjectInput = {
           assets: [
             { src: "2-Plan-Top-GF_result.png", alt: "Ground floor plan.", category: "plan", caption: "Floor plan — Ground Floor." },
             { src: "2-Plan-Top-GF-AirFlow_result.png", alt: "Ground floor airflow diagram.", category: "airflow-diagram", caption: "Airflow diagram — Ground Floor." },
-            { src: "Circulation-2-Plan-Top-GF_result.png", alt: "Ground floor circulation diagram.", category: "circulation-diagram", caption: "Circulation diagram — Ground Floor." },
-            { src: "DayLight-2-Plan-Top-GF_result.png", alt: "Ground floor daylight diagram.", category: "daylight-diagram", caption: "Daylight diagram — Ground Floor." },
             { src: "PrivacyGradient-2-Plan-Top-GF_result.png", alt: "Ground floor privacy gradient diagram.", category: "privacy-diagram", caption: "Privacy gradient diagram — Ground Floor." },
+            { src: "B-21-illustration-section-plan-top-gf-villa-efe_result.png", alt: "Illustrated Ground Floor plan with section cut-lines.", category: "plan", caption: "Ground Floor plan with section cut-lines." },
           ],
         },
         {
@@ -137,8 +142,8 @@ const villaEfe: ProjectInput = {
             { src: "3-Plan-Top-F1_result.png", alt: "First floor plan.", category: "plan", caption: "Floor plan — First Floor." },
             { src: "3-Plan-Top-F1-AirFlow_result.png", alt: "First floor airflow diagram.", category: "airflow-diagram", caption: "Airflow diagram — First Floor." },
             { src: "Circulation-3-Plan-Top-F1_result.png", alt: "First floor circulation diagram.", category: "circulation-diagram", caption: "Circulation diagram — First Floor." },
-            { src: "DayLight-3-Plan-Top-F1_result.png", alt: "First floor daylight diagram.", category: "daylight-diagram", caption: "Daylight diagram — First Floor." },
             { src: "PrivacyGradient-3-Plan-Top-F1_result.png", alt: "First floor privacy gradient diagram.", category: "privacy-diagram", caption: "Privacy gradient diagram — First Floor." },
+            { src: "B-22-illustration-section-plan-top-f1-villa-efe_result.png", alt: "Illustrated First Floor plan with section cut-lines.", category: "plan", caption: "First Floor plan with section cut-lines." },
           ],
         },
         {
@@ -149,9 +154,9 @@ const villaEfe: ProjectInput = {
           assets: [
             { src: "4-Plan-Top-GRoof_result.png", alt: "Roof terrace plan.", category: "plan", caption: "Floor plan — Roof Terrace." },
             { src: "4-Plan-Top-GRoof-AirFlow_result.png", alt: "Roof terrace airflow diagram.", category: "airflow-diagram", caption: "Airflow diagram — Roof Terrace." },
-            { src: "Circulation-4-Plan-Top-GRoof_result.png", alt: "Roof terrace circulation diagram.", category: "circulation-diagram", caption: "Circulation diagram — Roof Terrace." },
-            { src: "DayLight-4-Plan-Top-GRoof_result.png", alt: "Roof terrace daylight diagram.", category: "daylight-diagram", caption: "Daylight diagram — Roof Terrace." },
+            { src: "B-38-circulation-plan-top-groof-villa-efe_result.png", alt: "Roof terrace circulation diagram.", category: "circulation-diagram", caption: "Circulation diagram — Roof Terrace." },
             { src: "PrivacyGradient-4-Plan-Top-GRoof_result.png", alt: "Roof terrace privacy gradient diagram.", category: "privacy-diagram", caption: "Privacy gradient diagram — Roof Terrace." },
+            { src: "B-23-illustration-section-plan-top-groof-villa-efe_result.png", alt: "Illustrated Roof Terrace plan with section cut-lines.", category: "plan", caption: "Roof Terrace plan with section cut-lines." },
           ],
         },
       ],
@@ -165,6 +170,8 @@ const villaEfe: ProjectInput = {
       question: "What was actually built — inside and out?",
       text: "The completed villa, shown through its exterior presence on the coastline and its finished interior spaces — including the poolside terrace, dining room, living room, and master suite — carrying through the same sequence of interconnected, view-framed living environments described in the design strategy.",
       assets: [
+        { src: "B-18-illustration-section-a-a-villa-efe_result.png", alt: "Illustrated building section A-A.", category: "section", caption: "Section A-A — illustrated." },
+        { src: "B-19-illustration-section-b-b-villa-efe_result.png", alt: "Illustrated building section B-B.", category: "section", caption: "Section B-B — illustrated." },
         { src: "B-01-villa-efe-exterior-view-01_result.png", alt: "Exterior view 01, final design.", category: "exterior" },
         { src: "B-02-villa-efe-exterior-view-02_result.png", alt: "Exterior view 02, final design.", category: "exterior" },
         { src: "B-03-villa-efe-exterior-view-03_result.png", alt: "Exterior view 03, final design.", category: "exterior" },

@@ -23,6 +23,8 @@ const assetSchema = z.object({
     "daylight-diagram",
     "privacy-diagram",
     "airflow-diagram",
+    "solar-path-diagram",
+    "wind-diagram",
     "master-plan",
     "plan",
     "section",

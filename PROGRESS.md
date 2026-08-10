@@ -131,6 +131,34 @@ Explicit instruction from Hanibal: preserve typography/spacing/color/layout lang
 5. **`B-05-villa-efe-interior-_result.png`** exists on disk but isn't referenced anywhere — see the Villa Efe note above.
 6. **Villa Efe's Final Architecture render count is 9 (odd)** — 4 exterior + 5 interior, which is everything real and properly labeled that exists for it. Unlike the Villa Red Sun case, there's no extra real asset to restore here; fabricating a 10th image was not an option.
 
+## ⚠️ 2026-08-10 Status Note — Asset Library Superseded
+
+Everything above this note (MASTER SPEC PHASE 07/08 entries, the "Project A filenames corrected to the real source folder" line, the "Villa Efe added" entry, etc.) was accurate **at the time it was written**. It no longer describes the current state of the production asset library. These historical entries are preserved as-written, not rewritten — only this note is appended for clarity.
+
+Hanibal has since rebuilt and renamed the entire asset set for both projects (`A-villa-red-sun-Final/`, 38 files; `B-villa-efe-Final/`, 52 files), superseding the `-1920-1080` folders this file's history describes. A verification pass (`CURRENT_ASSET_VERIFICATION.md`) confirmed the live site — `content/projects/villa-red-sun.ts` and `content/projects/villa-efe.ts` — still references the old library end-to-end; even the 11 filenames that happen to coincide between old and new are confirmed, by byte size, to be different images.
+
+**Phase-numbering note:** the phase numbers used above (00–10: Research → … → Future Scalability) belong to the original Master Design Specification v3.0 §26.2 sequence — referred to from this point forward as **MASTER SPEC PHASE XX**. The asset-reset governance work below is tracked under a separate, later-introduced Master Execution Protocol sequence (0–7: Asset Verification → Information Architecture → Design System → Interactive Background → Content Mapping → Implementation → QA → Final Audit) — referred to as **EXECUTION PHASE X**. The two sequences are independent and run in parallel; a bare "Phase N" anywhere in this file (above this note) always means MASTER SPEC PHASE N. The asset-reset work is currently at **EXECUTION PHASE 1 (Information Architecture) — documentation complete, EXECUTION PHASE 2 not authorized.**
+
+**Current source of truth, read in this order:**
+1. `CURRENT_ASSET_VERIFICATION.md` — EXECUTION PHASE 0 — what's actually in the new library, what's stale in the live site.
+2. `PORTFOLIO_INFORMATION_ARCHITECTURE.md` — EXECUTION PHASE 1 — how the new assets map onto the existing eight-beat structure.
+3. `PHASE1_ARCHITECTURE_DECISION_DOCUMENT.md` — EXECUTION PHASE 1 — full technical/design-system/accessibility/performance audit, plus ADR-008 (`ARCHITECTURE_DECISIONS.md`) for the reset decision itself.
+
+The Design Tokens, Component Library, and Responsive Website MASTER SPEC PHASE entries below remain accurate as *implementation* facts (the components and tokens themselves haven't changed) — only the *asset content* they render is stale. No remapping has been performed yet; that is gated on the open decisions listed in the three documents above, and on explicit Project Manager authorization for EXECUTION PHASE 2 onward.
+
+## ✅ 2026-08-10 — EXECUTION PHASE 2 Status: IMPLEMENTED AND VERIFIED (locally)
+
+Following Project Manager election of all seven `IA_DECISION_RESOLUTION_BRIEF.md` items, EXECUTION PHASE 2 (Implementation) was carried out for exactly those seven decisions: Villa Red Sun Wind (A-33) + Solar Path (A-29) added to the Site beat; Villa Red Sun Comparator Daylight entries removed (all 3 tiers); Villa Red Sun Final Architecture sections replaced with the illustrated pair (A-14/A-15); Villa Efe Solar Path (B-44) added, Wind not added (dropped per decision); Villa Efe Comparator Daylight entries removed (all 4 tabs); Villa Efe Ground Floor Circulation left absent (not fabricated); Villa Efe Roof Circulation set to B-38 (not B-33); Villa Efe orientation plans (B-20–24) distributed one per Comparator tab + the Site beat; Villa Efe Final Architecture sections added (B-18/B-19 — none existed before). 13 new authoritative-library image files were copied into `public/images/`. Everything outside the seven decisions (Hero, exteriors/interiors, Plan/Airflow/Privacy-Gradient diagrams, Basement/First Floor circulation files, Villa Red Sun's hero video) was deliberately left untouched.
+
+**This status describes four independent things — do not conflate them:**
+
+| Layer | Status |
+|---|---|
+| **A. Local workspace implementation** | ✅ IMPLEMENTED AND VERIFIED. Verified via: direct source inspection of all three changed files; a from-scratch `pnpm build` (deleted `.next`, rebuilt, zero errors, all 4 routes generated); `pnpm lint` (zero output); direct filesystem + HTTP confirmation that all 13 new assets exist and resolve; a fresh local `pnpm dev` instance with live browser rendering of `/`, `/projects/villa-red-sun`, and `/projects/villa-efe` (both projects' new content confirmed present, zero console errors, GF's missing-Circulation gap confirmed to render cleanly with no broken placeholder). |
+| **B. Git commit status** | Being registered now — see the commit recorded immediately below this note / in `ARCHITECTURE_DECISIONS.md` history. Prior to this, all Phase 1 + Phase 2 work existed only as uncommitted local changes on top of the single `d478466` initial commit. |
+| **C. GitHub push status** | **NOT PUSHED.** The local commit has not been pushed to `origin/master`. `origin/master` still points at `d478466` only. |
+| **D. Production deployment status** | **NOT DEPLOYED.** The live site (`nexus-portfolio-platform-ferz.vercel.app`) still serves a build from `d478466` — it does **not** contain any Phase 1 or Phase 2 work from this date. It already contained both Villa Red Sun and Villa Efe (that was true from the initial commit), but not the new Wind/Solar Path/Section/Circulation/Orientation-plan mapping described above. Push/deploy is a separate, explicitly-gated future action, not part of this entry.
+
 ## Next Actions (in order)
 
 1. Hanibal: write the real Reflection text for both projects (or confirm the placeholders should stay for now), and decide on the ProgressNav mobile pattern (Known Gap #4).

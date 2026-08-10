@@ -4,6 +4,16 @@ Maintained per NPP Master Design Specification v3.0, Section 30. One entry per a
 
 ---
 
+## ADR-008 — Asset Library Reset: New Numbered Libraries Adopted as Sole Authority
+
+- **Date:** 2026-08-10
+- **Status:** Accepted
+- **Purpose:** Establish `A-villa-red-sun-Final/` (38 files) and `B-villa-efe-Final/` (52 files) — freshly rebuilt and renamed by Hanibal — as the sole authoritative asset source for both projects, superseding the `-1920-1080` folders the live site currently references.
+- **Why selected:** Hanibal explicitly rebuilt and renamed every asset (Constitution #13). A Phase 0 verification pass confirmed this is not a cosmetic rename: of the 11 filenames that happen to coincide between the old (live) and new (authoritative) libraries, all 11 differ in byte size — direct proof that filename coincidence cannot be used as an asset-identity check for this project going forward. The other 47 live-code asset references don't coincide by filename at all (old diagram-naming convention vs. the new numbered convention).
+- **Alternatives considered:** Treating the new library as a partial update, merging in only clearly-renamed files and leaving filename-coincident ones alone — rejected, since the byte-comparison evidence shows this would have silently kept 11 stale images live under the false assumption that a matching name meant matching content.
+- **Consequences / tradeoffs:** `content/projects/villa-red-sun.ts` and `content/projects/villa-efe.ts` currently reference the old library end-to-end and must be fully remapped (Phase 4/5 work, not yet done — tracked in `PHASE1_ARCHITECTURE_DECISION_DOCUMENT.md` §4.4). No component code changes are required — the codebase grep in Phase 0 confirmed all asset references live exclusively in the two content files, so this is a content-layer remap, not a refactor.
+- **Potential future risks:** If Hanibal rebuilds the asset library again in the future, this same verification discipline (recursive enumeration + byte comparison for any filename-coincident files, never trust-by-name) should be repeated before remapping, per the precedent set here.
+
 ## ADR-007 — `lucide-react` Re-Added: Now Has a Real, Multi-Icon Need
 
 - **Date:** 2026-08-02
