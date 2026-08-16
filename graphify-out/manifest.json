@@ -1,170 +1,982 @@
 {
   "app/layout.tsx": {
     "mtime": 1785574056.4770393,
-    "seen": 1786650811.0429776,
     "ast_hash": "b8f33651141e5ec3c4b9af8960910a0f",
     "semantic_hash": "b8f33651141e5ec3c4b9af8960910a0f"
   },
   "app/page.tsx": {
     "mtime": 1785682378.0797822,
-    "seen": 1786650811.0429845,
     "ast_hash": "2e53407cfa254e172e18c5fdc9c24895",
     "semantic_hash": "2e53407cfa254e172e18c5fdc9c24895"
   },
   "app/projects/villa-efe/page.tsx": {
     "mtime": 1785682355.9931955,
-    "seen": 1786650811.0429876,
     "ast_hash": "be4b15f5419b68f878ff90353a286629",
     "semantic_hash": "be4b15f5419b68f878ff90353a286629"
   },
   "app/projects/villa-red-sun/page.tsx": {
-    "mtime": 1786514357.5194237,
-    "seen": 1786650811.0429895,
+    "mtime": 1786670952.2276573,
     "ast_hash": "ba53b489a9822f59957378edbedfbd68",
     "semantic_hash": "ba53b489a9822f59957378edbedfbd68"
   },
   "components/dev/model-export-test.tsx": {
-    "mtime": 1786538160.9062805,
-    "seen": 1786650811.0429912,
+    "mtime": 1786670952.8246727,
     "ast_hash": "927d28a585ba5a6983a8ad1aa80aac84",
     "semantic_hash": "927d28a585ba5a6983a8ad1aa80aac84"
   },
   "components/project/alternatives-comparator.tsx": {
     "mtime": 1785681924.0879903,
-    "seen": 1786650811.0429928,
     "ast_hash": "6f8c91a9fb1d4ea6f5ba6bd9e2118179",
     "semantic_hash": "6f8c91a9fb1d4ea6f5ba6bd9e2118179"
   },
   "components/project/back-to-portfolio.tsx": {
     "mtime": 1785681961.4007564,
-    "seen": 1786650811.0429947,
     "ast_hash": "39ea7c6ba692ef84b406d3f7de3436ff",
     "semantic_hash": "39ea7c6ba692ef84b406d3f7de3436ff"
   },
-  "components/project/environmental-response.tsx": {
-    "mtime": 1786538160.9062805,
-    "seen": 1786650811.042996,
-    "ast_hash": "f7021175e4cdb1c63c2540de54d7801c",
-    "semantic_hash": "f7021175e4cdb1c63c2540de54d7801c"
-  },
   "components/project/final-architecture.tsx": {
-    "mtime": 1786514357.521517,
-    "seen": 1786650811.0429976,
+    "mtime": 1786670952.2301936,
     "ast_hash": "ad4a294720ec4de68d2f460eca35efed",
     "semantic_hash": "ad4a294720ec4de68d2f460eca35efed"
   },
   "components/project/frame.tsx": {
     "mtime": 1785681898.0976863,
-    "seen": 1786650811.0429993,
     "ast_hash": "18d7716f2afc06252bbee892bfdee815",
     "semantic_hash": "18d7716f2afc06252bbee892bfdee815"
   },
   "components/project/hero.tsx": {
     "mtime": 1785682001.678559,
-    "seen": 1786650811.043001,
     "ast_hash": "ff85416670f1f2f41ed4ec4ee3bc1101",
     "semantic_hash": "ff85416670f1f2f41ed4ec4ee3bc1101"
   },
   "components/project/lightbox.tsx": {
     "mtime": 1785682093.20609,
-    "seen": 1786650811.0430028,
     "ast_hash": "5f50c7c378b02ad1cf97166846854269",
     "semantic_hash": "5f50c7c378b02ad1cf97166846854269"
   },
   "components/project/narrative-text-block.tsx": {
     "mtime": 1785574234.309753,
-    "seen": 1786650811.0430045,
     "ast_hash": "cc35fcd8da8c7799693dc1e43c9e6e4e",
     "semantic_hash": "cc35fcd8da8c7799693dc1e43c9e6e4e"
   },
   "components/project/progress-nav.tsx": {
     "mtime": 1785577609.1515734,
-    "seen": 1786650811.043006,
     "ast_hash": "725ef330010c5d48afad3f32c35b397a",
     "semantic_hash": "725ef330010c5d48afad3f32c35b397a"
   },
   "components/project/project-page.tsx": {
     "mtime": 1785682030.8127067,
-    "seen": 1786650811.0430079,
     "ast_hash": "db4a8241f02021c38ad2f69a782769d5",
     "semantic_hash": "db4a8241f02021c38ad2f69a782769d5"
   },
   "components/project/reflection.tsx": {
     "mtime": 1785574301.1586087,
-    "seen": 1786650811.0430093,
     "ast_hash": "4b91651953a98244e4591e033c65c897",
     "semantic_hash": "4b91651953a98244e4591e033c65c897"
   },
   "components/project/section-locator.tsx": {
-    "mtime": 1786538160.9104054,
-    "seen": 1786650811.0430107,
+    "mtime": 1786670952.8272007,
     "ast_hash": "09a7397590c7f42a13716b69529044dc",
     "semantic_hash": "09a7397590c7f42a13716b69529044dc"
   },
   "components/project/site-analysis.tsx": {
-    "mtime": 1786514357.5225244,
-    "seen": 1786650811.0430124,
-    "ast_hash": "6b01f8082a9d821ef34af22a7f521b25",
-    "semantic_hash": "6b01f8082a9d821ef34af22a7f521b25"
+    "mtime": 1786671522.9920218,
+    "ast_hash": "b3cbe9304ffd309bb34ca40a34eb87ea",
+    "semantic_hash": ""
   },
   "content/projects/villa-efe.ts": {
-    "mtime": 1786514357.524516,
-    "seen": 1786650811.0430138,
-    "ast_hash": "56958c0f5fd563ec4ca27df98c4027b8",
-    "semantic_hash": "56958c0f5fd563ec4ca27df98c4027b8"
+    "mtime": 1786671350.787738,
+    "ast_hash": "c33e169f9672b04e88b55f3c67443628",
+    "semantic_hash": ""
   },
   "content/projects/villa-red-sun.ts": {
-    "mtime": 1786514357.5265326,
-    "seen": 1786650811.0430155,
-    "ast_hash": "14a6a68efc2dd5c0853953e18d36bf02",
-    "semantic_hash": "14a6a68efc2dd5c0853953e18d36bf02"
+    "mtime": 1786671314.0065699,
+    "ast_hash": "3af20a89657a0c7244c957334f8a2172",
+    "semantic_hash": ""
   },
   "eslint.config.mjs": {
     "mtime": 1785578464.1101575,
-    "seen": 1786650811.0430171,
     "ast_hash": "94aa000dae45b89eede1274eac20c974",
     "semantic_hash": "94aa000dae45b89eede1274eac20c974"
   },
   "lib/content-schema.ts": {
-    "mtime": 1786514357.528524,
-    "seen": 1786650811.0430186,
-    "ast_hash": "580f0759590e95d196b67e5f4303828e",
-    "semantic_hash": "580f0759590e95d196b67e5f4303828e"
+    "mtime": 1786671270.7908776,
+    "ast_hash": "36c35653bc3b725690fbda357eff063e",
+    "semantic_hash": ""
   },
   "lib/utils.ts": {
     "mtime": 1785681988.1918304,
-    "seen": 1786650811.0430267,
     "ast_hash": "d7fc42443ae09b76e655a2b5b43c4ea7",
     "semantic_hash": "d7fc42443ae09b76e655a2b5b43c4ea7"
   },
   "next.config.ts": {
     "mtime": 1785574003.2735188,
-    "seen": 1786650811.0430286,
     "ast_hash": "e311d5d63ad684cb2833ebf467d93bd1",
     "semantic_hash": "e311d5d63ad684cb2833ebf467d93bd1"
   },
   "package.json": {
-    "mtime": 1786514357.5305173,
-    "seen": 1786650811.04303,
+    "mtime": 1786670952.240247,
     "ast_hash": "e1ec36e7c3c07ca0ee90557764b1e403",
     "semantic_hash": "e1ec36e7c3c07ca0ee90557764b1e403"
   },
   "postcss.config.mjs": {
     "mtime": 1785574014.5286882,
-    "seen": 1786650811.0430317,
     "ast_hash": "239f3ebf717465dc636818a1a619398d",
     "semantic_hash": "239f3ebf717465dc636818a1a619398d"
   },
   "rd/3d-benchmark/package.json": {
-    "mtime": 1786538161.8907027,
-    "seen": 1786650811.0430336,
+    "mtime": 1786670954.3163676,
     "ast_hash": "18ab402db454051822e64eeb05ea189c",
     "semantic_hash": "18ab402db454051822e64eeb05ea189c"
   },
   "tsconfig.json": {
     "mtime": 1785576072.8911257,
-    "seen": 1786650811.043035,
     "ast_hash": "da7f19e4f4a0566ef235f080efe86f33",
     "semantic_hash": "da7f19e4f4a0566ef235f080efe86f33"
+  },
+  ".claude/launch.json": {
+    "mtime": 1786670952.8094203,
+    "ast_hash": "07c039f3879c120d958846cc74c8d1fc",
+    "semantic_hash": ""
+  },
+  "components/project/climate-interface.tsx": {
+    "mtime": 1786671686.161032,
+    "ast_hash": "93a0f269465c9a409bb16aa3d4c55590",
+    "semantic_hash": ""
+  },
+  "rd/climate-response-v2/villa-efe-climate.json": {
+    "mtime": 1786670954.4047608,
+    "ast_hash": "dfbd6f1db3737293f6a35f32bfc6e9ac",
+    "semantic_hash": ""
+  },
+  "rd/climate-response-v2/villa-red-sun-climate.json": {
+    "mtime": 1786670954.4067695,
+    "ast_hash": "0295012f14e9d57a9d7d1e7f90b625f4",
+    "semantic_hash": ""
+  },
+  "rd/climate-response/data/villa-efe-climate.json": {
+    "mtime": 1786670954.4099443,
+    "ast_hash": "dfbd6f1db3737293f6a35f32bfc6e9ac",
+    "semantic_hash": ""
+  },
+  "rd/climate-response/data/villa-red-sun-climate.json": {
+    "mtime": 1786670954.4155004,
+    "ast_hash": "0295012f14e9d57a9d7d1e7f90b625f4",
+    "semantic_hash": ""
+  },
+  ".claude/PROJECT_CONSTITUTION.md": {
+    "mtime": 1786315116.9025712,
+    "ast_hash": "3e19f61756227dc6b8daa2933a3b0632",
+    "semantic_hash": ""
+  },
+  ".claude/skills/core/art-direction.md": {
+    "mtime": 1785784455.0475109,
+    "ast_hash": "3472e97d637e407da0b157d8cadc8f8c",
+    "semantic_hash": ""
+  },
+  ".claude/skills/core/portfolio-narrative.md": {
+    "mtime": 1785783735.0308554,
+    "ast_hash": "bbbc13da260dbfeb8522d0834f4508f9",
+    "semantic_hash": ""
+  },
+  ".claude/skills/implementation/frontend-system.md": {
+    "mtime": 1785784465.2613611,
+    "ast_hash": "a2104916c801fca5bc1959b77153ea03",
+    "semantic_hash": ""
+  },
+  ".claude/skills/implementation/pdf-production.md": {
+    "mtime": 1785796582.5894594,
+    "ast_hash": "6ad87b7d5eb78e5bf4719fb34fff4363",
+    "semantic_hash": ""
+  },
+  ".claude/skills/operations/repo-governance.md": {
+    "mtime": 1785796569.1454535,
+    "ast_hash": "b2d59f1fffac35903da6c53719330ea9",
+    "semantic_hash": ""
+  },
+  "3D_EXPORT_AND_PORTFOLIO_PRE_IMPLEMENTATION_AUDIT.md": {
+    "mtime": 1786670952.812497,
+    "ast_hash": "546267c0bdd75099cbc0507f2fcff8c0",
+    "semantic_hash": ""
+  },
+  "ARCHITECTURE_DECISIONS.md": {
+    "mtime": 1786363074.9858866,
+    "ast_hash": "3cc63892ffc6ea2cd3c988e5fbc2d789",
+    "semantic_hash": ""
+  },
+  "CURRENT_ASSET_VERIFICATION.md": {
+    "mtime": 1786361767.9141843,
+    "ast_hash": "534908f769147f53599105aaafaebfc5",
+    "semantic_hash": ""
+  },
+  "IA_DECISION_RESOLUTION_BRIEF.md": {
+    "mtime": 1786365245.186335,
+    "ast_hash": "3e14b92a94ef90b91d6653007e1f4c8f",
+    "semantic_hash": ""
+  },
+  "Nexus Portfolio Platform - Master Design Specification v3.0.md": {
+    "mtime": 1785572989.220964,
+    "ast_hash": "4012331cb41dc0cf7f339329ac48962a",
+    "semantic_hash": ""
+  },
+  "PHASE1_ARCHITECTURE_DECISION_DOCUMENT.md": {
+    "mtime": 1786363446.6620529,
+    "ast_hash": "7fd87e8016e753f5b26689b109c659f5",
+    "semantic_hash": ""
+  },
+  "PHASE_0_3D_WEB_GRAPHICS_TECHNOLOGY_AUDIT.md": {
+    "mtime": 1786670952.8152814,
+    "ast_hash": "40fff7db81ba1b55f97570a01acbf8b0",
+    "semantic_hash": ""
+  },
+  "PHASE_1_CREATIVE_CAPABILITY_AUDIT.md": {
+    "mtime": 1786670952.817619,
+    "ast_hash": "4d59fdd122d3db46fff020bc324c5d77",
+    "semantic_hash": ""
+  },
+  "PHASE_2_ENVIRONMENTAL_EXPERIENCE_R&D.md": {
+    "mtime": 1786670952.8196175,
+    "ast_hash": "ccae7c31fa20064f22e152dd6930c437",
+    "semantic_hash": ""
+  },
+  "PHASE_3_LIVE_CLIMATE_RESPONSE_SYSTEM.md": {
+    "mtime": 1786670952.8211286,
+    "ast_hash": "9aaa052deb0f6036a629deccd1de7e5d",
+    "semantic_hash": ""
+  },
+  "PORTFOLIO_INFORMATION_ARCHITECTURE.md": {
+    "mtime": 1786361981.650003,
+    "ast_hash": "864bfd3d38422882ed2482858b5fbcd2",
+    "semantic_hash": ""
+  },
+  "PROGRESS.md": {
+    "mtime": 1786670952.2246492,
+    "ast_hash": "ca9ac6ab7af3171fff7ef087a4531667",
+    "semantic_hash": ""
+  },
+  "PROMPT-integrate-climate-interfaces.txt": {
+    "mtime": 1786670952.8221207,
+    "ast_hash": "dfbb5243530ff1acb2cd3ab37d2df602",
+    "semantic_hash": ""
+  },
+  "README.md": {
+    "mtime": 1785574388.0923202,
+    "ast_hash": "d20917f238d80be1cb4207e9f59dd158",
+    "semantic_hash": ""
+  },
+  "rd/3d-benchmark/harness.html": {
+    "mtime": 1786670954.0976148,
+    "ast_hash": "30e58179adab47ef331cc44738b8fc50",
+    "semantic_hash": ""
+  },
+  "rd/3d-benchmark/pnpm-workspace.yaml": {
+    "mtime": 1786670954.3196096,
+    "ast_hash": "d0eb10d26dce0942205e697e763e0660",
+    "semantic_hash": ""
+  },
+  "rd/climate-real-photo/README.md": {
+    "mtime": 1786670954.3196096,
+    "ast_hash": "66b779d1f4df41b912d8c8c8a0c728f9",
+    "semantic_hash": ""
+  },
+  "rd/climate-real-photo/climate-instrument-v1.html": {
+    "mtime": 1786670954.3536258,
+    "ast_hash": "9f5a4654aa1884b41dec8b1e5ed55bbc",
+    "semantic_hash": ""
+  },
+  "rd/climate-response-v2/index.html": {
+    "mtime": 1786670954.4037402,
+    "ast_hash": "da05f5940ba7cccab6c42ebe5d91f583",
+    "semantic_hash": ""
+  },
+  "rd/climate-response/README.md": {
+    "mtime": 1786670954.4099443,
+    "ast_hash": "66fea33f6e5252f69789f181aba67097",
+    "semantic_hash": ""
+  },
+  "rd/climate-response/prototypes/A-climate-timeline.html": {
+    "mtime": 1786670954.416511,
+    "ast_hash": "28403fff61a539a500a68a1215676a3e",
+    "semantic_hash": ""
+  },
+  "rd/climate-response/prototypes/B-architectural-climate-field.html": {
+    "mtime": 1786670954.4195118,
+    "ast_hash": "c23c2dd162631876a0e3ca479149ce9a",
+    "semantic_hash": ""
+  },
+  "rd/climate-response/prototypes/C-year-in-motion.html": {
+    "mtime": 1786670954.4242759,
+    "ast_hash": "2717ca9dab9f8f44613a4bee0c626fe8",
+    "semantic_hash": ""
+  },
+  "rd/environmental-rd/rainfall-prototypes.html": {
+    "mtime": 1786670954.4242759,
+    "ast_hash": "1259502dc06b9d2ee53b128287a3bbe7",
+    "semantic_hash": ""
+  },
+  "rd/environmental-rd/seasonal-system-prototype.html": {
+    "mtime": 1786670954.4293716,
+    "ast_hash": "a5685642e99f28cd859fc1731fdcc6b6",
+    "semantic_hash": ""
+  },
+  "rd/environmental-rd/solar-wind-prototypes.html": {
+    "mtime": 1786670954.4321203,
+    "ast_hash": "55e0b6dc65deab5a037b7645d0d305b3",
+    "semantic_hash": ""
+  },
+  "public/images/villa-efe/1-Plan-Top-BS-AirFlow_result.png": {
+    "mtime": 1785682292.7161105,
+    "ast_hash": "236351dcf2af133ab628278a1d67a2f8",
+    "semantic_hash": ""
+  },
+  "public/images/villa-efe/1-Plan-Top-BS_result.png": {
+    "mtime": 1785682292.7321358,
+    "ast_hash": "d28a56fb00f4b822097db8e8de489bef",
+    "semantic_hash": ""
+  },
+  "public/images/villa-efe/2-Plan-Top-GF-AirFlow_result.png": {
+    "mtime": 1785682292.7624643,
+    "ast_hash": "d6a44ca88f532b2ab13269d7a4073063",
+    "semantic_hash": ""
+  },
+  "public/images/villa-efe/2-Plan-Top-GF_result.png": {
+    "mtime": 1785682292.7869122,
+    "ast_hash": "0f9ea99d4975e2e9d89beaa12301eb6e",
+    "semantic_hash": ""
+  },
+  "public/images/villa-efe/3-Plan-Top-F1-AirFlow_result.png": {
+    "mtime": 1785682292.8025436,
+    "ast_hash": "8b2ce9f99dcf15619f0854f675c89e65",
+    "semantic_hash": ""
+  },
+  "public/images/villa-efe/3-Plan-Top-F1_result.png": {
+    "mtime": 1785682292.8172266,
+    "ast_hash": "b53c74840fb794eed7065a53d7f49364",
+    "semantic_hash": ""
+  },
+  "public/images/villa-efe/4-Plan-Top-GRoof-AirFlow_result.png": {
+    "mtime": 1785682292.8440838,
+    "ast_hash": "feec5622982cf77467d7d29279c5a73d",
+    "semantic_hash": ""
+  },
+  "public/images/villa-efe/4-Plan-Top-GRoof_result.png": {
+    "mtime": 1785682292.8594842,
+    "ast_hash": "8d8ba1ac1b0efcb06ef31de91130e367",
+    "semantic_hash": ""
+  },
+  "public/images/villa-efe/5-Plan-Top-Site-AirFlow_result.png": {
+    "mtime": 1785682292.878402,
+    "ast_hash": "269cfe26f46f64fe8bbec8c538990fa2",
+    "semantic_hash": ""
+  },
+  "public/images/villa-efe/5-Plan-Top-Site_result.png": {
+    "mtime": 1785682292.8946087,
+    "ast_hash": "af175158e196c317e57b5acd5d4d5042",
+    "semantic_hash": ""
+  },
+  "public/images/villa-efe/B-01-villa-efe-exterior-view-01_result.png": {
+    "mtime": 1786670952.2781043,
+    "ast_hash": "393b95a205e8d0997a649661a004ca7c",
+    "semantic_hash": ""
+  },
+  "public/images/villa-efe/B-02-villa-efe-exterior-view-02_result.png": {
+    "mtime": 1786670952.3052568,
+    "ast_hash": "a6ae04ba3cd8bc6bb2cd45923a6ac151",
+    "semantic_hash": ""
+  },
+  "public/images/villa-efe/B-03-villa-efe-exterior-view-03_result.png": {
+    "mtime": 1786670952.3457117,
+    "ast_hash": "021313028e89da71e4bc746ebe5f301a",
+    "semantic_hash": ""
+  },
+  "public/images/villa-efe/B-04-villa-efe-exterior-view-04_result.png": {
+    "mtime": 1786670952.3764374,
+    "ast_hash": "5ef67ba783cfae6b4cee0c569c8018be",
+    "semantic_hash": ""
+  },
+  "public/images/villa-efe/B-05-villa-efe-interior-_result.png": {
+    "mtime": 1785682292.9667428,
+    "ast_hash": "69b3050d64194183d3382205e985c37e",
+    "semantic_hash": ""
+  },
+  "public/images/villa-efe/B-05-villa-efe-interior-pool-side_result.png": {
+    "mtime": 1786670952.9461796,
+    "ast_hash": "6a610cefa5d509484cf90699cd8e83f4",
+    "semantic_hash": ""
+  },
+  "public/images/villa-efe/B-05-villa-efe-interior-poolside_result.png": {
+    "mtime": 1785682292.9800336,
+    "ast_hash": "69b3050d64194183d3382205e985c37e",
+    "semantic_hash": ""
+  },
+  "public/images/villa-efe/B-06-villa-efe--interior-dining-room_result.png": {
+    "mtime": 1785682292.9958277,
+    "ast_hash": "0540eb419c660b21424651e82bb88951",
+    "semantic_hash": ""
+  },
+  "public/images/villa-efe/B-06-villa-efe-interior-dining-room_result.png": {
+    "mtime": 1786670952.9670005,
+    "ast_hash": "beec69716f8d46d1726da0c08b61c406",
+    "semantic_hash": ""
+  },
+  "public/images/villa-efe/B-07-villa-efe--interior-living-room_result.png": {
+    "mtime": 1785682293.0110738,
+    "ast_hash": "32c95467f04b99bb873f36deca459398",
+    "semantic_hash": ""
+  },
+  "public/images/villa-efe/B-07-villa-efe-interior-living-room_result.png": {
+    "mtime": 1786670952.987617,
+    "ast_hash": "32c95467f04b99bb873f36deca459398",
+    "semantic_hash": ""
+  },
+  "public/images/villa-efe/B-08-villa-efe--interior-master-bedroom_result.png": {
+    "mtime": 1785682293.0259595,
+    "ast_hash": "7177e165892e86c8ca017f28efc52f96",
+    "semantic_hash": ""
+  },
+  "public/images/villa-efe/B-08-villa-efe-interior-kitchen_result.png": {
+    "mtime": 1786670953.006389,
+    "ast_hash": "483abd052b66a9d20f243942008aabac",
+    "semantic_hash": ""
+  },
+  "public/images/villa-efe/B-09-villa-efe--interior-master-bedroom-bathroom_result.png": {
+    "mtime": 1785682293.0405605,
+    "ast_hash": "2b4b264179a54c81de2881819047229e",
+    "semantic_hash": ""
+  },
+  "public/images/villa-efe/B-09-villa-efe-interior-master-bedroom_result.png": {
+    "mtime": 1786670953.030684,
+    "ast_hash": "e4742b7848675ceddfb400224496e929",
+    "semantic_hash": ""
+  },
+  "public/images/villa-efe/B-10-villa-efe-interior-master-bedroom-bathroom_result.png": {
+    "mtime": 1786670953.0629058,
+    "ast_hash": "6c6fb641550625b77c3b955c5eeb2e4a",
+    "semantic_hash": ""
+  },
+  "public/images/villa-efe/B-11-plan-top-bs-villa-efe_result.png": {
+    "mtime": 1786670953.088567,
+    "ast_hash": "ab24d52fdaac0c6b2fcace19fad7385f",
+    "semantic_hash": ""
+  },
+  "public/images/villa-efe/B-12-plan-top-gf-villa-efe_result.png": {
+    "mtime": 1786670953.12931,
+    "ast_hash": "d1da8a3990c6e6a94184447491cea3a1",
+    "semantic_hash": ""
+  },
+  "public/images/villa-efe/B-13-plan-top-f1-villa-efe_result.png": {
+    "mtime": 1786670953.1627848,
+    "ast_hash": "40d21e43f92a03d87cbabd0b321af03d",
+    "semantic_hash": ""
+  },
+  "public/images/villa-efe/B-14-plan-top-groof-villa-efe_result.png": {
+    "mtime": 1786670953.1913636,
+    "ast_hash": "bc4547189a28e95d2486061d1aff673d",
+    "semantic_hash": ""
+  },
+  "public/images/villa-efe/B-15-plan-top-site-villa-efe_result.png": {
+    "mtime": 1786670953.2207341,
+    "ast_hash": "b00f0be53d7c10fc2eb699157332a2b2",
+    "semantic_hash": ""
+  },
+  "public/images/villa-efe/B-18-illustration-section-a-a-villa-efe_result.png": {
+    "mtime": 1786365718.749163,
+    "ast_hash": "b57abf11597e6ff5e9bc4d0afd6e8f46",
+    "semantic_hash": ""
+  },
+  "public/images/villa-efe/B-19-illustration-section-b-b-villa-efe_result.png": {
+    "mtime": 1786365718.8342273,
+    "ast_hash": "9a8e3280488ded957662ea058cadec9c",
+    "semantic_hash": ""
+  },
+  "public/images/villa-efe/B-20-illustration-section-plan-top-bs-villa-efe_result.png": {
+    "mtime": 1786365719.020159,
+    "ast_hash": "bb6a7b65759b1420dad621017ff589a7",
+    "semantic_hash": ""
+  },
+  "public/images/villa-efe/B-21-illustration-section-plan-top-gf-villa-efe_result.png": {
+    "mtime": 1786365719.091587,
+    "ast_hash": "b3dd821c54d4b968135695f527cea76f",
+    "semantic_hash": ""
+  },
+  "public/images/villa-efe/B-22-illustration-section-plan-top-f1-villa-efe_result.png": {
+    "mtime": 1786365719.1747985,
+    "ast_hash": "b9ff0ba9e40731d6a740ec0179b5fc42",
+    "semantic_hash": ""
+  },
+  "public/images/villa-efe/B-23-illustration-section-plan-top-groof-villa-efe_result.png": {
+    "mtime": 1786365719.2418685,
+    "ast_hash": "a2b7d13b6a75870f72e475edc1a6e9d9",
+    "semantic_hash": ""
+  },
+  "public/images/villa-efe/B-24-illustration-section-plan-top-site-villa-efe_result.png": {
+    "mtime": 1786365719.3236141,
+    "ast_hash": "9ac307deb54af887b7602fb7fc69b575",
+    "semantic_hash": ""
+  },
+  "public/images/villa-efe/B-30-airflow-plan-top-bs-villa-efe_result.png": {
+    "mtime": 1786670953.2393377,
+    "ast_hash": "236351dcf2af133ab628278a1d67a2f8",
+    "semantic_hash": ""
+  },
+  "public/images/villa-efe/B-31-airflow-plan-top-gf-villa-efe_result.png": {
+    "mtime": 1786670953.2839396,
+    "ast_hash": "d6a44ca88f532b2ab13269d7a4073063",
+    "semantic_hash": ""
+  },
+  "public/images/villa-efe/B-32-airflow-plan-top-f1-villa-efe_result.png": {
+    "mtime": 1786670953.3183358,
+    "ast_hash": "8b2ce9f99dcf15619f0854f675c89e65",
+    "semantic_hash": ""
+  },
+  "public/images/villa-efe/B-33-airflow-plan-top-groof-villa-efe_result.png": {
+    "mtime": 1786670953.3387952,
+    "ast_hash": "feec5622982cf77467d7d29279c5a73d",
+    "semantic_hash": ""
+  },
+  "public/images/villa-efe/B-34-airflow-plan-top-site-villa-efe_result.png": {
+    "mtime": 1786670953.3771653,
+    "ast_hash": "269cfe26f46f64fe8bbec8c538990fa2",
+    "semantic_hash": ""
+  },
+  "public/images/villa-efe/B-35-circulation-plan-top-bs-villa-efe_result.png": {
+    "mtime": 1786670953.3972983,
+    "ast_hash": "667398eeaf9b744ea50e57ed6782a2dd",
+    "semantic_hash": ""
+  },
+  "public/images/villa-efe/B-37-circulation-plan-top-f1-villa-efe_result.png": {
+    "mtime": 1786670953.427413,
+    "ast_hash": "87384b15527874773b740221a1870f12",
+    "semantic_hash": ""
+  },
+  "public/images/villa-efe/B-38-circulation-plan-top-groof-villa-efe_result.png": {
+    "mtime": 1786365718.9116871,
+    "ast_hash": "325a4127bbb634a0179eb1f5319ccc61",
+    "semantic_hash": ""
+  },
+  "public/images/villa-efe/B-39-privacy-gradient-plan-top-bs-villa-efe_result.png": {
+    "mtime": 1786670953.4566092,
+    "ast_hash": "628b5f540b7455a153b509f1ce704c89",
+    "semantic_hash": ""
+  },
+  "public/images/villa-efe/B-40-privacy-gradient-plan-top-gf-villa-efe_result.png": {
+    "mtime": 1786670953.4873326,
+    "ast_hash": "a2f2794511ad00d03150fdba892c6955",
+    "semantic_hash": ""
+  },
+  "public/images/villa-efe/B-41-privacy-gradient-plan-top-f1-villa-efe_result.png": {
+    "mtime": 1786670953.5184457,
+    "ast_hash": "c072ba3e60a23683c470d4455f1b792f",
+    "semantic_hash": ""
+  },
+  "public/images/villa-efe/B-42-privacy-gradient-plan-top-groof-villa-efe_result.png": {
+    "mtime": 1786670953.5455682,
+    "ast_hash": "18d1ab8f672206eaf8424d694e78b903",
+    "semantic_hash": ""
+  },
+  "public/images/villa-efe/B-43-privacy-gradient-plan-top-site-villa-efe_result.png": {
+    "mtime": 1786670953.56945,
+    "ast_hash": "60860b6926d3ee80d13f581ac012d6df",
+    "semantic_hash": ""
+  },
+  "public/images/villa-efe/B-44-solar-path-diagram-project-coordinates-villa-efe_result.png": {
+    "mtime": 1786365718.635006,
+    "ast_hash": "70f750ef4ad41b4eacca6ccd25e4fcdb",
+    "semantic_hash": ""
+  },
+  "public/images/villa-efe/B-47-site-spotting-villa-efe_result.png": {
+    "mtime": 1786670953.6017325,
+    "ast_hash": "8aed230e7ab105339f051d495aba49b4",
+    "semantic_hash": ""
+  },
+  "public/images/villa-efe/Circulation-1-Plan-Top-BS_result.png": {
+    "mtime": 1785682293.0568166,
+    "ast_hash": "667398eeaf9b744ea50e57ed6782a2dd",
+    "semantic_hash": ""
+  },
+  "public/images/villa-efe/Circulation-2-Plan-Top-GF_result.png": {
+    "mtime": 1785682293.0726,
+    "ast_hash": "325a4127bbb634a0179eb1f5319ccc61",
+    "semantic_hash": ""
+  },
+  "public/images/villa-efe/Circulation-3-Plan-Top-F1_result.png": {
+    "mtime": 1785682293.0927293,
+    "ast_hash": "87384b15527874773b740221a1870f12",
+    "semantic_hash": ""
+  },
+  "public/images/villa-efe/Circulation-4-Plan-Top-GRoof_result.png": {
+    "mtime": 1785682293.1174872,
+    "ast_hash": "fb6d40d59daed98594c856fa89a0553a",
+    "semantic_hash": ""
+  },
+  "public/images/villa-efe/DayLight-1-Plan-Top-BS_result.png": {
+    "mtime": 1785682293.1320827,
+    "ast_hash": "7a8a3f50afbb3b9516e5073b6dd70d3c",
+    "semantic_hash": ""
+  },
+  "public/images/villa-efe/DayLight-2-Plan-Top-GF_result.png": {
+    "mtime": 1785682293.147294,
+    "ast_hash": "8eaada564e8861154f9c384fe2560877",
+    "semantic_hash": ""
+  },
+  "public/images/villa-efe/DayLight-3-Plan-Top-F1_result.png": {
+    "mtime": 1785682293.1680372,
+    "ast_hash": "bb920f7e6e0682e7ec14bfca9ff3f81e",
+    "semantic_hash": ""
+  },
+  "public/images/villa-efe/DayLight-4-Plan-Top-GRoof_result.png": {
+    "mtime": 1785682293.1833694,
+    "ast_hash": "954c7fb2e2ad86194b53c816e39e68c0",
+    "semantic_hash": ""
+  },
+  "public/images/villa-efe/DayLight-5-Plan-Top-Site_result.png": {
+    "mtime": 1785682293.1983528,
+    "ast_hash": "819fcc2f73a79e3f2b8ea93574005807",
+    "semantic_hash": ""
+  },
+  "public/images/villa-efe/Location - Plan - Final - Guide_result.png": {
+    "mtime": 1785682293.2140362,
+    "ast_hash": "a2cd0664b350f25fa0ccffebf722dd6b",
+    "semantic_hash": ""
+  },
+  "public/images/villa-efe/Location - Plan - Final_result.png": {
+    "mtime": 1785682293.2282643,
+    "ast_hash": "f5562c607548f97fee64ff5c4e2a6bef",
+    "semantic_hash": ""
+  },
+  "public/images/villa-efe/PrivacyGradient-1-Plan-Top-BS_result.png": {
+    "mtime": 1785682293.242174,
+    "ast_hash": "2c6ce5851a60ffc2d8e9a87ecde997ac",
+    "semantic_hash": ""
+  },
+  "public/images/villa-efe/PrivacyGradient-2-Plan-Top-GF_result.png": {
+    "mtime": 1785682293.2664888,
+    "ast_hash": "a2f566255f40e9419e0b3821427e400d",
+    "semantic_hash": ""
+  },
+  "public/images/villa-efe/PrivacyGradient-3-Plan-Top-F1_result.png": {
+    "mtime": 1785682293.28335,
+    "ast_hash": "e8caba577ea9173abb4de3c256de2a4a",
+    "semantic_hash": ""
+  },
+  "public/images/villa-efe/PrivacyGradient-4-Plan-Top-GRoof_result.png": {
+    "mtime": 1785682293.3021884,
+    "ast_hash": "ae99b4a5626843022cf0602fb0238920",
+    "semantic_hash": ""
+  },
+  "public/images/villa-efe/PrivacyGradient-5-Plan-Top-Site_result.png": {
+    "mtime": 1785682293.3269289,
+    "ast_hash": "0f309d0fd78c19c3c6731f2c1fdfe6ff",
+    "semantic_hash": ""
+  },
+  "public/images/villa-efe/climate/autumn.png": {
+    "mtime": 1786671220.6114838,
+    "ast_hash": "4c5ff16dbb3dc86c558c68fb71135ab7",
+    "semantic_hash": ""
+  },
+  "public/images/villa-efe/climate/spring.png": {
+    "mtime": 1786671220.3038359,
+    "ast_hash": "8bd4f857015e02ac11445bb2e2ba0d4f",
+    "semantic_hash": ""
+  },
+  "public/images/villa-efe/climate/summer.png": {
+    "mtime": 1786671220.4657106,
+    "ast_hash": "2660f067c9e467040b7df8f9a03cdd18",
+    "semantic_hash": ""
+  },
+  "public/images/villa-efe/climate/winter.png": {
+    "mtime": 1786671220.7545912,
+    "ast_hash": "1fb71b1d08a72f726386642fca84caa7",
+    "semantic_hash": ""
+  },
+  "public/images/villa-red-sun/A-01-villa-red-sun-exterior-view-01_result.png": {
+    "mtime": 1786670952.4141479,
+    "ast_hash": "6856dc6390337bcd574ca6603c53a08f",
+    "semantic_hash": ""
+  },
+  "public/images/villa-red-sun/A-02-villa-red-sun-exterior-view-02_result.png": {
+    "mtime": 1786670952.4550066,
+    "ast_hash": "b131b2786d7cd06a10f9a29c36fa876e",
+    "semantic_hash": ""
+  },
+  "public/images/villa-red-sun/A-03-villa-red-sun-exterior-view-03_result.png": {
+    "mtime": 1786670952.5087483,
+    "ast_hash": "053f1ee2a50d83c66dd024ab2883e5c7",
+    "semantic_hash": ""
+  },
+  "public/images/villa-red-sun/A-04-villa-red-sun-exterior-view-04_result.png": {
+    "mtime": 1786670952.5697277,
+    "ast_hash": "288507dedd7dbd97aff6771c2ecae405",
+    "semantic_hash": ""
+  },
+  "public/images/villa-red-sun/A-05-villa-red-sun-interior-living-room-01_result.png": {
+    "mtime": 1786670952.5896363,
+    "ast_hash": "69f52b1960b58bf3578bf74eb1a7459e",
+    "semantic_hash": ""
+  },
+  "public/images/villa-red-sun/A-06-villa-red-sun-interior-dining-room-01_result.png": {
+    "mtime": 1786670953.6322813,
+    "ast_hash": "31ca8a3daae18e7e0b510445c00524a5",
+    "semantic_hash": ""
+  },
+  "public/images/villa-red-sun/A-06-villa-red-sun-interior-dinning-room-01_result.png": {
+    "mtime": 1785681681.3591986,
+    "ast_hash": "6ce5a0ccf7110f8dea2f0a7517f4e441",
+    "semantic_hash": ""
+  },
+  "public/images/villa-red-sun/A-07-villa-red-sun-interior-kitchen-01_result.png": {
+    "mtime": 1786670952.6209736,
+    "ast_hash": "9690b8edb86e672c3a8c4fec7a6bf11b",
+    "semantic_hash": ""
+  },
+  "public/images/villa-red-sun/A-08-villa-red-sun-interior-master-bedroom-01_result.png": {
+    "mtime": 1786670952.6393344,
+    "ast_hash": "87b7ec948dfed4a9addc278ed152f96e",
+    "semantic_hash": ""
+  },
+  "public/images/villa-red-sun/A-09-plan-idea-b2-top-villa-red-sun_result.png": {
+    "mtime": 1786670953.658313,
+    "ast_hash": "0058a1203153ab62ab739fef15d796b8",
+    "semantic_hash": ""
+  },
+  "public/images/villa-red-sun/A-10-plan-idea-c1-top-villa-red-sun_result.png": {
+    "mtime": 1786670953.687002,
+    "ast_hash": "4e796f7fa9e69a58570dbc27efcd8d5d",
+    "semantic_hash": ""
+  },
+  "public/images/villa-red-sun/A-11-plan-idea-d-top-villa-red-sun_result.png": {
+    "mtime": 1786670953.7098444,
+    "ast_hash": "97c6f05a72b4a2a691ebe26a0bf2c39d",
+    "semantic_hash": ""
+  },
+  "public/images/villa-red-sun/A-14-illustration-section-a-a-plan-idea-d-villa-red-sun_result.png": {
+    "mtime": 1786365718.4837408,
+    "ast_hash": "c5b701e5ddec61a4ac90061d46fcf41f",
+    "semantic_hash": ""
+  },
+  "public/images/villa-red-sun/A-15-illustration-section-b-b-plan-idea-d-villa-red-sun_result.png": {
+    "mtime": 1786365718.5529797,
+    "ast_hash": "16605336000902ad95f5ad8d5bd52517",
+    "semantic_hash": ""
+  },
+  "public/images/villa-red-sun/A-16-illustration-section-plan-idea-d-top-villa-red-sun_result.png": {
+    "mtime": 1786670953.7393837,
+    "ast_hash": "20d21cffb67eb959f98058ae16d9c092",
+    "semantic_hash": ""
+  },
+  "public/images/villa-red-sun/A-20-airflow-plan-idea-b2-top-villa-red-sun_result.png": {
+    "mtime": 1786670953.7827773,
+    "ast_hash": "84c04bf304060f4afa3ef43954786fbe",
+    "semantic_hash": ""
+  },
+  "public/images/villa-red-sun/A-21-airflow-plan-idea-c1-top-villa-red-sun_result.png": {
+    "mtime": 1786670953.8097558,
+    "ast_hash": "df3049f9dcca68605c0c3f8a6315138b",
+    "semantic_hash": ""
+  },
+  "public/images/villa-red-sun/A-22-airflow-plan-idea-d-top-villa-red-sun_result.png": {
+    "mtime": 1786670953.833172,
+    "ast_hash": "5b354c60f5413874893295a8bab847d6",
+    "semantic_hash": ""
+  },
+  "public/images/villa-red-sun/A-23-circulation-plan-idea-b2-top-villa-red-sun_result.png": {
+    "mtime": 1786670953.8604188,
+    "ast_hash": "f4c89ba3cfed51d35f44b6a2072e2ae6",
+    "semantic_hash": ""
+  },
+  "public/images/villa-red-sun/A-24-circulation-plan-idea-c1-top-villa-red-sun_result.png": {
+    "mtime": 1786670953.8893301,
+    "ast_hash": "8984cc87c2fb08d3307ae63c9a18b541",
+    "semantic_hash": ""
+  },
+  "public/images/villa-red-sun/A-25-circulation-plan-idea-d-top-villa-red-sun_result.png": {
+    "mtime": 1786670953.9126859,
+    "ast_hash": "3f7949f433490c2e71a8fb373c65affb",
+    "semantic_hash": ""
+  },
+  "public/images/villa-red-sun/A-26-privacy-gradient-plan-idea-b2-top-villa-red-sun_result.png": {
+    "mtime": 1786670953.9369726,
+    "ast_hash": "c5fd1204bb9d25baad9b26d14ad47327",
+    "semantic_hash": ""
+  },
+  "public/images/villa-red-sun/A-27-privacy-gradient-plan-idea-c1-top-villa-red-sun_result.png": {
+    "mtime": 1786670953.9637814,
+    "ast_hash": "6aa9b5e83c0e4db6fb65c09737a7b6e2",
+    "semantic_hash": ""
+  },
+  "public/images/villa-red-sun/A-28-privacy-gradient-plan-idea-d-top-villa-red-sun_result.png": {
+    "mtime": 1786670953.9886615,
+    "ast_hash": "8e6020b5c79720463f197e7d6b6315c1",
+    "semantic_hash": ""
+  },
+  "public/images/villa-red-sun/A-29-solar-path-diagram-project-coordinates-villa-red-sun_result.png": {
+    "mtime": 1786365718.331953,
+    "ast_hash": "1496a826e2a3b7c55657c76f2a89a8d1",
+    "semantic_hash": ""
+  },
+  "public/images/villa-red-sun/A-33-wind-analysis-diagram-v3-villa-red-sun_result.png": {
+    "mtime": 1786365718.3969643,
+    "ast_hash": "ec49835045d5682d21ac0ca7351e6412",
+    "semantic_hash": ""
+  },
+  "public/images/villa-red-sun/A-34-site-spotting-villa-red-sun_result.png": {
+    "mtime": 1786670954.0293937,
+    "ast_hash": "195a48f34798cea4e7f3a071de9c280c",
+    "semantic_hash": ""
+  },
+  "public/images/villa-red-sun/Circulation-Plan-Idea-B-2-Top_result.png": {
+    "mtime": 1785681681.4150357,
+    "ast_hash": "f4c89ba3cfed51d35f44b6a2072e2ae6",
+    "semantic_hash": ""
+  },
+  "public/images/villa-red-sun/Circulation-Plan-Idea-C-1-Top_result.png": {
+    "mtime": 1785681681.4458456,
+    "ast_hash": "8984cc87c2fb08d3307ae63c9a18b541",
+    "semantic_hash": ""
+  },
+  "public/images/villa-red-sun/Circulation-Plan-Idea-D-Top_result.png": {
+    "mtime": 1785681681.4616446,
+    "ast_hash": "3f7949f433490c2e71a8fb373c65affb",
+    "semantic_hash": ""
+  },
+  "public/images/villa-red-sun/DayLight-Plan-Idea-B-2-Top_result.png": {
+    "mtime": 1785681681.4802547,
+    "ast_hash": "a8fa2611a846c725343e9c114c72d4ad",
+    "semantic_hash": ""
+  },
+  "public/images/villa-red-sun/DayLight-Plan-Idea-C-1-Top_result.png": {
+    "mtime": 1785681681.495982,
+    "ast_hash": "b879b970dfd19c0b7033ec942e07da5e",
+    "semantic_hash": ""
+  },
+  "public/images/villa-red-sun/DayLight-Plan-Idea-D-Top_result.png": {
+    "mtime": 1785681681.5228975,
+    "ast_hash": "e10301827c51cbd14546a03371549834",
+    "semantic_hash": ""
+  },
+  "public/images/villa-red-sun/MasterPlan-Idea-B-2-Top_result.png": {
+    "mtime": 1785681681.542311,
+    "ast_hash": "a70b239727e73e50943d0a7acbc9e804",
+    "semantic_hash": ""
+  },
+  "public/images/villa-red-sun/MasterPlan-Idea-C-1-Top_result.png": {
+    "mtime": 1785681681.5584867,
+    "ast_hash": "0b1d332859a0e1e7c2a1939677015846",
+    "semantic_hash": ""
+  },
+  "public/images/villa-red-sun/MasterPlan-Idea-D-Top_result.png": {
+    "mtime": 1785681681.5748718,
+    "ast_hash": "49eed0d7887844315fe23708826455d0",
+    "semantic_hash": ""
+  },
+  "public/images/villa-red-sun/Plan-Idea-B-2-Top-AirFlow_result.png": {
+    "mtime": 1785681681.5909903,
+    "ast_hash": "84c04bf304060f4afa3ef43954786fbe",
+    "semantic_hash": ""
+  },
+  "public/images/villa-red-sun/Plan-Idea-B-2-Top_result.png": {
+    "mtime": 1785681681.606625,
+    "ast_hash": "32852924845ff780a5d1a580f5e62a50",
+    "semantic_hash": ""
+  },
+  "public/images/villa-red-sun/Plan-Idea-C-1-Top-AirFlow_result.png": {
+    "mtime": 1785681681.6228306,
+    "ast_hash": "df3049f9dcca68605c0c3f8a6315138b",
+    "semantic_hash": ""
+  },
+  "public/images/villa-red-sun/Plan-Idea-C-1-Top_result.png": {
+    "mtime": 1785681681.6547759,
+    "ast_hash": "0bed8ec2c62ca4c8e925a3c7185219ce",
+    "semantic_hash": ""
+  },
+  "public/images/villa-red-sun/Plan-Idea-D-Top-AirFlow_result.png": {
+    "mtime": 1785681681.6717844,
+    "ast_hash": "5b354c60f5413874893295a8bab847d6",
+    "semantic_hash": ""
+  },
+  "public/images/villa-red-sun/Plan-Idea-D-Top-Illustration_result.png": {
+    "mtime": 1785681681.7028444,
+    "ast_hash": "e4f94efa9bb59703836528d595223215",
+    "semantic_hash": ""
+  },
+  "public/images/villa-red-sun/Plan-Idea-D-Top_result.png": {
+    "mtime": 1785681681.7197335,
+    "ast_hash": "6644661c9404e9b26821ec060c97d310",
+    "semantic_hash": ""
+  },
+  "public/images/villa-red-sun/PrivacyGradient-Plan-Idea-B-2-Top_result.png": {
+    "mtime": 1785681681.7376692,
+    "ast_hash": "2db9585a843b30ea8856d837b02695cb",
+    "semantic_hash": ""
+  },
+  "public/images/villa-red-sun/PrivacyGradient-Plan-Idea-C-1-Top_result.png": {
+    "mtime": 1785681681.7689083,
+    "ast_hash": "389c29df9bbba79a861791f1cf810c47",
+    "semantic_hash": ""
+  },
+  "public/images/villa-red-sun/PrivacyGradient-Plan-Idea-D-Top_result.png": {
+    "mtime": 1785681681.786271,
+    "ast_hash": "01dd9e83eb4fd1fb0867098825fcefcc",
+    "semantic_hash": ""
+  },
+  "public/images/villa-red-sun/Section-A-Illustration_result.png": {
+    "mtime": 1785681681.8026938,
+    "ast_hash": "62ee0539f7c38dcceb3dd5f9a20c3483",
+    "semantic_hash": ""
+  },
+  "public/images/villa-red-sun/Section-B-Illustration_result.png": {
+    "mtime": 1785681681.8163598,
+    "ast_hash": "bf4afa6639580da157d5a471871981d8",
+    "semantic_hash": ""
+  },
+  "public/images/villa-red-sun/SiteAnalysis-A-villa-red-sun-Illustration_result.png": {
+    "mtime": 1785681681.8323398,
+    "ast_hash": "925b907652397c5952a58acd4ef49d07",
+    "semantic_hash": ""
+  },
+  "public/images/villa-red-sun/SiteAnalysis-A-villa-red-sun_result.png": {
+    "mtime": 1785681681.847955,
+    "ast_hash": "0ff4843525803c270711301fad2eccef",
+    "semantic_hash": ""
+  },
+  "public/images/villa-red-sun/Spotting-On-TheSite-A-villa-red-sun_result.png": {
+    "mtime": 1785681681.8653102,
+    "ast_hash": "1443990bc1a182d0bb95043893c7ffa6",
+    "semantic_hash": ""
+  },
+  "public/images/villa-red-sun/climate/autumn.png": {
+    "mtime": 1786671220.5372555,
+    "ast_hash": "5a8c3ecfb3a3dd8ee7fd00d162e6414b",
+    "semantic_hash": ""
+  },
+  "public/images/villa-red-sun/climate/spring.png": {
+    "mtime": 1786671220.201583,
+    "ast_hash": "215ecea2daef44ca1def4721b55c8f36",
+    "semantic_hash": ""
+  },
+  "public/images/villa-red-sun/climate/summer.png": {
+    "mtime": 1786671220.3993964,
+    "ast_hash": "1cdc2bcd706b2f69654f9148beffcf77",
+    "semantic_hash": ""
+  },
+  "public/images/villa-red-sun/climate/winter.png": {
+    "mtime": 1786671220.685261,
+    "ast_hash": "14408e55539a955b4502713094cb77e0",
+    "semantic_hash": ""
+  },
+  "rd/climate-real-photo/assets/A-02-villa-red-sun-exterior-view-02_result.png": {
+    "mtime": 1786670954.3502843,
+    "ast_hash": "b131b2786d7cd06a10f9a29c36fa876e",
+    "semantic_hash": ""
+  },
+  "rd/climate-response-v2/assets/efe-exterior.png": {
+    "mtime": 1786670954.3756502,
+    "ast_hash": "021313028e89da71e4bc746ebe5f301a",
+    "semantic_hash": ""
+  },
+  "rd/climate-response-v2/assets/red-sun-exterior.png": {
+    "mtime": 1786670954.4017334,
+    "ast_hash": "6856dc6390337bcd574ca6603c53a08f",
+    "semantic_hash": ""
   }
 }
