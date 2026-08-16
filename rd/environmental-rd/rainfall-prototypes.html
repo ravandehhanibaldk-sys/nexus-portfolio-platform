@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>ISOLATED R&D — Phase 2 Rainfall Prototypes (not part of the portfolio)</title>
+<style>
+  :root {
+    --color-paper: #faf9f6; --color-ink: #161513; --color-neutral: #6b6a64;
+    --color-divider: #e6e3dc; --color-accent: #a85c3b;
+    --color-env-wind: #5c7a8a; --color-env-stone: #ede7db; --color-env-rain: #4a6b7a;
+  }
+  html, body { margin: 0; background: var(--color-paper); color: var(--color-ink); font-family: system-ui, sans-serif; }
+  h1 { font-size: 15px; padding: 12px 20px; margin: 0; background: #fff; border-bottom: 1px solid var(--color-divider); position: sticky; top: 0; }
+  .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; padding: 24px; max-width: 1400px; margin: 0 auto; }
+  .panel { border: 1px solid var(--color-divider); background: #fff; padding: 16px; }
+  .panel h2 { font-size: 12px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--color-accent); margin: 0 0 4px; }
+  .panel p.note { font-size: 11px; color: var(--color-neutral); margin: 4px 0 12px; line-height: 1.5; }
+  .panel p.source { font-size: 10px; color: var(--color-neutral); margin-top: 10px; border-top: 1px solid var(--color-divider); padding-top: 6px; }
+  svg { width: 100%; height: auto; display: block; }
+</style>
+</head>
+<body>
+<h1>ISOLATED R&D — Phase 2 — Rainfall Prototypes (real DMI / Kyrenia-regional data, both authoritative reports read in full)</h1>
+<div class="grid" id="grid"></div>
+
+<script type="module">
+// ---- REAL DATA, verbatim from the authoritative rainfall reports ----
+// A-35-rain-analysis-report-villa-red-sun.txt — DMI Solrød municipal dataset, 2006–2015 reference period
+const redSun = {
+  name: "Villa Red Sun",
+  location: "Solrød Municipality, Denmark",
+  annual: 674, period: "2006–2015", source: "DMI Solrød municipal climate dataset",
+  monthly: [53,36,30,28,58,70,65,88,49,64,69,63], // Jan..Dec, mm
+  months: ["J","F","M","A","M","J","J","A","S","O","N","D"],
+  seasonal: { winter: 152, spring: 116, summer: 223, autumn: 182 }, // computed from monthly, per report §4
+};
+// B-48-rain-analysis-report-villa-efe_result.txt — Kyrenia regional climatology (BBC Weather / KKTC met. service)
+const efe = {
+  name: "Villa Efe",
+  location: "Kyrenia/Girne District, Northern Cyprus",
+  annual: 534, period: "regional climatology (not a fixed observation period stated)", source: "Kyrenia regional dataset (BBC Weather + KKTC meteorological service)",
+  monthly: [117,79,60,20,13,2,0,0,5,37,68,133],
+  months: ["J","F","M","A","M","J","J","A","S","O","N","D"],
+  wetSeason: 527, drySeason: 7, // Oct-May vs Jun-Sep, per report §5
+};
+
+const grid = document.getElementById("grid");
+
+function monthlyBarChart(project, color) {
+  const w = 460, h = 220, pad = 30;
+  const max = Math.max(...project.monthly);
+  const barW = (w - pad * 2) / 12 - 4;
+  let bars = "";
+  project.monthly.forEach((v, i) => {
+    const barH = (v / max) * (h - pad - 20);
+    const x = pad + i * ((w - pad * 2) / 12);
+    const y = h - pad - barH;
+    bars += `<rect x="${x}" y="${y}" width="${barW}" height="${barH}" fill="${color}" opacity="0.75"/>
+      <text x="${x + barW/2}" y="${h - pad + 12}" text-anchor="middle" font-size="8" fill="var(--color-neutral)">${project.months[i]}</text>
+      <text x="${x + barW/2}" y="${y - 3}" text-anchor="middle" font-size="7" fill="var(--color-neutral)">${v}</text>`;
+  });
+  return `<svg viewBox="0 0 ${w} ${h}"><rect width="${w}" height="${h}" fill="var(--color-env-stone)"/>${bars}</svg>`;
+}
+
+function seasonalDonut(seasonal, color) {
+  const total = Object.values(seasonal).reduce((a,b)=>a+b,0);
+  const cx = 100, cy = 100, r = 70, r2 = 42;
+  let angle = -90, paths = "";
+  const seasons = Object.entries(seasonal);
+  seasons.forEach(([label, v], i) => {
+    const frac = v / total;
+    const a0 = angle, a1 = angle + frac * 360;
+    angle = a1;
+    const large = frac > 0.5 ? 1 : 0;
+    const toRad = a => (a * Math.PI) / 180;
+    const x0 = cx + r * Math.cos(toRad(a0)), y0 = cy + r * Math.sin(toRad(a0));
+    const x1 = cx + r * Math.cos(toRad(a1)), y1 = cy + r * Math.sin(toRad(a1));
+    const xi0 = cx + r2 * Math.cos(toRad(a0)), yi0 = cy + r2 * Math.sin(toRad(a0));
+    const xi1 = cx + r2 * Math.cos(toRad(a1)), yi1 = cy + r2 * Math.sin(toRad(a1));
+    paths += `<path d="M ${xi0} ${yi0} L ${x0} ${y0} A ${r} ${r} 0 ${large} 1 ${x1} ${y1} L ${xi1} ${yi1} A ${r2} ${r2} 0 ${large} 0 ${xi0} ${yi0} Z"
+      fill="${color}" opacity="${0.4 + i * 0.15}" stroke="#fff" stroke-width="1.5"/>`;
+  });
+  return `<svg viewBox="0 0 200 200">${paths}
+    <text x="100" y="96" text-anchor="middle" font-size="16" fill="var(--color-ink)">${total}</text>
+    <text x="100" y="112" text-anchor="middle" font-size="8" fill="var(--color-neutral)">mm/year</text>
+  </svg>`;
+}
+
+// A — Villa Red Sun, monthly bar (full 4-season year-round pattern — real, quantified quarterly split exists)
+grid.insertAdjacentHTML("beforeend", `
+<div class="panel">
+  <h2>A — Villa Red Sun: monthly precipitation (bar)</h2>
+  <p class="note">All 12 real DMI monthly values. Denmark's Cfb oceanic climate: year-round rainfall, moderate summer/autumn maximum, no true dry season — every month has a real, non-zero bar.</p>
+  ${monthlyBarChart(redSun, "var(--color-env-rain)")}
+  <p class="source">Source: DMI Solrød municipal climate dataset, 2006–2015 reference period. Annual 674mm. Regional baseline, not exact-coordinate measurement.</p>
+</div>`);
+
+// B — Villa Red Sun, seasonal donut (real quarterly split, computed from monthly per the report's own method)
+grid.insertAdjacentHTML("beforeend", `
+<div class="panel">
+  <h2>B — Villa Red Sun: seasonal distribution</h2>
+  <p class="note">Winter 152mm (22.6%) / Spring 116mm (17.2%) / Summer 223mm (33.1%) / Autumn 182mm (27.0%) — computed directly from the 12 real monthly DMI values, exactly as the source report itself computes them. A genuine 4-season split exists for this project.</p>
+  ${seasonalDonut(redSun.seasonal, "var(--color-env-rain)")}
+  <p class="source">Derived from DMI Solrød monthly dataset. Percentages calculated from real monthly figures, not independently published DMI seasonal statistics.</p>
+</div>`);
+
+// C — Villa Efe, monthly bar (Mediterranean two-regime pattern — reveals why a naive 4-season split fails)
+grid.insertAdjacentHTML("beforeend", `
+<div class="panel">
+  <h2>C — Villa Efe: monthly precipitation (bar)</h2>
+  <p class="note">Same chart type, different climate entirely: Csa Mediterranean — essentially zero rainfall June–August, then a sharp winter concentration. Compare directly against panel A: this is not a stylistic difference, it's what the real data actually shows.</p>
+  ${monthlyBarChart(efe, "var(--color-accent)")}
+  <p class="source">Source: Kyrenia regional climatology (BBC Weather + KKTC meteorological service), Northern Cyprus. Annual ~534mm. Regional benchmark, not exact-coordinate measurement — MODERATE confidence per the source report.</p>
+</div>`);
+
+// D — Villa Efe, wet/dry season split (the ONLY seasonal grouping the real data actually supports — NOT 4 seasons)
+grid.insertAdjacentHTML("beforeend", `
+<div class="panel">
+  <h2>D — Villa Efe: wet season vs. dry season (NOT a 4-season split)</h2>
+  <p class="note"><b>Important finding, not a stylistic choice:</b> the source report itself frames Villa Efe's climate as a two-regime wet/dry pattern (Oct–May = 98.7% of annual rainfall; Jun–Sep ≈ 1.3%), not an independently-reported Spring/Summer/Autumn/Winter breakdown. Forcing this into 4 equal quarters — the way Villa Red Sun's data naturally supports — would misrepresent the real climate. This panel deliberately shows only the 2 real regimes the data supports.</p>
+  ${seasonalDonut({ "Wet (Oct–May)": efe.wetSeason, "Dry (Jun–Sep)": efe.drySeason }, "var(--color-accent)")}
+  <p class="source">A shared 4-season UI selector across both projects would need to either (a) fabricate a Spring/Autumn split for Cyprus that the data doesn't support, or (b) honestly relabel/disable unsupported seasons per project — see main report §8.</p>
+</div>`);
+</script>
+</body>
+</html>

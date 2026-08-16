@@ -1,0 +1,95 @@
+{
+  "_comment": "ISOLATED R&D DATA — Phase 3. Transcribed verbatim from Complete-Climate-Site-Analysis-A-villa-red-sun.txt, read in full. Every value carries provenance. Not used by production code.",
+  "project": "villa-red-sun",
+  "label": "Villa Red Sun",
+  "location": "Solrød Municipality, Zealand, Denmark",
+  "coordinates": "55.516105°N, 12.208375°E",
+  "climate": "Cfb — Temperate oceanic / marine west-coast",
+  "months": ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],
+
+  "solar": {
+    "provenance": "A",
+    "provenanceLabel": "Calculated directly from exact coordinates",
+    "source": "Solar position equations, exact site coordinates",
+    "summerSolstice": {
+      "date": "21 June", "daylightHours": "17h 30m",
+      "points": [
+        { "time": "Sunrise", "clock": "04:27", "azimuth": 43.6, "altitude": -0.8 },
+        { "time": "10:00", "clock": "10:00", "azimuth": 112.3, "altitude": 42.4 },
+        { "time": "Solar Noon", "clock": "13:12", "azimuth": 180.0, "altitude": 55.3 },
+        { "time": "14:00", "clock": "14:00", "azimuth": 200.1, "altitude": 56.8 },
+        { "time": "Sunset", "clock": "21:58", "azimuth": 316.4, "altitude": -0.8 }
+      ]
+    },
+    "winterSolstice": {
+      "date": "21 December", "daylightHours": "7h 04m",
+      "points": [
+        { "time": "Sunrise", "clock": "08:37", "azimuth": 132.9, "altitude": -0.8 },
+        { "time": "10:00", "clock": "10:00", "azimuth": 150.5, "altitude": 6.4 },
+        { "time": "Solar Noon", "clock": "12:09", "azimuth": 180.0, "altitude": 11.0 },
+        { "time": "14:00", "clock": "14:00", "azimuth": 205.5, "altitude": 7.6 },
+        { "time": "Sunset", "clock": "15:41", "azimuth": 227.1, "altitude": -0.8 }
+      ]
+    },
+    "springAutumn": { "status": "NOT_ESTABLISHED", "note": "No independently calculated equinox positions in source report. Any spring/autumn solar value shown in a prototype must be labeled DERIVED, not sourced." }
+  },
+
+  "wind": {
+    "provenance": "D/E",
+    "provenanceLabel": "Regional (DMI) — prevailing direction; speed NOT ESTABLISHED at exact site",
+    "source": "DMI — Wind in Denmark",
+    "prevailingAnnual": { "primary": "W/WSW", "secondary": "SW/WNW", "azimuthDeg": 275 },
+    "seasonal": {
+      "winter": { "primary": "W/SW", "secondary": "NW/WNW" },
+      "spring": { "primary": "Variable", "secondary": "W/SW/E" },
+      "summer": { "primary": "W/SW", "secondary": "NW/S" },
+      "autumn": { "primary": "W/SW", "secondary": "WNW/NW" }
+    },
+    "annualMeanSpeed": { "status": "NOT_ESTABLISHED", "regionalContextOnly": "7.0-7.8 m/s at DMI representative coastal stations (NOT Solrød-specific)" },
+    "monthlySpeed": { "status": "NOT_ESTABLISHED" },
+    "extremeRecorded": { "status": "NOT_ESTABLISHED" }
+  },
+
+  "rainfall": {
+    "provenance": "C",
+    "provenanceLabel": "Station/municipality — DMI Solrød municipal dataset, 2006-2015",
+    "source": "DMI Solrød 2006-2015 climate dataset",
+    "annualTotalMm": 674,
+    "monthlyMm": [53,36,30,28,58,70,65,88,49,64,69,63],
+    "seasonalMm": { "winter": 152, "spring": 116, "summer": 223, "autumn": 182 },
+    "seasonalShare": { "winter": 0.226, "spring": 0.172, "summer": 0.331, "autumn": 0.270 },
+    "seasonalSupported": true,
+    "rainyDays": { "status": "NOT_ESTABLISHED", "nationalContextOnly": 174.1 },
+    "extremeReturn": { "status": "NOT_ESTABLISHED" }
+  },
+
+  "temperature": {
+    "provenance": "C",
+    "provenanceLabel": "Station/municipality — DMI Solrød municipal dataset, 2006-2015",
+    "source": "DMI Solrød 2006-2015 climate dataset",
+    "annualMeanC": 8.8,
+    "monthlyMeanC": [0.8, 0.7, 3.2, 7.5, 11.5, 14.7, 17.8, 17.0, 13.7, 9.6, 6.0, 2.7],
+    "monthlyMax": { "status": "NOT_ESTABLISHED" },
+    "monthlyMin": { "status": "NOT_ESTABLISHED" },
+    "absoluteExtremes": { "status": "NOT_ESTABLISHED" },
+    "hdd": { "status": "NOT_ESTABLISHED" },
+    "cdd": { "status": "NOT_ESTABLISHED" }
+  },
+
+  "humidity": {
+    "provenance": "F",
+    "provenanceLabel": "NOT ESTABLISHED at exact coordinate — qualitative regional interpretation only",
+    "annual": { "status": "NOT_ESTABLISHED" },
+    "monthly": { "status": "NOT_ESTABLISHED" },
+    "qualitative": "Humid maritime environment, especially autumn/winter and cool nighttime conditions (DMI: mild, humid Danish winters)."
+  },
+
+  "sunshine": {
+    "provenance": "C",
+    "provenanceLabel": "Station/municipality — DMI Solrød municipal dataset, 2006-2015",
+    "source": "DMI Solrød 2006-2015 climate dataset",
+    "annualHours": 1747,
+    "monthlyHours": [47,62,146,215,241,245,252,195,160,103,46,34],
+    "cloudCover": { "status": "NOT_ESTABLISHED", "qualitative": "Frequent cloud, rapidly changing skies under westerly maritime regime (DMI)." }
+  }
+}

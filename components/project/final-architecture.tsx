@@ -1,5 +1,11 @@
+"use client";
+
+import { motion } from "framer-motion";
 import { Frame } from "./frame";
+import { SectionLocator } from "./section-locator";
 import type { Project } from "@/lib/content-schema";
+
+const EASE = [0.2, 0, 0, 1] as const;
 
 /**
  * Combines Component 19.5/19.6 (Plan/Section) and 19.8 (Render Gallery).
@@ -9,24 +15,21 @@ import type { Project } from "@/lib/content-schema";
  * gallery always stays complete and evenly balanced rather than dropping
  * whichever render the Hero happens to reuse.
  *
- * Narrative order (documentation before photography): Sections A/B → the
- * illustrated final plan → exterior renders → interior renders → any other
- * final-architecture asset not covered above. The illustrated plan lives
- * here rather than in the Comparator (Section 05) — Design Process is
- * about comparing alternatives; Final Architecture is about documenting
- * what was actually built.
+ * Narrative order (documentation before photography): the interactive
+ * Section Locator (plan-with-cut-lines ↔ sections) → exterior renders →
+ * interior renders → any other final-architecture asset not covered above.
+ * Section/orientation-plan assets live in `beat.sectionLocator` (Phase 3B),
+ * not in `beat.assets` — they belong here, documenting what was built, not
+ * in the Comparator (Section 05), which is proposal/level analysis.
  */
 export function FinalArchitecture({ project }: { project: Project }) {
   const beat = project.beats.finalArchitecture;
-  const drawings = beat.assets.filter(
-    (a) => a.category === "section" || a.category === "plan"
-  );
   const exteriors = beat.assets.filter((a) => a.category === "exterior");
   const interiors = beat.assets.filter((a) => a.category === "interior");
-  const covered = new Set([...drawings, ...exteriors, ...interiors].map((a) => a.src));
+  const covered = new Set([...exteriors, ...interiors].map((a) => a.src));
   const remaining = beat.assets.filter((a) => !covered.has(a.src));
   // One continuous lightbox sequence spanning the whole beat, in narrative order.
-  const gallery = [...drawings, ...exteriors, ...interiors, ...remaining];
+  const gallery = [...exteriors, ...interiors, ...remaining];
   const indexOf = (src: string) => gallery.findIndex((a) => a.src === src);
 
   return (
@@ -41,31 +44,30 @@ export function FinalArchitecture({ project }: { project: Project }) {
         {beat.text}
       </p>
 
-      {drawings.length ? (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
-          {drawings.map((asset) => (
+      {beat.sectionLocator ? (
+        <SectionLocator projectId={project.id} data={beat.sectionLocator} />
+      ) : null}
+
+      <p className="text-meta font-body text-neutral tracking-[0.15em] uppercase mb-6">
+        Exterior &amp; Interior Architecture
+      </p>
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+        {[...exteriors, ...interiors].map((asset, i) => (
+          <motion.div
+            key={asset.src}
+            initial={{ opacity: 0, y: 14 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-60px" }}
+            transition={{ duration: 0.5, ease: EASE, delay: (i % 4) * 0.06 }}
+          >
             <Frame
-              key={asset.src}
               projectId={project.id}
               asset={asset}
-              sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+              sizes="(min-width: 640px) 50vw, 100vw"
               gallery={gallery}
               index={indexOf(asset.src)}
             />
-          ))}
-        </div>
-      ) : null}
-
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-        {[...exteriors, ...interiors].map((asset) => (
-          <Frame
-            key={asset.src}
-            projectId={project.id}
-            asset={asset}
-            sizes="(min-width: 640px) 50vw, 100vw"
-            gallery={gallery}
-            index={indexOf(asset.src)}
-          />
+          </motion.div>
         ))}
       </div>
 

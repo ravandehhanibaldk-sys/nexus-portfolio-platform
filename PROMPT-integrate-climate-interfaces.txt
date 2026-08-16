@@ -1,0 +1,46 @@
+دو فایل «رابط اقلیمی» مستقل (HTML/CSS/JS ساده، بدون فریم‌ورک) بیرون از این پروژه ساخته و توسط کاربر تأیید شده‌اند. الان باید این‌ها را به‌عنوان بخش واقعی سایت پورتفولیو (Next.js 16 / React 19 / TypeScript / Tailwind v4 / Framer Motion) پیاده‌سازی کنی — نه صرفاً کپی فایل، بلکه تبدیل درست به یک کامپوننت React با همان Stack پروژه.
+
+## منبع (فقط بخوان، تغییرشان نده)
+
+پروژه‌ی ۱ — ویلا رد سان:
+`C:\Users\Server_Rav\Desktop\Nexus-DK - Portfolio - Claude - Gemini - 2026\All Final File\A-villa-red-sun-Final\villa-red-sun-climate-interface\`
+شامل: index.html, styles.css, app.js, climate-data.js, spring.png, summer.png, autumn.png, winter.png
+
+پروژه‌ی ۲ — ویلا اف:
+`C:\Users\Server_Rav\Desktop\Nexus-DK - Portfolio - Claude - Gemini - 2026\All Final File\B-villa-efe-Final\villa-efe-climate-interface\`
+شامل: index.html, styles.css, app.js, climate-data.js, spring.png, summer.png, autumn.png, winter.png, reference.jpg, design-spec.json, hero-focal-config.json
+
+هر دو را اول کامل باز کن و بخوان (index.html + styles.css + app.js + climate-data.js) تا دقیقاً بفهمی چه چیزی ساخته شده — چیدمان، رفتار تعاملی (کلیک ماه، کیبورد، پخش/توقف)، انیمیشن‌ها، و منطق نمایش داده.
+
+## مقصد در این پروژه
+
+هدف این است که این دو رابط، **جایگزین** بخش فعلی «Environmental Response» شوند که الان در هر دو صفحه‌ی پروژه (بخش «۰۲ — Site») نمایش داده می‌شود:
+- کامپوننت فعلی: `components/project/environmental-response.tsx` (به‌همراه `components/project/section-locator.tsx`)
+- جایی که رندر می‌شود: `components/project/site-analysis.tsx` (خط ۲۸، شرط `project.environmental`)
+- داده‌اش از این‌جا می‌آید: `content/projects/villa-red-sun.ts` و `content/projects/villa-efe.ts` (فیلد `environmental`، تعریف‌شده در `lib/content-schema.ts`)
+
+نسخه‌ی فعلی این بخش قدیمی‌تر و ساده‌تر است؛ نسخه‌های جدید (HTML) که کاربر تأیید کرده، باید جایگزینش شوند.
+
+## کاری که باید انجام بدی
+
+1. **قبل از هر تغییری، طبق روال همیشگی این پروژه یک نقطه‌ی بازگشت بگیر**: `git stash push -u -m "pre-climate-interface-integration"` سپس `git tag backup/pre-climate-integration-<تاریخ امروز> stash@{0}` سپس `git stash pop` و مطمئن شو تعداد فایل‌های تغییریافته (`git status --short | wc -l`) قبل و بعد دقیقاً یکی است.
+
+2. یک کامپوننت React/TypeScript جدید بساز (مثلاً `components/project/climate-interface.tsx`) که منطق و ظاهر همان HTML/CSS/JS تأییدشده را با وفاداری کامل به React/TypeScript موجود در پروژه منتقل کند — **این یک بازطراحی نیست، یک پورت وفادار است**: چیدمان، تایپوگرافی، انیمیشن‌ها، رفتار تعاملی (کلیک ماه + کیبورد + Play/Pause + دبانس ترنزیشن)، قانون «عکس بدون فیلتر/فقط اسکریم محلی پشت متن»، و `prefers-reduced-motion` باید دقیقاً همان چیزی باشد که در نسخه‌ی HTML هست.
+   - یک کامپوننت واحد و پارامتری بساز که هم برای ویلا رد سان و هم ویلا اف کار کند (چون ساختارشان یکسان است)، به‌جای دو کامپوننت جدا — مگر اینکه در عمل تفاوت‌های اجرایی واقعی این کار را غیرمنطقی کند.
+   - داده‌های climate-data.js هر پروژه را به فرمت مناسب TypeScript/JSON منتقل کن؛ اگر با ساختار فعلی `environmental` در `content-schema.ts` هم‌خوان است از همان استفاده کن، در غیر این صورت یک نوع داده‌ی جدید و تمیز برای همین کامپوننت تعریف کن — تصمیمش با خودت، فقط منطقی و یکدست باشد.
+   - عکس‌های فصلی (spring/summer/autumn/winter.png) هر پروژه را به `public/images/villa-red-sun/climate/` و `public/images/villa-efe/climate/` منتقل کن و از `next/image` استفاده کن مگر اینکه دلیل فنی مشخصی برای `<img>` ساده وجود داشته باشد (مثلاً کنترل دقیق crop/focal-point که خود فایل‌های HTML پیاده کرده بودند).
+
+3. کامپوننت جدید را در `site-analysis.tsx` جای‌گزین رندر فعلی `EnvironmentalResponse` کن (برای هر دو پروژه). اگر `environmental-response.tsx` و `section-locator.tsx` بعد از این تغییر دیگر جایی استفاده نمی‌شوند، آن‌ها را کامل حذف کن (کد مرده نگه نداریم).
+
+4. **قانون صداقت داده‌ای که در کل این پروژه رعایت شده را اینجا هم رعایت کن**: هیچ عددی که در فایل‌های climate-data.js نیست اضافه نکن؛ اگر جایی پارامتری (مثل رطوبت برای ویلا رد سان) عمداً حذف شده، همان‌طور حذف بماند.
+
+5. بعد از پیاده‌سازی: `pnpm lint` و `pnpm build` را اجرا کن و هر خطایی را برطرف کن.
+
+6. با Browser pane هر دو صفحه را زنده تست کن — `/projects/villa-red-sun` و `/projects/villa-efe`:
+   - حداقل ۴-۵ ماه مختلف را کلیک کن و مطمئن شو داده‌ها (دما، بارش، باد، خورشید) درست عوض می‌شوند و عکس فصل درست تغییر می‌کند.
+   - چک کن هیچ بخش دیگری از صفحه (Hero، Alternatives Comparator، Final Architecture، و غیره) خراب نشده.
+   - یک اسکرین‌شات از هر دو صفحه بگیر تا وضعیت نهایی مشخص باشد.
+
+7. در پایان گزارش بده: چه چیزی دقیقاً تغییر کرد، کدام فایل‌ها حذف/اضافه/ویرایش شدند، نتیجه‌ی build/lint، و تأیید اینکه هر دو صفحه به‌درستی کار می‌کنند — با اسکرین‌شات.
+
+اگر جایی به یک تصمیم غیرقابل‌برگشت یا مبهم رسیدی که فراتر از جزئیات اجرایی است (نه سبک/رنگ، بلکه چیزی که معنای محصول را عوض می‌کند)، متوقف شو و بپرس؛ در غیر این صورت خودت با همان استانداردی که در این پروژه تا اینجا رعایت شده (بدون داده‌ی ساختگی، بدون تغییر بی‌دلیل خارج از محدوده) پیش برو.

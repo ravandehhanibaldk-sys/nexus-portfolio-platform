@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>ISOLATED R&D — Phase 2 Solar/Wind Prototypes (not part of the portfolio)</title>
+<style>
+  :root {
+    --color-paper: #faf9f6; --color-ink: #161513; --color-neutral: #6b6a64;
+    --color-divider: #e6e3dc; --color-accent: #a85c3b;
+    --color-env-sun: #b3703f; --color-env-shadow: #7c8892; --color-env-wind: #5c7a8a;
+    --color-env-stone: #ede7db; --color-env-timber: #a98868; --color-env-sage: #8a9482;
+  }
+  html, body { margin: 0; background: var(--color-paper); color: var(--color-ink); font-family: system-ui, sans-serif; }
+  h1 { font-size: 15px; padding: 12px 20px; margin: 0; background: #fff; border-bottom: 1px solid var(--color-divider); position: sticky; top: 0; z-index: 5; }
+  .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; padding: 24px; max-width: 1400px; margin: 0 auto; }
+  .panel { border: 1px solid var(--color-divider); background: #fff; padding: 16px; }
+  .panel h2 { font-size: 12px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--color-accent); margin: 0 0 4px; }
+  .panel p.note { font-size: 11px; color: var(--color-neutral); margin: 4px 0 12px; line-height: 1.5; }
+  svg { width: 100%; height: auto; display: block; background: var(--color-env-stone); }
+  canvas { width: 100%; height: auto; display: block; background: var(--color-env-stone); }
+  .stats { font-size: 11px; color: var(--color-neutral); margin-top: 8px; font-family: monospace; white-space: pre-wrap; }
+  section.divider { padding: 24px 24px 0; max-width: 1400px; margin: 0 auto; border-top: 2px solid var(--color-ink); }
+  section.divider h1 { position: static; border: none; padding: 0 0 8px; }
+</style>
+</head>
+<body>
+
+<h1>ISOLATED R&D — Phase 2 — Solar Trajectory Prototypes (real Villa Red Sun summer-solstice data)</h1>
+<div class="grid" id="solar-grid"></div>
+
+<section class="divider"><h1>Wind Flow Prototypes (real Villa Red Sun prevailing direction: 275°)</h1></section>
+<div class="grid" id="wind-grid"></div>
+
+<script type="importmap">
+{
+  "imports": {
+    "d3-shape": "https://cdn.jsdelivr.net/npm/d3-shape@3/+esm",
+    "d3-path": "https://cdn.jsdelivr.net/npm/d3-path@3/+esm",
+    "gsap": "https://cdn.jsdelivr.net/npm/gsap@3.15.0/+esm"
+  }
+}
+</script>
+<script type="module">
+import { line, curveNatural, curveMonotoneX, curveLinear } from "d3-shape";
+import gsap from "gsap";
+
+// ---- REAL DATA (Villa Red Sun, summer solstice, from content/projects/villa-red-sun.ts) ----
+const summerPoints = [
+  { time: "Sunrise", azimuth: 43.6, altitude: -0.83 },
+  { time: "10:00", azimuth: 133.12, altitude: 51.07 },
+  { time: "Solar Noon", azimuth: 180.0, altitude: 57.94 },
+  { time: "14:00", azimuth: 226.88, altitude: 51.07 },
+  { time: "Sunset", azimuth: 316.4, altitude: -0.83 },
+];
+
+const VW = 600, VH = 320, GROUND_Y = 236, SKY_TOP = 20, SCENE_LEFT = 50, SCENE_RIGHT = 550, MAX_ALT = 85;
+const PX_PER_DEG = (GROUND_Y - SKY_TOP) / MAX_ALT;
+const sunriseAz = summerPoints[0].azimuth, sunsetAz = summerPoints[summerPoints.length - 1].azimuth;
+
+function toXY(p) {
+  const xf = Math.max(0, Math.min(1, (p.azimuth - sunriseAz) / (sunsetAz - sunriseAz)));
+  const alt = Math.max(0, p.altitude);
+  return [SCENE_LEFT + xf * (SCENE_RIGHT - SCENE_LEFT), GROUND_Y - alt * PX_PER_DEG];
+}
+const pts = summerPoints.map(toXY);
+
+function svgShell(id, extra = "") {
+  return `<svg viewBox="0 0 ${VW} ${VH}" id="${id}">
+    <rect x="0" y="0" width="${VW}" height="${GROUND_Y}" fill="#f5f2ea"/>
+    <rect x="0" y="${GROUND_Y}" width="${VW}" height="${VH-GROUND_Y}" fill="var(--color-env-stone)"/>
+    <line x1="0" y1="${GROUND_Y}" x2="${VW}" y2="${GROUND_Y}" stroke="var(--color-ink)" stroke-opacity="0.15"/>
+    ${extra}
+  </svg>`;
+}
+
+// A — CURRENT: literal polyline (M/L commands), exactly replicating the production component's technique
+function pathA() {
+  return pts.map((p, i) => `${i === 0 ? "M" : "L"} ${p[0].toFixed(1)} ${p[1].toFixed(1)}`).join(" ");
+}
+
+// B — d3-shape curveNatural fit through the same 5 real points
+const lineGenNatural = line().curve(curveNatural);
+const lineGenMonotone = line().curve(curveMonotoneX);
+function pathB() { return lineGenNatural(pts); }
+function pathBAlt() { return lineGenMonotone(pts); }
+
+const solarGrid = document.getElementById("solar-grid");
+
+// Panel A
+solarGrid.insertAdjacentHTML("beforeend", `
+<div class="panel">
+  <h2>A — CURRENT (production technique replicated)</h2>
+  <p class="note">Literal SVG polyline: "M x y L x y L x y..." connecting only the 5 real sample points. This is exactly what the live Solar Geometry component does today.</p>
+  ${svgShell("svgA", `<path d="${pathA()}" fill="none" stroke="var(--color-env-sun)" stroke-width="1.5" opacity="0.6"/>
+    ${pts.map(p => `<circle cx="${p[0]}" cy="${p[1]}" r="2.5" fill="var(--color-env-sun)"/>`).join("")}`)}
+  <div class="stats">5 real data points. Straight-line segments between each. Visibly "kinked" at every sample — this is the reported "segmented/broken" appearance.</div>
+</div>`);
+
+// Panel B
+solarGrid.insertAdjacentHTML("beforeend", `
+<div class="panel">
+  <h2>B — SVG + d3-shape curveNatural (same 5 real points, no new data)</h2>
+  <p class="note">Official d3-shape curve interpolator fits a smooth natural cubic spline through the identical 5 real azimuth/altitude samples above. Zero fabricated data points — this is a rendering-technique change only.</p>
+  ${svgShell("svgB", `<path d="${pathB()}" fill="none" stroke="var(--color-env-sun)" stroke-width="1.5" opacity="0.7"/>
+    ${pts.map(p => `<circle cx="${p[0]}" cy="${p[1]}" r="2" fill="var(--color-env-sun)" opacity="0.5"/>`).join("")}`)}
+  <div class="stats">d3-shape "curveNatural" — https://d3js.org/d3-shape/curve#curveNatural
+Same 5 real samples, immediately reads as a real arc instead of a diagram.</div>
+</div>`);
+
+// Panel B-alt (monotone, guaranteed no overshoot)
+solarGrid.insertAdjacentHTML("beforeend", `
+<div class="panel">
+  <h2>B-alt — d3-shape curveMonotoneX (overshoot-safe variant)</h2>
+  <p class="note">curveMonotoneX guarantees the curve never overshoots past the real sample values (curveNatural can slightly overshoot between points on some data shapes) — worth comparing directly since physical correctness matters more than stylistic smoothness here.</p>
+  ${svgShell("svgBalt", `<path d="${pathBAlt()}" fill="none" stroke="var(--color-env-sun)" stroke-width="1.5" opacity="0.7"/>
+    ${pts.map(p => `<circle cx="${p[0]}" cy="${p[1]}" r="2" fill="var(--color-env-sun)" opacity="0.5"/>`).join("")}`)}
+  <div class="stats">d3-shape "curveMonotoneX" — https://d3js.org/d3-shape/curve#curveMonotoneX
+Recommended default: guarantees the curve stays physically bounded by the real data.</div>
+</div>`);
+
+// Panel C — B + GSAP MotionPathPlugin-style animated marker + improved sun treatment (D combined here)
+solarGrid.insertAdjacentHTML("beforeend", `
+<div class="panel">
+  <h2>C+D — Curve + animated marker + improved sun treatment</h2>
+  <p class="note">Same curveMonotoneX path, now with a marker animated along it (GSAP MotionPathPlugin in production; here driven by a manual requestAnimationFrame progress loop against the same path element for portability) plus a warm multiply-blended glow whose color shifts toward neutral at higher (simulated) altitude.</p>
+  ${svgShell("svgC", `
+    <defs>
+      <radialGradient id="glowC" cx="50%" cy="50%" r="50%">
+        <stop offset="0%" stop-color="var(--color-env-sun)" stop-opacity="0.55"/>
+        <stop offset="60%" stop-color="var(--color-env-sun)" stop-opacity="0.15"/>
+        <stop offset="100%" stop-color="var(--color-env-sun)" stop-opacity="0"/>
+      </radialGradient>
+    </defs>
+    <path id="motionPathC" d="${pathBAlt()}" fill="none" stroke="var(--color-env-sun)" stroke-width="1.25" opacity="0.35"/>
+    <circle id="glowDotC" r="22" fill="url(#glowC)" style="mix-blend-mode:multiply"/>
+    <circle id="coreDotC" r="4" fill="var(--color-env-sun)"/>
+  `)}
+  <div class="stats" id="statsC">animating…</div>
+</div>`);
+
+document.getElementById("solar-grid");
+// Drive panel C's marker along the real path using getPointAtLength (same mechanism GSAP MotionPathPlugin uses internally)
+(function animateC() {
+  const path = document.getElementById("motionPathC");
+  const glow = document.getElementById("glowDotC");
+  const core = document.getElementById("coreDotC");
+  const statsEl = document.getElementById("statsC");
+  const total = path.getTotalLength();
+  let t0 = performance.now();
+  function frame(now) {
+    const elapsed = (now - t0) / 1000;
+    const progress = (Math.sin(elapsed * 0.4) + 1) / 2; // ping-pong 0..1, no page-load autoplay assumption issues
+    const pt = path.getPointAtLength(progress * total);
+    glow.setAttribute("cx", pt.x); glow.setAttribute("cy", pt.y);
+    core.setAttribute("cx", pt.x); core.setAttribute("cy", pt.y);
+    statsEl.textContent = `getPointAtLength-driven marker (GSAP MotionPathPlugin uses this same SVG API internally)\nprogress=${progress.toFixed(2)}  x=${pt.x.toFixed(1)} y=${pt.y.toFixed(1)}`;
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+})();
+
+// ================= WIND =================
+const windGrid = document.getElementById("wind-grid");
+const azDeg = 275; // real Villa Red Sun prevailing azimuth
+const azRad = (azDeg * Math.PI) / 180;
+
+function windCompassShell(inner) {
+  return `<svg viewBox="0 0 300 300">
+    <circle cx="150" cy="150" r="110" fill="none" stroke="var(--color-divider)" stroke-width="1"/>
+    <text x="150" y="30" text-anchor="middle" fill="var(--color-neutral)" font-size="11">N</text>
+    <text x="150" y="276" text-anchor="middle" fill="var(--color-neutral)" font-size="11">S</text>
+    <text x="266" y="154" text-anchor="middle" fill="var(--color-neutral)" font-size="11">E</text>
+    <text x="34" y="154" text-anchor="middle" fill="var(--color-neutral)" font-size="11">W</text>
+    ${inner}
+  </svg>`;
+}
+
+// Current: 3 static dashed lines (production replica)
+const dx = Math.sin(azRad) * 60, dy = -Math.cos(azRad) * 60;
+const currentLines = [-40, 0, 40].map((offset, i) => {
+  const perpX = Math.cos(azRad) * offset, perpY = Math.sin(azRad) * offset;
+  return `<line x1="${150 - dx*1.3 + perpX}" y1="${150 - dy*1.3 + perpY}" x2="${150 + dx*1.3 + perpX}" y2="${150 + dy*1.3 + perpY}"
+    stroke="var(--color-env-wind)" stroke-width="1.5" stroke-linecap="round" opacity="0.45" stroke-dasharray="1 10"/>`;
+}).join("");
+
+windGrid.insertAdjacentHTML("beforeend", `
+<div class="panel">
+  <h2>CURRENT (production technique replicated)</h2>
+  <p class="note">Exactly 3 static dashed lines, CSS keyframe stroke-dashoffset drift. This is the full extent of the current production wind visualization.</p>
+  ${windCompassShell(currentLines)}
+  <div class="stats">3 line elements. No field, no density variation, no relationship to any building.</div>
+</div>`);
+
+// Tier 1: SVG continuous streamlines (more lines, varying opacity/curvature, denser near a simple building silhouette)
+function buildingSilhouette() {
+  return `<polygon points="120,180 120,150 180,150 180,180" fill="var(--color-env-timber)" opacity="0.35" stroke="var(--color-ink)" stroke-opacity="0.4"/>`;
+}
+function streamlinePath(seed, azRad) {
+  // A gently curved streamline, deflecting slightly as it passes the building's x-range (120-180)
+  const startX = 40, startY = 60 + seed * 26;
+  const midX = 150, midY = startY + Math.sin(seed * 1.7) * 14 - (Math.abs(midXDeflect(150)) );
+  const endX = 260, endY = startY + Math.cos(seed) * 10;
+  function midXDeflect(x) { return (x > 110 && x < 190) ? 10 : 0; }
+  return `M ${startX} ${startY} Q ${midX} ${midY - 8} ${endX} ${endY}`;
+}
+let streamHtml = "";
+for (let i = 0; i < 9; i++) {
+  const seed = i - 4;
+  streamHtml += `<path d="${streamlinePath(seed, azRad)}" fill="none" stroke="var(--color-env-wind)" stroke-width="1" opacity="${0.15 + Math.abs(seed) * 0.03}" stroke-linecap="round"/>`;
+}
+windGrid.insertAdjacentHTML("beforeend", `
+<div class="panel">
+  <h2>TIER 1 — SVG continuous streamlines + building silhouette</h2>
+  <p class="note">9 continuous curved streamlines (still pure SVG, no new heavy dependency) at varying opacity, gently deflecting around a simplified building silhouette placed in their path — reads as air moving past a mass, not isolated decoration. Same restrained --color-env-wind token.</p>
+  <svg viewBox="0 0 300 240">
+    <rect width="300" height="240" fill="var(--color-env-stone)"/>
+    ${streamHtml}
+    ${buildingSilhouette()}
+  </svg>
+  <div class="stats">9 path elements, static here; production version would add slow stroke-dashoffset drift per line, staggered, exactly as the current CSS technique already does — just applied to real streamlines instead of 3 dashes.</div>
+</div>`);
+
+// Tier 2: lightweight Canvas curl-noise-flavored particle flow (CPU-side approximation, no GPGPU/three.js — demonstrates the concept without the full stack)
+windGrid.insertAdjacentHTML("beforeend", `
+<div class="panel">
+  <h2>TIER 2 (concept demo) — Canvas particle flow, curl-noise-flavored</h2>
+  <p class="note">A CPU-side approximation of curl-noise particle advection (NOT the full GPGPU/three.js stack researched in Phase 1 — this is a lightweight Canvas demo to evaluate whether the visual character is worth the much larger GPU implementation). Particles drift continuously along the real prevailing direction with gentle perpendicular noise, fading trails instead of looping dots.</p>
+  <canvas id="windCanvas" width="300" height="240"></canvas>
+  <div class="stats" id="statsWind2">running…</div>
+</div>`);
+
+(function windTier2() {
+  const canvas = document.getElementById("windCanvas");
+  const ctx = canvas.getContext("2d");
+  const N = 60;
+  const particles = Array.from({ length: N }, () => ({
+    x: Math.random() * 300, y: Math.random() * 240, life: Math.random(),
+  }));
+  const dirX = Math.sin(azRad), dirY = -Math.cos(azRad);
+  let frameCount = 0;
+  function pseudoNoise(x, y, t) {
+    return Math.sin(x * 0.02 + t * 0.6) * Math.cos(y * 0.03 - t * 0.4) * 0.6;
+  }
+  function step() {
+    frameCount++;
+    ctx.fillStyle = "rgba(237,231,220,0.12)"; // trail fade, --color-env-stone at low alpha
+    ctx.fillRect(0, 0, 300, 240);
+    const t = frameCount * 0.02;
+    for (const p of particles) {
+      const n = pseudoNoise(p.x, p.y, t);
+      const vx = dirX * 1.1 + (-dirY) * n * 0.8;
+      const vy = dirY * 1.1 + (dirX) * n * 0.8;
+      ctx.beginPath();
+      ctx.moveTo(p.x, p.y);
+      p.x += vx; p.y += vy; p.life -= 0.004;
+      ctx.lineTo(p.x, p.y);
+      ctx.strokeStyle = `rgba(92,122,138,${0.35 * Math.max(0, p.life)})`; // --color-env-wind
+      ctx.lineWidth = 1;
+      ctx.stroke();
+      if (p.life <= 0 || p.x < 0 || p.x > 300 || p.y < 0 || p.y > 240) {
+        p.x = -5; p.y = Math.random() * 240; p.life = 1;
+      }
+    }
+    document.getElementById("statsWind2").textContent =
+      `${N} particles, CPU pseudo-noise field (real GPU curl-noise via GPUComputationRenderer would be smoother/scale further — see Phase 1 research)\nframe ${frameCount}`;
+    requestAnimationFrame(step);
+  }
+  step();
+})();
+</script>
+</body>
+</html>

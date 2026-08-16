@@ -1,0 +1,9 @@
+{
+  "name": "rd-3d-benchmark",
+  "private": true,
+  "version": "0.0.0",
+  "description": "ISOLATED R&D workspace — Phase 0 3D/web-graphics technology audit. Not part of the production app. Not imported by any app code.",
+  "devDependencies": {
+    "@gltf-transform/cli": "^4.4.2"
+  }
+}

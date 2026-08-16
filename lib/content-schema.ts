@@ -43,6 +43,99 @@ const alternativeSchema = z.object({
   assets: z.array(assetSchema),
 });
 
+/**
+ * Phase 3B — Section Locator. One authoritative "plan with section cut-lines"
+ * asset per level/proposal, plus the two building sections they all relate to.
+ * Lives under finalArchitecture (Section 12: documenting what was built), not
+ * the Comparator (which is proposal/level analysis, not orientation).
+ */
+const sectionLocatorLevelSchema = z.object({
+  id: z.string(),
+  label: z.string(),
+  plan: assetSchema,
+});
+
+const sectionLocatorSchema = z.object({
+  levels: z.array(sectionLocatorLevelSchema).min(1),
+  sectionA: assetSchema,
+  sectionB: assetSchema,
+});
+
+/**
+ * Climate Interface (Site beat) — supersedes the earlier Phase 3B
+ * "Environmental Response" schematic (two-solstice SVG diagram). Ported
+ * faithfully from a standalone HTML/CSS/JS build (external, user-approved)
+ * per project — a real seasonal photograph plus a 12-month instrument panel
+ * covering solar altitude, wind, temperature and rainfall together.
+ *
+ * Every value below is a literal port of the approved HTML's own numbers,
+ * including its already-disclosed derivation method: solar altitude/time is
+ * measured only at the two solstice months (`solar.source` distinguishes
+ * `"solar-calculation-table"` from `"derived"`); every other month is a
+ * simple two-point interpolation computed once at authoring time — not
+ * re-derived at render time, so the shipped numbers can never drift from
+ * what was reviewed. `humidity` is per-month and optional at the schema
+ * level because it is genuinely absent for Villa Red Sun (not established
+ * in the source report) — omit the field entirely for a project rather
+ * than inventing a placeholder.
+ */
+const climateMonthSchema = z.object({
+  /** "JAN".."DEC" */
+  month: z.string(),
+  season: z.enum(["winter", "spring", "summer", "autumn"]),
+  temperature: z.object({
+    value: z.number(),
+    unit: z.enum(["C", "F"]),
+    source: z.string(),
+  }),
+  rainfall: z.object({
+    value: z.number(),
+    unit: z.string(),
+    source: z.string(),
+  }),
+  wind: z.object({
+    /** Pre-formatted display string, e.g. "W / SW → E / NE". */
+    directionLabel: z.string(),
+    /** Pre-formatted display string, e.g. "6.50 M/S · MODEL". */
+    speedLabel: z.string(),
+  }),
+  humidity: z
+    .object({
+      value: z.number(),
+      unit: z.string(),
+      source: z.string(),
+    })
+    .optional(),
+  solar: z.object({
+    altitudeDeg: z.number(),
+    /** Local clock time at this altitude, e.g. "13:12". */
+    time: z.string(),
+    source: z.enum(["solar-calculation-table", "derived"]),
+  }),
+});
+
+const climateInstrumentSchema = z.object({
+  /** e.g. "A / 03 — SITE CLIMATE INSTRUMENT" */
+  eyebrow: z.string(),
+  /** e.g. "VILLA RED SUN" */
+  title: z.string(),
+  /** e.g. "SOLRØD / DENMARK" — prefixed to "· {SEASON} PROFILE" at render time. */
+  locationLabel: z.string(),
+  /** Hex accent color for this project's instrument panel. */
+  accentColor: z.string(),
+  /** CSS object-position for the hero photo, e.g. "52% 48%". */
+  heroObjectPosition: z.string(),
+  /** Filenames inside /public/images/<project-id>/climate/ */
+  images: z.object({
+    winter: z.string(),
+    spring: z.string(),
+    summer: z.string(),
+    autumn: z.string(),
+  }),
+  /** Exactly 12 entries, JAN through DEC in order. */
+  months: z.array(climateMonthSchema).length(12),
+});
+
 /** Section 12 — the eight-beat Storytelling Framework. */
 const beatSchema = z.object({
   /** Section 11.2 — the one question this beat/page answers. */
@@ -75,6 +168,9 @@ export const projectSchema = z.object({
    */
   heroVideo: z.string().optional(),
 
+  /** Real seasonal photo + 12-month solar/wind/temperature/rainfall instrument, Site beat. */
+  climateInstrument: climateInstrumentSchema.optional(),
+
   beats: z.object({
     clientChallenge: beatSchema,
     site: beatSchema,
@@ -84,7 +180,9 @@ export const projectSchema = z.object({
       alternatives: z.array(alternativeSchema),
     }),
     finalDecision: beatSchema,
-    finalArchitecture: beatSchema,
+    finalArchitecture: beatSchema.extend({
+      sectionLocator: sectionLocatorSchema.optional(),
+    }),
     reflection: beatSchema,
   }),
 
@@ -97,6 +195,9 @@ export const projectSchema = z.object({
 export type Project = z.infer<typeof projectSchema>;
 export type ProjectAsset = z.infer<typeof assetSchema>;
 export type ProjectAlternative = z.infer<typeof alternativeSchema>;
+export type SectionLocator = z.infer<typeof sectionLocatorSchema>;
+export type ClimateInstrument = z.infer<typeof climateInstrumentSchema>;
+export type ClimateMonth = z.infer<typeof climateMonthSchema>;
 
 /**
  * Authoring-time type for a project's source data (e.g. villa-red-sun.ts),

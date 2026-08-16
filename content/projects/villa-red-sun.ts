@@ -30,7 +30,47 @@ const villaRedSun: ProjectInput = {
   differentiator:
     "The only project in the platform built around a fully documented, multi-option client-decision process — seven cost/quality-tiered proposals compared side by side before selection — demonstrating negotiation and systematic decision-making, not only design output.",
 
-  heroVideo: "Hero-villa-red-sun-exterior-view-01-ORG_erasio.mp4",
+  /**
+   * Climate Interface — ported verbatim from an externally built, user-approved
+   * standalone HTML/CSS/JS deliverable (villa-red-sun-climate-interface/).
+   * Source data: Complete-Climate-Site-Analysis-A-villa-red-sun.txt (DMI Solrød
+   * 2006–2015 for temperature/rainfall; regional WRF model for wind speed, per
+   * A-31-wind-analysis-report — wind DIRECTION is high-confidence, wind SPEED is
+   * explicitly a regional model estimate, not a site measurement, hence "· MODEL").
+   * Solar altitude/time is real only at JUN/DEC (solar-calculation-table, from the
+   * exact site coordinates); every other month is the approved deliverable's own
+   * two-point interpolation, computed once and baked in here — not re-derived at
+   * render time — so these numbers can never drift from what was reviewed.
+   * Humidity has no established value for this site and is intentionally absent
+   * from every month below (never filled with a placeholder).
+   */
+  climateInstrument: {
+    eyebrow: "A / 03 — SITE CLIMATE INSTRUMENT",
+    title: "VILLA RED SUN",
+    locationLabel: "SOLRØD / DENMARK",
+    accentColor: "#e2734e",
+    heroObjectPosition: "52% 48%",
+    images: {
+      winter: "winter.png",
+      spring: "spring.png",
+      summer: "summer.png",
+      autumn: "autumn.png",
+    },
+    months: [
+      { month: "JAN", season: "winter", temperature: { value: 0.8, unit: "C", source: "dmi-solrod-2006-2015" }, rainfall: { value: 53, unit: "mm", source: "dmi-solrod-2006-2015" }, wind: { directionLabel: "W / SW → E / NE", speedLabel: "6.50 M/S · MODEL" }, solar: { altitudeDeg: 11.1, time: "12:09", source: "derived" } },
+      { month: "FEB", season: "winter", temperature: { value: 0.7, unit: "C", source: "dmi-solrod-2006-2015" }, rainfall: { value: 36, unit: "mm", source: "dmi-solrod-2006-2015" }, wind: { directionLabel: "W / SW → E / NE", speedLabel: "6.50 M/S · MODEL" }, solar: { altitudeDeg: 20.4, time: "12:22", source: "derived" } },
+      { month: "MAR", season: "spring", temperature: { value: 3.2, unit: "C", source: "dmi-solrod-2006-2015" }, rainfall: { value: 30, unit: "mm", source: "dmi-solrod-2006-2015" }, wind: { directionLabel: "W / SW → E / NE", speedLabel: "5.66 M/S · MODEL" }, solar: { altitudeDeg: 29.8, time: "12:34", source: "derived" } },
+      { month: "APR", season: "spring", temperature: { value: 7.5, unit: "C", source: "dmi-solrod-2006-2015" }, rainfall: { value: 28, unit: "mm", source: "dmi-solrod-2006-2015" }, wind: { directionLabel: "VARIABLE → E", speedLabel: "5.66 M/S · MODEL" }, solar: { altitudeDeg: 39.2, time: "12:47", source: "derived" } },
+      { month: "MAY", season: "spring", temperature: { value: 11.5, unit: "C", source: "dmi-solrod-2006-2015" }, rainfall: { value: 58, unit: "mm", source: "dmi-solrod-2006-2015" }, wind: { directionLabel: "W / SW → E / NE", speedLabel: "5.66 M/S · MODEL" }, solar: { altitudeDeg: 48.6, time: "12:59", source: "derived" } },
+      { month: "JUN", season: "summer", temperature: { value: 14.7, unit: "C", source: "dmi-solrod-2006-2015" }, rainfall: { value: 70, unit: "mm", source: "dmi-solrod-2006-2015" }, wind: { directionLabel: "W / SW → E / NE", speedLabel: "4.87 M/S · MODEL" }, solar: { altitudeDeg: 57.9, time: "13:12", source: "solar-calculation-table" } },
+      { month: "JUL", season: "summer", temperature: { value: 17.8, unit: "C", source: "dmi-solrod-2006-2015" }, rainfall: { value: 65, unit: "mm", source: "dmi-solrod-2006-2015" }, wind: { directionLabel: "W / SW → E / NE", speedLabel: "4.87 M/S · MODEL" }, solar: { altitudeDeg: 57.9, time: "13:12", source: "derived" } },
+      { month: "AUG", season: "summer", temperature: { value: 17.0, unit: "C", source: "dmi-solrod-2006-2015" }, rainfall: { value: 88, unit: "mm", source: "dmi-solrod-2006-2015" }, wind: { directionLabel: "W / SW → E / NE", speedLabel: "4.87 M/S · MODEL" }, solar: { altitudeDeg: 48.6, time: "12:59", source: "derived" } },
+      { month: "SEP", season: "autumn", temperature: { value: 13.7, unit: "C", source: "dmi-solrod-2006-2015" }, rainfall: { value: 49, unit: "mm", source: "dmi-solrod-2006-2015" }, wind: { directionLabel: "W / SW → E / NE", speedLabel: "5.66 M/S · MODEL" }, solar: { altitudeDeg: 39.2, time: "12:47", source: "derived" } },
+      { month: "OCT", season: "autumn", temperature: { value: 9.6, unit: "C", source: "dmi-solrod-2006-2015" }, rainfall: { value: 64, unit: "mm", source: "dmi-solrod-2006-2015" }, wind: { directionLabel: "W / SW → E / NE", speedLabel: "5.66 M/S · MODEL" }, solar: { altitudeDeg: 29.8, time: "12:34", source: "derived" } },
+      { month: "NOV", season: "autumn", temperature: { value: 6.0, unit: "C", source: "dmi-solrod-2006-2015" }, rainfall: { value: 69, unit: "mm", source: "dmi-solrod-2006-2015" }, wind: { directionLabel: "W / SW → E / NE", speedLabel: "5.66 M/S · MODEL" }, solar: { altitudeDeg: 20.4, time: "12:22", source: "derived" } },
+      { month: "DEC", season: "winter", temperature: { value: 2.7, unit: "C", source: "dmi-solrod-2006-2015" }, rainfall: { value: 63, unit: "mm", source: "dmi-solrod-2006-2015" }, wind: { directionLabel: "W / SW → E / NE", speedLabel: "6.50 M/S · MODEL" }, solar: { altitudeDeg: 11.1, time: "12:09", source: "solar-calculation-table" } },
+    ],
+  },
 
   beats: {
     clientChallenge: {
@@ -55,7 +95,7 @@ const villaRedSun: ProjectInput = {
           caption: "Site analysis, illustrated.",
         },
         {
-          src: "Spotting-On-TheSite-A-villa-red-sun_result.png",
+          src: "A-34-site-spotting-villa-red-sun_result.png",
           alt: "Spotting diagram locating key site conditions.",
           category: "site-analysis",
           caption: "Spotting the site's key conditions.",
@@ -96,10 +136,10 @@ const villaRedSun: ProjectInput = {
           isFinal: false,
           assets: [
             { src: "MasterPlan-Idea-B-2-Top_result.png", alt: "Master plan, proposal B-2.", category: "master-plan", caption: "Master plan — Proposal B-2." },
-            { src: "Plan-Idea-B-2-Top_result.png", alt: "Floor plan, proposal B-2.", category: "plan", caption: "Floor plan — Proposal B-2." },
-            { src: "Plan-Idea-B-2-Top-AirFlow_result.png", alt: "Airflow diagram, proposal B-2.", category: "airflow-diagram", caption: "Airflow diagram — Proposal B-2." },
-            { src: "Circulation-Plan-Idea-B-2-Top_result.png", alt: "Circulation diagram, proposal B-2.", category: "circulation-diagram", caption: "Circulation diagram — Proposal B-2." },
-            { src: "PrivacyGradient-Plan-Idea-B-2-Top_result.png", alt: "Privacy gradient diagram, proposal B-2.", category: "privacy-diagram", caption: "Privacy gradient diagram — Proposal B-2." },
+            { src: "A-09-plan-idea-b2-top-villa-red-sun_result.png", alt: "Floor plan, proposal B-2.", category: "plan", caption: "Floor plan — Proposal B-2." },
+            { src: "A-20-airflow-plan-idea-b2-top-villa-red-sun_result.png", alt: "Airflow diagram, proposal B-2.", category: "airflow-diagram", caption: "Airflow diagram — Proposal B-2." },
+            { src: "A-23-circulation-plan-idea-b2-top-villa-red-sun_result.png", alt: "Circulation diagram, proposal B-2.", category: "circulation-diagram", caption: "Circulation diagram — Proposal B-2." },
+            { src: "A-26-privacy-gradient-plan-idea-b2-top-villa-red-sun_result.png", alt: "Privacy gradient diagram, proposal B-2.", category: "privacy-diagram", caption: "Privacy gradient diagram — Proposal B-2." },
           ],
         },
         {
@@ -109,10 +149,10 @@ const villaRedSun: ProjectInput = {
           isFinal: false,
           assets: [
             { src: "MasterPlan-Idea-C-1-Top_result.png", alt: "Master plan, proposal C-1.", category: "master-plan", caption: "Master plan — Proposal C-1." },
-            { src: "Plan-Idea-C-1-Top_result.png", alt: "Floor plan, proposal C-1.", category: "plan", caption: "Floor plan — Proposal C-1." },
-            { src: "Plan-Idea-C-1-Top-AirFlow_result.png", alt: "Airflow diagram, proposal C-1.", category: "airflow-diagram", caption: "Airflow diagram — Proposal C-1." },
-            { src: "Circulation-Plan-Idea-C-1-Top_result.png", alt: "Circulation diagram, proposal C-1.", category: "circulation-diagram", caption: "Circulation diagram — Proposal C-1." },
-            { src: "PrivacyGradient-Plan-Idea-C-1-Top_result.png", alt: "Privacy gradient diagram, proposal C-1.", category: "privacy-diagram", caption: "Privacy gradient diagram — Proposal C-1." },
+            { src: "A-10-plan-idea-c1-top-villa-red-sun_result.png", alt: "Floor plan, proposal C-1.", category: "plan", caption: "Floor plan — Proposal C-1." },
+            { src: "A-21-airflow-plan-idea-c1-top-villa-red-sun_result.png", alt: "Airflow diagram, proposal C-1.", category: "airflow-diagram", caption: "Airflow diagram — Proposal C-1." },
+            { src: "A-24-circulation-plan-idea-c1-top-villa-red-sun_result.png", alt: "Circulation diagram, proposal C-1.", category: "circulation-diagram", caption: "Circulation diagram — Proposal C-1." },
+            { src: "A-27-privacy-gradient-plan-idea-c1-top-villa-red-sun_result.png", alt: "Privacy gradient diagram, proposal C-1.", category: "privacy-diagram", caption: "Privacy gradient diagram — Proposal C-1." },
           ],
         },
         {
@@ -122,10 +162,10 @@ const villaRedSun: ProjectInput = {
           isFinal: true,
           assets: [
             { src: "MasterPlan-Idea-D-Top_result.png", alt: "Master plan, final proposal D.", category: "master-plan", caption: "Master plan — Proposal D, final." },
-            { src: "Plan-Idea-D-Top_result.png", alt: "Floor plan, final proposal D.", category: "plan", caption: "Floor plan — Proposal D, final." },
-            { src: "Plan-Idea-D-Top-AirFlow_result.png", alt: "Airflow diagram, final proposal D.", category: "airflow-diagram", caption: "Airflow diagram — Proposal D, final." },
-            { src: "Circulation-Plan-Idea-D-Top_result.png", alt: "Circulation diagram, final proposal D.", category: "circulation-diagram", caption: "Circulation diagram — Proposal D, final." },
-            { src: "PrivacyGradient-Plan-Idea-D-Top_result.png", alt: "Privacy gradient diagram, final proposal D.", category: "privacy-diagram", caption: "Privacy gradient diagram — Proposal D, final." },
+            { src: "A-11-plan-idea-d-top-villa-red-sun_result.png", alt: "Floor plan, final proposal D.", category: "plan", caption: "Floor plan — Proposal D, final." },
+            { src: "A-22-airflow-plan-idea-d-top-villa-red-sun_result.png", alt: "Airflow diagram, final proposal D.", category: "airflow-diagram", caption: "Airflow diagram — Proposal D, final." },
+            { src: "A-25-circulation-plan-idea-d-top-villa-red-sun_result.png", alt: "Circulation diagram, final proposal D.", category: "circulation-diagram", caption: "Circulation diagram — Proposal D, final." },
+            { src: "A-28-privacy-gradient-plan-idea-d-top-villa-red-sun_result.png", alt: "Privacy gradient diagram, final proposal D.", category: "privacy-diagram", caption: "Privacy gradient diagram — Proposal D, final." },
           ],
         },
       ],
@@ -138,18 +178,26 @@ const villaRedSun: ProjectInput = {
     finalArchitecture: {
       question: "What was actually built — in plan, section, and space?",
       text: "The final architecture, shown through its two defining sections, the illustrated final plan, and the completed interior and exterior spaces.",
+      sectionLocator: {
+        levels: [
+          {
+            id: "d",
+            label: "Proposal D — Final",
+            plan: { src: "A-16-illustration-section-plan-idea-d-top-villa-red-sun_result.png", alt: "Illustrated plan, final proposal D, with section cut-lines.", category: "plan", caption: "Illustrated floor plan — final proposal." },
+          },
+        ],
+        sectionA: { src: "A-14-illustration-section-a-a-plan-idea-d-villa-red-sun_result.png", alt: "Illustrated building section A-A, final proposal.", category: "section", caption: "Section A-A — final proposal, illustrated." },
+        sectionB: { src: "A-15-illustration-section-b-b-plan-idea-d-villa-red-sun_result.png", alt: "Illustrated building section B-B, final proposal.", category: "section", caption: "Section B-B — final proposal, illustrated." },
+      },
       assets: [
-        { src: "A-14-illustration-section-a-a-plan-idea-d-villa-red-sun_result.png", alt: "Illustrated building section A-A, final proposal.", category: "section", caption: "Section A-A — final proposal, illustrated." },
-        { src: "A-15-illustration-section-b-b-plan-idea-d-villa-red-sun_result.png", alt: "Illustrated building section B-B, final proposal.", category: "section", caption: "Section B-B — final proposal, illustrated." },
-        { src: "Plan-Idea-D-Top-Illustration_result.png", alt: "Illustrated plan, final proposal D.", category: "plan", caption: "Illustrated floor plan — final proposal." },
-        { src: "A-01-villa-red-sun-exterior-view-01_result.png", alt: "Exterior view 01, final proposal.", category: "exterior" },
-        { src: "A-02-villa-red-sun-exterior-view-02_result.png", alt: "Exterior view 02, final proposal.", category: "exterior" },
-        { src: "A-03-villa-red-sun-exterior-view-03_result.png", alt: "Exterior view 03, final proposal.", category: "exterior" },
-        { src: "A-04-villa-red-sun-exterior-view-04_result.png", alt: "Exterior view 04, final proposal.", category: "exterior" },
-        { src: "A-05-villa-red-sun-interior-living-room-01_result.png", alt: "Living room interior, final proposal.", category: "interior" },
-        { src: "A-06-villa-red-sun-interior-dinning-room-01_result.png", alt: "Dining room interior, final proposal.", category: "interior" },
-        { src: "A-07-villa-red-sun-interior-kitchen-01_result.png", alt: "Kitchen interior, final proposal.", category: "interior" },
-        { src: "A-08-villa-red-sun-interior-master-bedroom-01_result.png", alt: "Master bedroom interior, final proposal.", category: "interior" },
+        { src: "A-01-villa-red-sun-exterior-view-01_result.png", alt: "Exterior view 01, final proposal.", category: "exterior", caption: "Exterior — View 01" },
+        { src: "A-02-villa-red-sun-exterior-view-02_result.png", alt: "Exterior view 02, final proposal.", category: "exterior", caption: "Exterior — View 02" },
+        { src: "A-03-villa-red-sun-exterior-view-03_result.png", alt: "Exterior view 03, final proposal.", category: "exterior", caption: "Exterior — View 03" },
+        { src: "A-04-villa-red-sun-exterior-view-04_result.png", alt: "Exterior view 04, final proposal.", category: "exterior", caption: "Exterior — View 04" },
+        { src: "A-05-villa-red-sun-interior-living-room-01_result.png", alt: "Living room interior, final proposal.", category: "interior", caption: "Interior — Living Room" },
+        { src: "A-06-villa-red-sun-interior-dining-room-01_result.png", alt: "Dining room interior, final proposal.", category: "interior", caption: "Interior — Dining Room" },
+        { src: "A-07-villa-red-sun-interior-kitchen-01_result.png", alt: "Kitchen interior, final proposal.", category: "interior", caption: "Interior — Kitchen" },
+        { src: "A-08-villa-red-sun-interior-master-bedroom-01_result.png", alt: "Master bedroom interior, final proposal.", category: "interior", caption: "Interior — Master Bedroom" },
       ],
     },
     reflection: {

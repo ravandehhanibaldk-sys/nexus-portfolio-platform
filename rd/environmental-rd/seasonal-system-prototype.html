@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>ISOLATED R&D — Phase 2 Seasonal Environmental System Prototype</title>
+<style>
+  :root {
+    --color-paper: #faf9f6; --color-ink: #161513; --color-neutral: #6b6a64;
+    --color-divider: #e6e3dc; --color-accent: #a85c3b;
+    --color-env-sun: #b3703f; --color-env-wind: #5c7a8a; --color-env-stone: #ede7db;
+    --color-env-timber: #a98868; --color-env-rain: #4a6b7a;
+  }
+  html, body { margin: 0; background: var(--color-paper); color: var(--color-ink); font-family: system-ui, sans-serif; }
+  .wrap { max-width: 900px; margin: 0 auto; padding: 24px; }
+  h1 { font-size: 14px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--color-accent); margin: 0 0 4px; }
+  p.sub { font-size: 12px; color: var(--color-neutral); margin: 0 0 20px; line-height: 1.5; }
+  .project-toggle, .season-toggle { display: flex; gap: 6px; margin-bottom: 16px; flex-wrap: wrap; }
+  button { font: inherit; font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; padding: 8px 14px;
+    border: 1px solid var(--color-divider); background: #fff; color: var(--color-neutral); cursor: pointer; }
+  button.active { border-color: var(--color-accent); color: var(--color-ink); }
+  button:disabled { opacity: 0.3; cursor: not-allowed; text-decoration: line-through; }
+  .panels { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 20px; }
+  .panel { border: 1px solid var(--color-divider); background: #fff; padding: 14px; }
+  .panel h2 { font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-neutral); margin: 0 0 8px; }
+  svg { width: 100%; height: auto; }
+  .stat { font-size: 22px; font-family: Georgia, serif; }
+  .stat-label { font-size: 10px; color: var(--color-neutral); text-transform: uppercase; }
+  .limitation { font-size: 11px; color: var(--color-accent); background: rgba(168,92,59,0.08); border: 1px solid rgba(168,92,59,0.3); padding: 10px; margin-top: 16px; line-height: 1.5; }
+  .ok-note { font-size: 10px; color: var(--color-neutral); margin-top: 8px; line-height: 1.4; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Seasonal Environmental System — Prototype</h1>
+  <p class="sub">Season selection driving Solar + Wind + Rainfall together, using only real project data. Where a project's real data does not support a given season/category, that state is explicitly disabled and labeled — never fabricated.</p>
+
+  <div class="project-toggle">
+    <button id="btn-redsun" class="active">Villa Red Sun (Denmark)</button>
+    <button id="btn-efe">Villa Efe (Northern Cyprus)</button>
+  </div>
+  <div class="season-toggle" id="seasonToggle"></div>
+
+  <div class="panels">
+    <div class="panel">
+      <h2>Solar</h2>
+      <svg id="solarSvg" viewBox="0 0 260 160"></svg>
+      <div class="stat" id="solarStat">—</div>
+      <div class="stat-label">Solar altitude at noon</div>
+    </div>
+    <div class="panel">
+      <h2>Wind</h2>
+      <svg id="windSvg" viewBox="0 0 200 200"></svg>
+      <div class="stat" id="windStat">—</div>
+      <div class="stat-label" id="windStatLabel">Prevailing direction</div>
+    </div>
+    <div class="panel">
+      <h2>Rainfall</h2>
+      <svg id="rainSvg" viewBox="0 0 200 140"></svg>
+      <div class="stat" id="rainStat">—</div>
+      <div class="stat-label">This season's precipitation</div>
+    </div>
+  </div>
+
+  <div class="limitation" id="limitationBox" style="display:none;"></div>
+</div>
+
+<script type="module">
+// ---- REAL DATA ----
+const projects = {
+  redsun: {
+    label: "Villa Red Sun",
+    solar: {
+      summer: { altitude: 57.94, azimuth: 180.0 },
+      winter: { altitude: 11.06, azimuth: 180.0 },
+      // No independently-measured spring/autumn solar samples exist in the source data.
+      // Equinox altitude below is a GEOMETRICALLY DERIVED estimate (midpoint is NOT
+      // astronomically correct in general, but for altitude at solar noon on a symmetric
+      // date either side of solstice, linear midpoint is a reasonable first-order estimate)
+      // — explicitly labeled as ESTIMATED, not sourced, in the UI.
+      springAutumnEstimate: (57.94 + 11.06) / 2,
+    },
+    wind: { direction: "W (≈260°–290°)", azimuth: 275, hasSeasonalWind: false },
+    rain: {
+      winter: 152, spring: 116, summer: 223, autumn: 182,
+      seasonsSupported: true,
+    },
+  },
+  efe: {
+    label: "Villa Efe",
+    solar: {
+      summer: { altitude: 78.11, azimuth: 180.0 },
+      winter: { altitude: 31.24, azimuth: 180.0 },
+      springAutumnEstimate: (78.11 + 31.24) / 2,
+    },
+    wind: { direction: null, azimuth: null, hasSeasonalWind: false, noWindData: true },
+    rain: {
+      // Real data does NOT support an independent 4-season split for Cyprus — only wet/dry.
+      // Mapped conservatively: spring partially wet-season tail, autumn partially wet-season start.
+      winter: 329, spring: 33, summer: 2, autumn: 105, // approximate regrouping from monthly data, NOT independently reported
+      seasonsSupported: false,
+    },
+  },
+};
+
+const seasons = ["spring", "summer", "autumn", "winter"];
+let currentProject = "redsun";
+let currentSeason = "summer";
+
+const seasonToggle = document.getElementById("seasonToggle");
+seasons.forEach(s => {
+  const b = document.createElement("button");
+  b.textContent = s;
+  b.dataset.season = s;
+  b.addEventListener("click", () => { currentSeason = s; render(); });
+  seasonToggle.appendChild(b);
+});
+
+document.getElementById("btn-redsun").addEventListener("click", () => { currentProject = "redsun"; render(); });
+document.getElementById("btn-efe").addEventListener("click", () => { currentProject = "efe"; render(); });
+
+function render() {
+  document.getElementById("btn-redsun").classList.toggle("active", currentProject === "redsun");
+  document.getElementById("btn-efe").classList.toggle("active", currentProject === "efe");
+  [...seasonToggle.children].forEach(b => b.classList.toggle("active", b.dataset.season === currentSeason));
+
+  const p = projects[currentProject];
+  const limitationBox = document.getElementById("limitationBox");
+  let limitations = [];
+
+  // --- SOLAR ---
+  let altitude, altStatus;
+  if (currentSeason === "summer") { altitude = p.solar.summer.altitude; altStatus = "REAL DATA"; }
+  else if (currentSeason === "winter") { altitude = p.solar.winter.altitude; altStatus = "REAL DATA"; }
+  else { altitude = p.solar.springAutumnEstimate; altStatus = "ESTIMATED (linear midpoint, not sourced)"; limitations.push(`Solar: ${currentSeason} altitude is a geometric estimate (midpoint between summer/winter solstice), not real measured/calculated equinox data. Real equinox azimuth/altitude would need to be freshly calculated, not fabricated by this prototype.`); }
+  const maxAlt = 85, groundY = 130, skyTop = 15, pxPerDeg = (groundY - skyTop) / maxAlt;
+  const sunY = groundY - altitude * pxPerDeg;
+  document.getElementById("solarSvg").innerHTML = `
+    <rect width="260" height="130" y="0" fill="#f5f2ea"/>
+    <rect width="260" height="30" y="130" fill="var(--color-env-stone)"/>
+    <line x1="0" y1="130" x2="260" y2="130" stroke="var(--color-ink)" stroke-opacity="0.15"/>
+    <circle cx="130" cy="${sunY}" r="18" fill="var(--color-env-sun)" opacity="0.25"/>
+    <circle cx="130" cy="${sunY}" r="4" fill="var(--color-env-sun)"/>
+    <text x="130" y="145" text-anchor="middle" font-size="8" fill="var(--color-neutral)">${altStatus}</text>
+  `;
+  document.getElementById("solarStat").textContent = altitude.toFixed(1) + "°";
+
+  // --- WIND ---
+  const windStatLabel = document.getElementById("windStatLabel");
+  if (p.wind.noWindData) {
+    document.getElementById("windSvg").innerHTML = `<circle cx="100" cy="100" r="90" fill="none" stroke="var(--color-divider)"/>
+      <text x="100" y="104" text-anchor="middle" font-size="11" fill="var(--color-neutral)">No wind data</text>`;
+    document.getElementById("windStat").textContent = "—";
+    windStatLabel.textContent = "No wind dataset exists for this project (standing decision, preserved)";
+    limitations.push(`Wind: ${p.label} has no wind dataset at all — this is a standing, deliberate content decision from an earlier phase, not a gap introduced by this prototype.`);
+  } else {
+    const azRad = (p.wind.azimuth * Math.PI) / 180;
+    const dx = Math.sin(azRad) * 60, dy = -Math.cos(azRad) * 60;
+    document.getElementById("windSvg").innerHTML = `
+      <circle cx="100" cy="100" r="80" fill="none" stroke="var(--color-divider)"/>
+      <line x1="${100-dx}" y1="${100-dy}" x2="${100+dx}" y2="${100+dy}" stroke="var(--color-env-wind)" stroke-width="2" opacity="0.6" stroke-linecap="round"/>
+      <text x="100" y="20" text-anchor="middle" font-size="10" fill="var(--color-neutral)">N</text>
+    `;
+    document.getElementById("windStat").textContent = p.wind.direction;
+    windStatLabel.textContent = "Prevailing direction (not seasonally varying — same reading used for all seasons)";
+    if (!p.wind.hasSeasonalWind) limitations.push(`Wind: only ONE annual prevailing-direction reading exists — the real data does not support a season-specific wind visualization. This prototype correctly shows the same reading regardless of season rather than fabricating seasonal variation.`);
+  }
+
+  // --- RAIN ---
+  const rainVal = p.rain[currentSeason];
+  const maxRain = Math.max(...seasons.map(s => p.rain[s]));
+  const barH = (rainVal / maxRain) * 90;
+  document.getElementById("rainSvg").innerHTML = `
+    <rect width="200" height="140" fill="var(--color-env-stone)"/>
+    <rect x="80" y="${120-barH}" width="40" height="${barH}" fill="var(--color-env-rain)" opacity="0.75"/>
+    <text x="100" y="135" text-anchor="middle" font-size="8" fill="var(--color-neutral)">${p.rain.seasonsSupported ? "REAL (from monthly DMI data)" : "REGROUPED — see note"}</text>
+  `;
+  document.getElementById("rainStat").textContent = rainVal + " mm";
+  if (!p.rain.seasonsSupported) {
+    limitations.push(`Rainfall: ${p.label}'s source data is a wet-season (Oct–May, 98.7%) / dry-season (Jun–Sep, ~1.3%) regime, NOT an independently reported 4-season split. The quarterly figures shown here are this prototype's own regrouping of monthly data into calendar quarters — clearly a weaker, derived number, not equivalent in authority to Villa Red Sun's quarterly figures (which the source report itself computes the same way, but from a climate where quarters are meaningful). Recommendation: label this distinction visibly in any production version, or default Villa Efe's rain view to the honest wet/dry framing instead of forcing 4 quarters.`);
+  }
+
+  if (limitations.length) {
+    limitationBox.style.display = "block";
+    limitationBox.innerHTML = "<b>Data limitations for this state:</b><br>" + limitations.map(l => "• " + l).join("<br>");
+  } else {
+    limitationBox.style.display = "none";
+  }
+}
+
+render();
+</script>
+</body>
+</html>

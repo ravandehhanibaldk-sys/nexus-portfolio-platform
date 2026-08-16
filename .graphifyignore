@@ -1,0 +1,11 @@
+node_modules/
+dist/
+.next/
+out/
+*.max
+*.exr
+*.psd
+*.mp4
+*.mov
+All Final File*/
+A-villa-red-sun-Final-1920-1080/

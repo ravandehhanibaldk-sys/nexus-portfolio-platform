@@ -1,0 +1,391 @@
+{
+  "communities": {
+    "0": [
+      "ref_dom",
+      "ref_dom_iterable",
+      "ref_esnext",
+      "tsconfig_compileroptions",
+      "tsconfig_compileroptions_allowjs",
+      "tsconfig_compileroptions_baseurl",
+      "tsconfig_compileroptions_esmoduleinterop",
+      "tsconfig_compileroptions_forceconsistentcasinginfilenames",
+      "tsconfig_compileroptions_incremental",
+      "tsconfig_compileroptions_isolatedmodules",
+      "tsconfig_compileroptions_jsx",
+      "tsconfig_compileroptions_lib",
+      "tsconfig_compileroptions_module",
+      "tsconfig_compileroptions_moduleresolution",
+      "tsconfig_compileroptions_noemit",
+      "tsconfig_compileroptions_nouncheckedindexedaccess",
+      "tsconfig_compileroptions_paths",
+      "tsconfig_compileroptions_plugins",
+      "tsconfig_compileroptions_resolvejsonmodule",
+      "tsconfig_compileroptions_skiplibcheck",
+      "tsconfig_compileroptions_strict",
+      "tsconfig_compileroptions_target"
+    ],
+    "1": [
+      "clsx",
+      "framer_motion",
+      "lucide_react",
+      "next",
+      "package_dependencies",
+      "package_dependencies_clsx",
+      "package_dependencies_framer_motion",
+      "package_dependencies_lucide_react",
+      "package_dependencies_next",
+      "package_dependencies_react",
+      "package_dependencies_react_dom",
+      "package_dependencies_react_three_fiber",
+      "package_dependencies_tailwind_merge",
+      "package_dependencies_three",
+      "package_dependencies_zod",
+      "react",
+      "react_dom",
+      "react_three_fiber",
+      "tailwind_merge",
+      "three",
+      "zod"
+    ],
+    "2": [
+      "eslint",
+      "eslint_config_next",
+      "package_devdependencies",
+      "package_devdependencies_eslint",
+      "package_devdependencies_eslint_config_next",
+      "package_devdependencies_prettier",
+      "package_devdependencies_tailwindcss",
+      "package_devdependencies_tailwindcss_postcss",
+      "package_devdependencies_types_node",
+      "package_devdependencies_types_react",
+      "package_devdependencies_types_react_dom",
+      "package_devdependencies_types_three",
+      "package_devdependencies_typescript",
+      "prettier",
+      "tailwindcss",
+      "tailwindcss_postcss",
+      "types_node",
+      "types_react",
+      "types_react_dom",
+      "types_three",
+      "typescript"
+    ],
+    "3": [
+      "app_projects_villa_efe_page",
+      "app_projects_villa_efe_page_metadata",
+      "app_projects_villa_efe_page_villaefepage",
+      "components_project_alternatives_comparator",
+      "components_project_alternatives_comparator_alternativescomparator",
+      "components_project_back_to_portfolio",
+      "components_project_back_to_portfolio_backtoportfolio",
+      "components_project_narrative_text_block",
+      "components_project_narrative_text_block_narrativetextblock",
+      "components_project_progress_nav",
+      "components_project_progress_nav_beats",
+      "components_project_progress_nav_progressnav",
+      "components_project_project_page",
+      "components_project_project_page_projectpage",
+      "components_project_reflection",
+      "components_project_reflection_reflection",
+      "lib_content_schema_project",
+      "lib_utils_cn"
+    ],
+    "4": [
+      "content_projects_villa_efe",
+      "content_projects_villa_efe_villaefe",
+      "content_projects_villa_red_sun",
+      "content_projects_villa_red_sun_villaredsun",
+      "lib_content_schema",
+      "lib_content_schema_alternativeschema",
+      "lib_content_schema_assetschema",
+      "lib_content_schema_beatschema",
+      "lib_content_schema_environmentalschema",
+      "lib_content_schema_projectalternative",
+      "lib_content_schema_projectinput",
+      "lib_content_schema_projectschema",
+      "lib_content_schema_sectionlocatorlevelschema",
+      "lib_content_schema_sectionlocatorschema",
+      "lib_content_schema_solarpathschema",
+      "lib_content_schema_solarpointschema",
+      "lib_content_schema_windcontextschema"
+    ],
+    "5": [
+      "app_page",
+      "app_page_home",
+      "app_page_projects",
+      "components_project_hero",
+      "components_project_hero_hero",
+      "components_project_lightbox",
+      "components_project_lightbox_lightboxcontext",
+      "components_project_lightbox_lightboxcontextvalue",
+      "components_project_lightbox_lightboxmodal",
+      "components_project_lightbox_lightboxprovider",
+      "components_project_lightbox_lightboxstate",
+      "lib_utils",
+      "lib_utils_imagepath",
+      "lib_utils_videopath"
+    ],
+    "6": [
+      "app_projects_villa_red_sun_page",
+      "app_projects_villa_red_sun_page_metadata",
+      "app_projects_villa_red_sun_page_villaredsunpage",
+      "components_dev_model_export_test",
+      "components_dev_model_export_test_fbxmodel",
+      "components_dev_model_export_test_fitcameratoscene",
+      "components_dev_model_export_test_glbmodel",
+      "components_dev_model_export_test_measurement",
+      "components_dev_model_export_test_measurescene",
+      "components_dev_model_export_test_modelexporttest",
+      "components_dev_model_export_test_orbitcontrols",
+      "components_dev_model_export_test_summarizematerial",
+      "components_dev_model_export_test_viewerpanel"
+    ],
+    "7": [
+      "components_project_final_architecture",
+      "components_project_final_architecture_ease",
+      "components_project_final_architecture_finalarchitecture",
+      "components_project_frame",
+      "components_project_frame_frame",
+      "components_project_lightbox_uselightbox",
+      "components_project_section_locator",
+      "components_project_section_locator_ease",
+      "components_project_section_locator_sectionlocator",
+      "components_project_site_analysis",
+      "components_project_site_analysis_siteanalysis",
+      "lib_content_schema_projectasset",
+      "lib_content_schema_sectionlocator"
+    ],
+    "8": [
+      "components_project_environmental_response",
+      "components_project_environmental_response_building",
+      "components_project_environmental_response_ease",
+      "components_project_environmental_response_environmentalresponse",
+      "components_project_environmental_response_interpolate",
+      "components_project_environmental_response_lerp",
+      "components_project_environmental_response_shadowlength",
+      "components_project_environmental_response_solarpoint",
+      "components_project_environmental_response_solarscene",
+      "components_project_environmental_response_sunposition",
+      "components_project_environmental_response_windflow",
+      "lib_content_schema_environmental"
+    ],
+    "9": [
+      "package",
+      "package_description",
+      "package_name",
+      "package_packagemanager",
+      "package_private",
+      "package_scripts",
+      "package_scripts_build",
+      "package_scripts_dev",
+      "package_scripts_format",
+      "package_scripts_lint",
+      "package_scripts_start",
+      "package_version"
+    ],
+    "10": [
+      "ref_next_dev_types_ts",
+      "ref_next_env_d_ts",
+      "ref_next_types_ts",
+      "ref_node_modules",
+      "ref_ts",
+      "ref_tsx",
+      "tsconfig",
+      "tsconfig_exclude",
+      "tsconfig_include"
+    ],
+    "11": [
+      "gltf_transform_cli",
+      "rd_3d_benchmark_package",
+      "rd_3d_benchmark_package_description",
+      "rd_3d_benchmark_package_devdependencies",
+      "rd_3d_benchmark_package_devdependencies_gltf_transform_cli",
+      "rd_3d_benchmark_package_name",
+      "rd_3d_benchmark_package_private",
+      "rd_3d_benchmark_package_version"
+    ],
+    "12": [
+      "app_layout",
+      "app_layout_fraunces",
+      "app_layout_inter",
+      "app_layout_metadata",
+      "app_layout_rootlayout"
+    ],
+    "13": [
+      "eslint_config",
+      "eslint_config_eslintconfig"
+    ],
+    "14": [
+      "next_config",
+      "next_config_nextconfig"
+    ],
+    "15": [
+      "postcss_config",
+      "postcss_config_config"
+    ]
+  },
+  "cohesion": {
+    "0": 0.09090909090909091,
+    "1": 0.09523809523809523,
+    "2": 0.09523809523809523,
+    "3": 0.16993464052287582,
+    "4": 0.14705882352941177,
+    "5": 0.23076923076923078,
+    "6": 0.20512820512820512,
+    "7": 0.24358974358974358,
+    "8": 0.24242424242424243,
+    "9": 0.16666666666666666,
+    "10": 0.2222222222222222,
+    "11": 0.25,
+    "12": 0.4,
+    "13": 1.0,
+    "14": 1.0,
+    "15": 1.0
+  },
+  "gods": [
+    {
+      "id": "tsconfig_compileroptions",
+      "label": "compilerOptions",
+      "degree": 19
+    },
+    {
+      "id": "lib_utils_imagepath",
+      "label": "imagePath()",
+      "degree": 9
+    },
+    {
+      "id": "lib_content_schema_project",
+      "label": "Project",
+      "degree": 8
+    },
+    {
+      "id": "components_project_frame_frame",
+      "label": "Frame()",
+      "degree": 7
+    },
+    {
+      "id": "tsconfig_include",
+      "label": "include",
+      "degree": 6
+    },
+    {
+      "id": "package_scripts",
+      "label": "scripts",
+      "degree": 6
+    },
+    {
+      "id": "lib_utils_cn",
+      "label": "cn()",
+      "degree": 5
+    },
+    {
+      "id": "lib_content_schema_projectasset",
+      "label": "ProjectAsset",
+      "degree": 4
+    },
+    {
+      "id": "components_project_hero_hero",
+      "label": "Hero()",
+      "degree": 4
+    },
+    {
+      "id": "components_dev_model_export_test_measurescene",
+      "label": "measureScene()",
+      "degree": 4
+    }
+  ],
+  "surprises": [
+    {
+      "source": "EnvironmentalResponse()",
+      "target": "cn()",
+      "source_files": [
+        "components/project/environmental-response.tsx",
+        "lib/utils.ts"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "why": "connects across different repos/directories; bridges separate communities"
+    },
+    {
+      "source": "Home()",
+      "target": "imagePath()",
+      "source_files": [
+        "app/page.tsx",
+        "lib/utils.ts"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "why": "connects across different repos/directories; peripheral node `Home()` unexpectedly reaches hub `imagePath()`"
+    },
+    {
+      "source": "LightboxModal()",
+      "target": "imagePath()",
+      "source_files": [
+        "components/project/lightbox.tsx",
+        "lib/utils.ts"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "why": "connects across different repos/directories; peripheral node `LightboxModal()` unexpectedly reaches hub `imagePath()`"
+    },
+    {
+      "source": "Frame()",
+      "target": "imagePath()",
+      "source_files": [
+        "components/project/frame.tsx",
+        "lib/utils.ts"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "why": "connects across different repos/directories; bridges separate communities"
+    },
+    {
+      "source": "AlternativesComparator()",
+      "target": "cn()",
+      "source_files": [
+        "components/project/alternatives-comparator.tsx",
+        "lib/utils.ts"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "calls",
+      "why": "connects across different repos/directories"
+    }
+  ],
+  "questions": [
+    {
+      "type": "bridge_node",
+      "question": "Why does `dependencies` connect `Community 1` to `Community 9`?",
+      "why": "High betweenness centrality (0.047) - this node is a cross-community bridge."
+    },
+    {
+      "type": "bridge_node",
+      "question": "Why does `devDependencies` connect `Community 2` to `Community 9`?",
+      "why": "High betweenness centrality (0.047) - this node is a cross-community bridge."
+    },
+    {
+      "type": "bridge_node",
+      "question": "Why does `compilerOptions` connect `Community 0` to `Community 10`?",
+      "why": "High betweenness centrality (0.022) - this node is a cross-community bridge."
+    },
+    {
+      "type": "isolated_nodes",
+      "question": "What connects `ProjectAlternative`, `LightboxContextValue`, `LightboxState` to the rest of the system?",
+      "why": "91 weakly-connected nodes found - possible documentation gaps or missing edges."
+    },
+    {
+      "type": "low_cohesion",
+      "question": "Should `Community 0` be split into smaller, more focused modules?",
+      "why": "Cohesion score 0.09090909090909091 - nodes in this community are weakly interconnected."
+    },
+    {
+      "type": "low_cohesion",
+      "question": "Should `Community 1` be split into smaller, more focused modules?",
+      "why": "Cohesion score 0.09523809523809523 - nodes in this community are weakly interconnected."
+    },
+    {
+      "type": "low_cohesion",
+      "question": "Should `Community 2` be split into smaller, more focused modules?",
+      "why": "Cohesion score 0.09523809523809523 - nodes in this community are weakly interconnected."
+    }
+  ]
+}

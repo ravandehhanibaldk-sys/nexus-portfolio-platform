@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>ISOLATED R&D — Phase 3 — Prototype B: Architectural Climate Field</title>
+<style>
+  :root {
+    --paper: #faf9f6; --ink: #161513; --neutral: #6b6a64; --divider: #e6e3dc; --accent: #a85c3b;
+    --sun: #b3703f; --wind: #5c7a8a; --stone: #ede7db; --rain: #4a6b7a; --timber: #a98868;
+  }
+  html, body { margin: 0; background: var(--paper); color: var(--ink); font-family: system-ui, sans-serif; }
+  .wrap { max-width: 820px; margin: 0 auto; padding: 24px; }
+  h1 { font-size: 13px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent); margin: 0 0 6px; }
+  p.sub { font-size: 12px; color: var(--neutral); margin: 0 0 20px; line-height: 1.5; max-width: 640px; }
+  .toolbar { display: flex; gap: 8px; margin-bottom: 16px; flex-wrap: wrap; }
+  button { font: inherit; font-size: 11px; text-transform: uppercase; letter-spacing: 0.07em; padding: 7px 12px;
+    border: 1px solid var(--divider); background: #fff; color: var(--neutral); cursor: pointer; }
+  button.active { border-color: var(--accent); color: var(--ink); }
+  .month-rail { display: flex; gap: 2px; margin-bottom: 20px; }
+  .month-rail button { flex: 1; padding: 6px 2px; font-size: 9px; }
+  .stage { border: 1px solid var(--divider); background: #fff; padding: 10px; }
+  svg { width: 100%; height: auto; display: block; }
+  .readout { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 16px; font-size: 11px; }
+  .readout div { text-align: center; }
+  .readout .label { color: var(--neutral); text-transform: uppercase; font-size: 9px; letter-spacing: 0.06em; }
+  .readout .value { font-family: Georgia, serif; font-size: 16px; margin-top: 2px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Prototype B — Architectural Climate Field</h1>
+  <p class="sub">The building silhouette stays spatially fixed at the center. Solar, wind and rain are drawn as forces acting ON it from real data, radiating around the same anchor — one composition, not four separate charts.</p>
+
+  <div class="toolbar">
+    <button id="btn-redsun" class="active">Villa Red Sun</button>
+    <button id="btn-efe">Villa Efe</button>
+  </div>
+  <div class="month-rail" id="monthRail"></div>
+
+  <div class="stage">
+    <svg id="fieldSvg" viewBox="0 0 600 420"></svg>
+  </div>
+
+  <div class="readout" id="readout"></div>
+</div>
+
+<script type="module">
+const MONTHS = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+let data = { redsun: null, efe: null };
+let currentProject = "redsun";
+let currentMonth = 6;
+
+async function loadData() {
+  const [rs, efe] = await Promise.all([
+    fetch("../data/villa-red-sun-climate.json").then(r => r.json()),
+    fetch("../data/villa-efe-climate.json").then(r => r.json()),
+  ]);
+  data.redsun = rs; data.efe = efe;
+}
+
+function derivedMonthlySolarAltitude(solar) {
+  const summer = solar.summerSolstice.points.find(p => p.time === "Solar Noon").altitude;
+  const winter = solar.winterSolstice.points.find(p => p.time === "Solar Noon").altitude;
+  const mean = (summer + winter) / 2, amp = (summer - winter) / 2;
+  return MONTHS.map((_, i) => mean + amp * Math.cos(((i - 5.5) / 12) * 2 * Math.PI));
+}
+
+function buildRail() {
+  const el = document.getElementById("monthRail");
+  el.innerHTML = "";
+  MONTHS.forEach((m, i) => {
+    const b = document.createElement("button");
+    b.textContent = m;
+    if (i === currentMonth) b.classList.add("active");
+    b.addEventListener("click", () => { currentMonth = i; render(); });
+    el.appendChild(b);
+  });
+}
+
+function buildingSilhouette(cx, cy) {
+  // Enlarged ~1.6x (was w90/h50) and given a real ground shadow + stronger
+  // fill/stroke contrast so it reads as the compositional anchor rather
+  // than one element among several — per follow-up review §3.3.
+  const w = 150, h = 82, roofH = 32;
+  return `<g>
+    <ellipse cx="${cx}" cy="${cy+h/2+3}" rx="${w/2+14}" ry="7" fill="var(--ink)" opacity="0.08"/>
+    <polygon points="${cx-w/2},${cy+h/2} ${cx-w/2},${cy-h/2} ${cx+w/2},${cy-h/2} ${cx+w/2},${cy+h/2}"
+      fill="var(--timber)" opacity="0.55" stroke="var(--ink)" stroke-opacity="0.55" stroke-width="1.25"/>
+    <polygon points="${cx-w/2},${cy-h/2} ${cx-w/2+22},${cy-h/2-roofH} ${cx+w/2+22},${cy-h/2-roofH} ${cx+w/2},${cy-h/2}"
+      fill="var(--stone)" stroke="var(--ink)" stroke-opacity="0.45" stroke-width="1.25"/>
+    <line x1="${cx-w/2+20}" y1="${cy-10}" x2="${cx-w/2+20}" y2="${cy+h/2-8}" stroke="var(--ink)" stroke-opacity="0.3"/>
+    <line x1="${cx+w/2-20}" y1="${cy-10}" x2="${cx+w/2-20}" y2="${cy+h/2-8}" stroke="var(--ink)" stroke-opacity="0.3"/>
+  </g>`;
+}
+
+function render() {
+  const p = data[currentProject];
+  if (!p) return;
+  document.getElementById("btn-redsun").classList.toggle("active", currentProject === "redsun");
+  document.getElementById("btn-efe").classList.toggle("active", currentProject === "efe");
+  buildRail();
+
+  const cx = 300, cy = 260;
+  const monthlyAlt = derivedMonthlySolarAltitude(p.solar);
+  const altitude = Math.max(0, monthlyAlt[currentMonth]);
+  const maxAlt = 90;
+
+  // Sun position on an arc around the building, radius scaled by altitude (higher sun = higher in sky = further from building horizontally toward zenith)
+  const arcR = 210;
+  const sunAngle = Math.PI - (altitude / maxAlt) * Math.PI; // 180deg (horizon) sweeping to near-vertical
+  const sunX = cx + arcR * Math.cos(sunAngle) * 0.9;
+  const sunY = cy - arcR * Math.sin(sunAngle) * 0.75 - 20;
+
+  // Wind vector
+  const windAz = p.wind.prevailingAnnual.azimuthDeg || 270;
+  const windRad = (windAz * Math.PI) / 180;
+  const windDx = Math.sin(windRad) * 130, windDy = -Math.cos(windRad) * 60;
+
+  // Rain intensity this month (bar height near building)
+  const rain = p.rainfall.monthlyMm[currentMonth];
+  const maxRain = Math.max(...p.rainfall.monthlyMm);
+  const rainIntensity = rain / maxRain;
+
+  let streamlines = "";
+  for (let i = -2; i <= 2; i++) {
+    const offset = i * 22;
+    const sx = cx - windDx*1.1, sy = cy - 40 + offset;
+    const ex = cx + windDx*1.1, ey = cy - 40 + offset + windDy*0.15;
+    streamlines += `<path d="M ${sx} ${sy} Q ${cx} ${sy - 10 + (Math.abs(i)>1?0:8)} ${ex} ${ey}" fill="none" stroke="var(--wind)" stroke-width="1" opacity="${0.14 + (2-Math.abs(i))*0.06}"/>`;
+  }
+
+  let rainMarks = "";
+  if (rainIntensity > 0.02) {
+    for (let i = 0; i < Math.round(rainIntensity * 14); i++) {
+      const rx = cx - 80 + (i * 11) % 170;
+      const ry = cy + 70 + (i * 7) % 40;
+      rainMarks += `<line x1="${rx}" y1="${ry}" x2="${rx-4}" y2="${ry+14}" stroke="var(--rain)" stroke-width="1" opacity="0.35"/>`;
+    }
+  }
+
+  // Climate "personality" driven by real annual figures, not an arbitrary
+  // per-project palette swap — per follow-up review §3.4. Villa Efe's real
+  // annual sunshine (3,134.7h) vs Villa Red Sun's (1,747h) sets how warm/
+  // bright the sky reads; each project's own real max monthly rainfall
+  // (not a shared constant) sets how dense rain can ever get, so Villa
+  // Efe's July (0mm) and Villa Red Sun's July (65mm) look as different as
+  // the source data actually says they are.
+  const sunshineShare = Math.min(1, p.sunshine.annualHours / 3200);
+  const skyWarmth = 6 + sunshineShare * 20; // 6%..26% sun-tint mix into the sky
+  const sunSize = 20 + sunshineShare * 14; // brighter/larger sun disc for the sunnier project
+
+  document.getElementById("fieldSvg").innerHTML = `
+    <rect width="600" height="420" fill="color-mix(in srgb, var(--sun) ${skyWarmth}%, #f5f2ea)"/>
+    <rect y="330" width="600" height="90" fill="var(--stone)"/>
+    <line x1="0" y1="330" x2="600" y2="330" stroke="var(--ink)" stroke-opacity="0.12"/>
+    <circle cx="${sunX}" cy="${sunY}" r="${sunSize}" fill="var(--sun)" opacity="0.2"/>
+    <circle cx="${sunX}" cy="${sunY}" r="5" fill="var(--sun)"/>
+    <line x1="${sunX}" y1="${sunY}" x2="${cx}" y2="${cy-25}" stroke="var(--sun)" stroke-width="1" stroke-dasharray="3 3" opacity="0.35"/>
+    ${streamlines}
+    ${buildingSilhouette(cx, cy)}
+    ${rainMarks}
+    <text x="300" y="405" text-anchor="middle" font-size="10" fill="var(--neutral)">${MONTHS[currentMonth]} — ${p.label}</text>
+  `;
+
+  document.getElementById("readout").innerHTML = `
+    <div><div class="label">Solar altitude (derived)</div><div class="value">${altitude.toFixed(1)}°</div></div>
+    <div><div class="label">Wind</div><div class="value">${p.wind.prevailingAnnual.primary}</div></div>
+    <div><div class="label">Rain this month</div><div class="value">${rain} mm</div></div>
+  `;
+}
+
+document.getElementById("btn-redsun").addEventListener("click", () => { currentProject = "redsun"; render(); });
+document.getElementById("btn-efe").addEventListener("click", () => { currentProject = "efe"; render(); });
+
+loadData().then(render);
+</script>
+</body>
+</html>

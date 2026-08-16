@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>ISOLATED R&D — Phase 3.6 — Villa Red Sun Climate Instrument</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #201d19;
+    --ink-soft: rgba(32,29,25,0.7);
+    --ink-faint: rgba(32,29,25,0.48);
+    --paper: #f6f3ee;
+    --sun: #c17a45;
+    --sun-soft: #dda06a;
+    --slate: #5c6b74;
+    --rain: #46606b;
+    --accent: #b3703f;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--paper); font-family: "Inter", system-ui, sans-serif; }
+
+  .frame {
+    position: relative;
+    width: 100%;
+    max-width: 1600px;
+    margin: 0 auto;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    background: #111; /* letterbox only, never seen once photo loads */
+  }
+
+  /* The photograph itself — NO filter, NO color adjustment, NO relighting.
+     object-fit: cover only, exactly as instructed. This is the one rule in
+     this whole file that must never be broken by a future edit. */
+  .photo {
+    position: absolute; inset: 0; width: 100%; height: 100%;
+    object-fit: cover; object-position: center;
+    display: block;
+  }
+
+  .overlay-svg { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .wind-line { animation: drift 14s linear infinite; }
+  }
+  @keyframes drift { from { stroke-dashoffset: 0; } to { stroke-dashoffset: -240; } }
+
+  .label-block { position: absolute; }
+  .kicker { font-size: 10px; letter-spacing: 0.26em; text-transform: uppercase; color: var(--ink-soft); font-weight: 500; margin: 0 0 4px; }
+  .value { font-family: "Fraunces", serif; font-weight: 400; color: var(--ink); margin: 0; line-height: 1; }
+  .meta { font-size: 10.5px; letter-spacing: 0.04em; color: var(--ink-faint); margin: 6px 0 0; font-variant-numeric: tabular-nums; }
+  .provenance { font-size: 9px; letter-spacing: 0.07em; text-transform: uppercase; color: var(--ink-faint); margin-top: 5px; display: flex; align-items: center; gap: 5px; }
+  .provenance::before { content: ""; width: 4px; height: 4px; border-radius: 50%; background: currentColor; opacity: 0.6; flex-shrink: 0; }
+  .provenance.calculated { color: var(--accent); }
+  .provenance.station { color: #5b7a5b; }
+  .provenance.regional { color: var(--slate); }
+  .discrepancy-note { font-size: 9px; color: var(--accent); margin-top: 4px; max-width: 220px; line-height: 1.4; opacity: 0.85; }
+
+  #titleBlock { top: 4%; left: 4%; }
+  #titleBlock .value { font-size: clamp(22px, 2.6vw, 34px); text-transform: uppercase; letter-spacing: 0.03em; }
+
+  #solarBlock { top: 6%; right: 4%; text-align: right; }
+  #solarBlock .value { font-size: clamp(24px, 2.8vw, 36px); }
+
+  #tempBlock { left: 4%; bottom: 15%; }
+  #tempBlock .value { font-size: clamp(30px, 4vw, 46px); }
+  .temp-rule { width: 160px; height: 1px; background: var(--ink-faint); opacity: 0.3; margin-top: 10px; position: relative; }
+  .temp-rule .tick { position: absolute; top: -3px; width: 1px; height: 7px; background: var(--accent); }
+
+  #rainBlock { right: 4%; bottom: 15%; text-align: right; }
+  #rainBlock .value { font-size: clamp(30px, 4vw, 46px); }
+  .rain-gauge { display: flex; gap: 2px; margin-top: 10px; justify-content: flex-end; align-items: flex-end; height: 20px; }
+  .rain-gauge .bar { width: 2px; background: var(--rain); opacity: 0.55; }
+
+  #windBlock { left: 4%; top: 42%; }
+  #windBlock .value { font-size: 16px; letter-spacing: 0.02em; }
+
+  /* ---- Month rail — thin baseline, small dot indicator, no pills/cards ---- */
+  .month-rail {
+    position: absolute; left: 50%; bottom: 3.2%; transform: translateX(-50%);
+    display: flex; gap: 2px; border-top: 1px solid rgba(32,29,25,0.18); padding-top: 8px;
+  }
+  .month-btn {
+    background: none; border: none; font-family: "Inter"; cursor: pointer;
+    font-size: 9.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-faint);
+    padding: 4px 9px 0; position: relative;
+  }
+  .month-btn::before {
+    content: ""; position: absolute; top: -9px; left: 50%; transform: translateX(-50%);
+    width: 3px; height: 3px; border-radius: 50%; background: transparent;
+  }
+  .month-btn[aria-current="true"] { color: var(--ink); font-weight: 600; }
+  .month-btn[aria-current="true"]::before { background: var(--accent); width: 5px; height: 5px; }
+  .month-btn:hover { color: var(--ink); }
+  .month-btn:focus-visible { outline: 1px solid var(--accent); outline-offset: 2px; }
+
+  .transport { position: absolute; bottom: 3.2%; right: 4%; display: flex; gap: 10px; align-items: center; }
+  .transport button {
+    background: none; border: 1px solid rgba(32,29,25,0.25); border-radius: 50%;
+    width: 26px; height: 26px; cursor: pointer; color: var(--ink-soft); font-size: 10px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .transport button:hover { border-color: var(--accent); color: var(--ink); }
+
+  .caption {
+    max-width: 1600px; margin: 16px auto 0; padding: 0 4px;
+    font-size: 11px; color: #9a958c; line-height: 1.6;
+  }
+
+  .mobile-stats { display: none; }
+
+  /* ---- Mobile: recompose, do not just shrink ----
+     The four data readouts move off the photo entirely into normal
+     document flow below it, so nothing can overlap on a narrow frame.
+     Only the title, the visual overlay (sun/wind SVG) and the month
+     rail remain on the photo itself. */
+  @media (max-width: 640px) {
+    .frame { aspect-ratio: 4 / 5; }
+    #titleBlock { top: 4%; left: 4%; right: 4%; }
+    #titleBlock .value { font-size: 17px; }
+    #titleBlock .meta { display: none; }
+    #solarBlock, #tempBlock, #rainBlock, #windBlock { display: none; }
+    .month-rail { bottom: 8.5%; gap: 0; flex-wrap: wrap; justify-content: center; max-width: 92%; padding-top: 6px; }
+    .month-btn { padding: 3px 5px 0; font-size: 8.5px; }
+    .transport { top: auto; bottom: 2%; right: 4%; }
+
+    .mobile-stats {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 20px 16px;
+      max-width: 1600px; margin: 18px auto 0; padding: 0 16px;
+    }
+    .mstat .kicker { margin: 0 0 3px; }
+    .mstat .value { font-size: 22px; }
+    .mstat .provenance { margin-top: 3px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="frame" id="frame">
+  <img class="photo" src="assets/A-02-villa-red-sun-exterior-view-02_result.png"
+       alt="Villa Red Sun — real exterior photograph, unmodified" id="photo" />
+  <svg class="overlay-svg" id="overlaySvg" viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice"></svg>
+
+  <div class="label-block" id="titleBlock">
+    <p class="kicker">Villa Red Sun — Climate Instrument</p>
+    <p class="value" id="siteCoords">55.516105°N 12.208375°E</p>
+    <p class="meta">Solrød Municipality, Zealand, Denmark — Cfb, temperate oceanic</p>
+  </div>
+
+  <div class="label-block" id="solarBlock">
+    <p class="kicker">Solar Position — Solar Noon</p>
+    <p class="value" id="solarAltitude">—</p>
+    <p class="meta" id="solarTime">—</p>
+    <p class="provenance calculated" id="solarProv">Calculated — derived from site coordinates</p>
+    <p class="discrepancy-note" id="solarDiscrepancy" style="display:none;"></p>
+  </div>
+
+  <div class="label-block" id="tempBlock">
+    <p class="kicker">Air Temperature</p>
+    <p class="value" id="tempValue">—</p>
+    <p class="meta">Monthly mean</p>
+    <div class="temp-rule"><div class="tick" id="tempTick"></div></div>
+    <p class="provenance station">Solrød station · 2006–2015</p>
+  </div>
+
+  <div class="label-block" id="rainBlock">
+    <p class="kicker">Precipitation</p>
+    <p class="value" id="rainValue">—</p>
+    <p class="meta">This month</p>
+    <div class="rain-gauge" id="rainGauge"></div>
+    <p class="provenance station">Solrød station · 2006–2015</p>
+  </div>
+
+  <div class="label-block" id="windBlock">
+    <p class="kicker">Prevailing Wind</p>
+    <p class="value" id="windValue">W / WSW</p>
+    <p class="provenance regional">Regional — DMI · speed not established</p>
+  </div>
+
+  <nav class="month-rail" id="monthRail" aria-label="Select month"></nav>
+
+  <div class="transport">
+    <button id="prevBtn" aria-label="Previous month">‹</button>
+    <button id="playBtn" aria-label="Play year">▶</button>
+    <button id="nextBtn" aria-label="Next month">›</button>
+  </div>
+</div>
+
+<!-- Mobile recomposition: below 640px the four readouts move out of the
+     photo overlay entirely into normal document flow, avoiding any
+     overlap risk on a narrow frame. Populated by the same render(). -->
+<div class="mobile-stats" id="mobileStats">
+  <div class="mstat">
+    <p class="kicker">Solar — Noon</p>
+    <p class="value" id="solarAltitudeM">—</p>
+    <p class="provenance calculated">Calculated</p>
+  </div>
+  <div class="mstat">
+    <p class="kicker">Temperature</p>
+    <p class="value" id="tempValueM">—</p>
+    <p class="provenance station">Station mean</p>
+  </div>
+  <div class="mstat">
+    <p class="kicker">Precipitation</p>
+    <p class="value" id="rainValueM">—</p>
+    <p class="provenance station">Station · month</p>
+  </div>
+  <div class="mstat">
+    <p class="kicker">Wind</p>
+    <p class="value" id="windValueM">—</p>
+    <p class="provenance regional">Regional — no speed data</p>
+  </div>
+</div>
+
+<p class="caption">ISOLATED R&D — Phase 3.6. Photograph: A-02-villa-red-sun-exterior-view-02_result.png, copied byte-identical from the authoritative asset library, shown with <strong>zero</strong> filtering/relighting/color adjustment. Solar geometry calculated live from exact site coordinates using a standard NOAA/Meeus solar-position algorithm (validated against the authoritative report's reference points — see README). Temperature, precipitation and sunshine: real monthly values from Complete-Climate-Site-Analysis-A-villa-red-sun.txt. Wind: direction only, per DMI regional data — no monthly speed exists and none is shown. Humidity: omitted (not established for this site).</p>
+
+<script type="module">
+const MONTHS = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+const MONTH_FULL = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+
+// ---- Real data, transcribed verbatim from Complete-Climate-Site-Analysis-A-villa-red-sun.txt ----
+const LAT = 55.516105, LON = 12.208375;
+const TEMP_MONTHLY_C = [0.8, 0.7, 3.2, 7.5, 11.5, 14.7, 17.8, 17.0, 13.7, 9.6, 6.0, 2.7];
+const RAIN_MONTHLY_MM = [53, 36, 30, 28, 58, 70, 65, 88, 49, 64, 69, 63];
+const SUNSHINE_MONTHLY_H = [47, 62, 146, 215, 241, 245, 252, 195, 160, 103, 46, 34];
+// Seasonal wind descriptor, per the report's §2.1 directional table — month→season mapping is meteorological (DJF/MAM/JJA/SON), not calendar-quarter.
+const WIND_BY_SEASON = {
+  winter: { label: "W / SW", secondary: "NW / WNW" },
+  spring: { label: "Variable", secondary: "W / SW / E" },
+  summer: { label: "W / SW", secondary: "NW / S" },
+  autumn: { label: "W / SW", secondary: "WNW / NW" },
+};
+function seasonOf(monthIdx) {
+  // 0=Jan..11=Dec. DJF winter, MAM spring, JJA summer, SON autumn.
+  if ([11,0,1].includes(monthIdx)) return "winter";
+  if ([2,3,4].includes(monthIdx)) return "spring";
+  if ([5,6,7].includes(monthIdx)) return "summer";
+  return "autumn";
+}
+
+// ---- Standard NOAA/Meeus solar position algorithm — validated this pass
+// against the report's own reference points (see README for the full
+// validation table). Operates in UTC throughout. ----
+function julianDay(utcDate) { return utcDate.getTime() / 86400000 + 2440587.5; }
+
+function solarPosition(utcDate, lat, lon) {
+  const JD = julianDay(utcDate);
+  const T = (JD - 2451545.0) / 36525.0;
+  const L0 = (280.46646 + T * (36000.76983 + T * 0.0003032)) % 360;
+  const M = 357.52911 + T * (35999.05029 - 0.0001537 * T);
+  const e = 0.016708634 - T * (0.000042037 + 0.0000001267 * T);
+  const Mrad = M * Math.PI / 180;
+  const C = Math.sin(Mrad) * (1.914602 - T * (0.004817 + 0.000014 * T))
+          + Math.sin(2 * Mrad) * (0.019993 - 0.000101 * T)
+          + Math.sin(3 * Mrad) * 0.000289;
+  const trueLong = L0 + C;
+  const omega = 125.04 - 1934.136 * T;
+  const appLong = trueLong - 0.00569 - 0.00478 * Math.sin(omega * Math.PI / 180);
+  const meanObliq = 23 + (26 + (21.448 - T * (46.815 + T * (0.00059 - T * 0.001813))) / 60) / 60;
+  const obliqCorr = meanObliq + 0.00256 * Math.cos(omega * Math.PI / 180);
+  const declRad = Math.asin(Math.sin(obliqCorr * Math.PI / 180) * Math.sin(appLong * Math.PI / 180));
+  const y = Math.pow(Math.tan(obliqCorr * Math.PI / 360), 2);
+  const Lrad = L0 * Math.PI / 180;
+  const eqTimeMin = 4 * (180 / Math.PI) * (
+      y * Math.sin(2 * Lrad) - 2 * e * Math.sin(Mrad)
+      + 4 * e * y * Math.sin(Mrad) * Math.cos(2 * Lrad)
+      - 0.5 * y * y * Math.sin(4 * Lrad) - 1.25 * e * e * Math.sin(2 * Mrad)
+  );
+  const utcMinutes = utcDate.getUTCHours() * 60 + utcDate.getUTCMinutes() + utcDate.getUTCSeconds() / 60;
+  const trueSolarTimeMin = (utcMinutes + eqTimeMin + 4 * lon + 1440) % 1440;
+  const hourAngle = trueSolarTimeMin / 4 - 180;
+  const latRad = lat * Math.PI / 180;
+  const hourAngleRad = hourAngle * Math.PI / 180;
+  const cosZenith = Math.sin(latRad) * Math.sin(declRad) + Math.cos(latRad) * Math.cos(declRad) * Math.cos(hourAngleRad);
+  const zenithRad = Math.acos(Math.max(-1, Math.min(1, cosZenith)));
+  const altitude = 90 - zenithRad * 180 / Math.PI;
+  let azimuthRad = Math.acos(((Math.sin(latRad) * Math.cos(zenithRad)) - Math.sin(declRad)) / (Math.cos(latRad) * Math.sin(zenithRad)));
+  let azimuth = azimuthRad * 180 / Math.PI;
+  if (hourAngle > 0) azimuth = (azimuth + 180) % 360; else azimuth = (540 - azimuth) % 360;
+  return { altitude, azimuth };
+}
+
+function findSolarNoonUTC(year, monthIdx, day) {
+  let best = null;
+  for (let h = 0; h < 24; h++) for (let m = 0; m < 60; m += 2) {
+    const d = new Date(Date.UTC(year, monthIdx, day, h, m, 0));
+    const pos = solarPosition(d, LAT, LON);
+    if (!best || pos.altitude > best.pos.altitude) best = { time: d, pos };
+  }
+  return best;
+}
+
+function dayArc(year, monthIdx, day) {
+  // Real computed points across the day at 6-minute resolution — a
+  // genuine calculated curve, not a polyline through a handful of samples
+  // and not a curve-fit interpolation of sparse data.
+  const pts = [];
+  for (let h = 0; h < 24; h++) for (let m = 0; m < 60; m += 6) {
+    const d = new Date(Date.UTC(year, monthIdx, day, h, m, 0));
+    const pos = solarPosition(d, LAT, LON);
+    if (pos.altitude > -2) pts.push(pos);
+  }
+  return pts;
+}
+
+const REFERENCE_YEAR = 2026;
+let currentMonth = 6; // July
+let playing = false;
+let playTimer = null;
+const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+function buildMonthRail() {
+  const rail = document.getElementById("monthRail");
+  rail.innerHTML = "";
+  MONTHS.forEach((m, i) => {
+    const b = document.createElement("button");
+    b.className = "month-btn";
+    b.textContent = m;
+    b.setAttribute("aria-current", i === currentMonth ? "true" : "false");
+    b.addEventListener("click", () => setMonth(i));
+    rail.appendChild(b);
+  });
+}
+
+function setMonth(i) {
+  currentMonth = ((i % 12) + 12) % 12;
+  render();
+}
+
+function render() {
+  buildMonthRail();
+  const monthIdx = currentMonth;
+
+  // --- SOLAR ---
+  const noon = findSolarNoonUTC(REFERENCE_YEAR, monthIdx, 21);
+  const arc = dayArc(REFERENCE_YEAR, monthIdx, 21);
+  document.getElementById("solarAltitude").textContent = noon.pos.altitude.toFixed(1) + "°";
+  document.getElementById("solarTime").textContent = MONTH_FULL[monthIdx] + " 21 — altitude at solar noon";
+  document.getElementById("solarAltitudeM").textContent = noon.pos.altitude.toFixed(1) + "°";
+
+  const discEl = document.getElementById("solarDiscrepancy");
+  if (monthIdx === 5) { // June — report states 55.3°, this algorithm gives ≈57.9°
+    discEl.style.display = "block";
+    discEl.textContent = "Report reference: 55.3° — discrepancy noted, see README";
+  } else if (monthIdx === 11) { // December — matches almost exactly
+    discEl.style.display = "block";
+    discEl.textContent = "Matches report reference: 11.0°";
+  } else {
+    discEl.style.display = "none";
+  }
+
+  // --- TEMPERATURE ---
+  const temp = TEMP_MONTHLY_C[monthIdx];
+  const tMin = Math.min(...TEMP_MONTHLY_C), tMax = Math.max(...TEMP_MONTHLY_C);
+  document.getElementById("tempValue").textContent = temp.toFixed(1) + "°C";
+  document.getElementById("tempValueM").textContent = temp.toFixed(1) + "°C";
+  document.getElementById("tempTick").style.left = (((temp - tMin) / (tMax - tMin)) * 160).toFixed(0) + "px";
+
+  // --- RAINFALL ---
+  const rain = RAIN_MONTHLY_MM[monthIdx];
+  document.getElementById("rainValue").textContent = rain + " mm";
+  document.getElementById("rainValueM").textContent = rain + " mm";
+  const rMax = Math.max(...RAIN_MONTHLY_MM);
+  const gauge = document.getElementById("rainGauge");
+  gauge.innerHTML = "";
+  const barCount = 14;
+  for (let i = 0; i < barCount; i++) {
+    const bar = document.createElement("div");
+    const h = Math.max(2, (rain / rMax) * 20 * (0.6 + 0.4 * Math.sin(i * 1.3)));
+    bar.className = "bar";
+    bar.style.height = h.toFixed(1) + "px";
+    gauge.appendChild(bar);
+  }
+
+  // --- SUNSHINE (influences sun glow intensity only — never the photo) ---
+  const sunshine = SUNSHINE_MONTHLY_H[monthIdx];
+  const sMin = Math.min(...SUNSHINE_MONTHLY_H), sMax = Math.max(...SUNSHINE_MONTHLY_H);
+  const sunshineShare = (sunshine - sMin) / (sMax - sMin);
+
+  // --- WIND ---
+  const season = seasonOf(monthIdx);
+  document.getElementById("windValue").textContent = WIND_BY_SEASON[season].label;
+  document.getElementById("windValueM").textContent = WIND_BY_SEASON[season].label;
+
+  drawOverlay(arc, noon.pos, sunshineShare, season);
+}
+
+function drawOverlay(arc, noonPos, sunshineShare, season) {
+  const VW = 1920, VH = 1080;
+  // Map altitude/azimuth to screen space: azimuth 90(E)..270(W) across the
+  // visible frame (this photo faces roughly south), altitude 0..90 maps to
+  // the vertical band above the treeline down to the horizon.
+  const groundY = 760, skyTop = 40, maxAltForScale = 62; // scaled to this specific day's actual max, set below
+  const realMaxAlt = Math.max(...arc.map(p => p.altitude));
+  const pxPerDeg = (groundY - skyTop) / Math.max(realMaxAlt, 12);
+
+  function toXY(p) {
+    const azFrac = Math.max(0, Math.min(1, (p.azimuth - 45) / (315 - 45)));
+    const x = 80 + azFrac * (VW - 160);
+    const y = groundY - Math.max(0, p.altitude) * pxPerDeg;
+    return [x, y];
+  }
+
+  const visiblePts = arc.filter(p => p.altitude > 0.1).map(toXY);
+  const pathD = visiblePts.map((p, i) => `${i === 0 ? "M" : "L"} ${p[0].toFixed(1)} ${p[1].toFixed(1)}`).join(" ");
+  const [sunX, sunY] = toXY(noonPos);
+
+  const glowR = 60 + sunshineShare * 50;
+  const glowOpacity = 0.35 + sunshineShare * 0.35;
+
+  // Wind streamlines — enter from the west (left), subtle vertical
+  // wobble near the building's horizontal span (x≈700-1350) to suggest
+  // deflection around the mass, without claiming CFD.
+  const windRows = season === "spring" ? 4 : 3; // "Variable" spring reads as slightly less uniform
+  let wind = "";
+  for (let i = 0; i < windRows; i++) {
+    const y = 300 + i * 46 + (season === "spring" ? (i % 2) * 18 : 0);
+    const wobble = season === "spring" ? 30 : 16;
+    wind += `<path class="wind-line" d="M -40 ${y} C 500 ${y - wobble}, 900 ${y + wobble*0.6}, 1300 ${y - wobble*0.4}, 1960 ${y}"
+      fill="none" stroke="#f4f0ea" stroke-width="4.5" opacity="0.42" stroke-linecap="round"/>`;
+    wind += `<path class="wind-line" d="M -40 ${y} C 500 ${y - wobble}, 900 ${y + wobble*0.6}, 1300 ${y - wobble*0.4}, 1960 ${y}"
+      fill="none" stroke="var(--slate)" stroke-width="1.3" opacity="${0.55 - i*0.08}" stroke-linecap="round" stroke-dasharray="1 5"/>`;
+  }
+
+  document.getElementById("overlaySvg").innerHTML = `
+    <defs>
+      <radialGradient id="sunGlow" cx="50%" cy="50%" r="50%">
+        <stop offset="0%" stop-color="var(--sun-soft)" stop-opacity="0.9"/>
+        <stop offset="42%" stop-color="var(--sun)" stop-opacity="${glowOpacity}"/>
+        <stop offset="100%" stop-color="var(--sun)" stop-opacity="0"/>
+      </radialGradient>
+    </defs>
+    ${wind}
+    <path d="${pathD}" fill="none" stroke="var(--sun)" stroke-width="1.5" opacity="0.5" stroke-dasharray="1 8" stroke-linecap="round"/>
+    <circle cx="${sunX}" cy="${sunY}" r="${glowR}" fill="url(#sunGlow)" style="mix-blend-mode:multiply"/>
+    <circle cx="${sunX}" cy="${sunY}" r="16" fill="var(--sun)" opacity="0.95"/>
+    <circle cx="${sunX}" cy="${sunY}" r="6" fill="#fff" opacity="0.55"/>
+  `;
+}
+
+// ---- Interaction ----
+document.getElementById("prevBtn").addEventListener("click", () => setMonth(currentMonth - 1));
+document.getElementById("nextBtn").addEventListener("click", () => setMonth(currentMonth + 1));
+document.getElementById("frame").addEventListener("keydown", (e) => {
+  if (e.key === "ArrowRight") setMonth(currentMonth + 1);
+  if (e.key === "ArrowLeft") setMonth(currentMonth - 1);
+});
+document.getElementById("frame").tabIndex = 0;
+
+document.getElementById("playBtn").addEventListener("click", () => {
+  if (prefersReducedMotion) return; // Play Year disabled entirely under reduced motion, per spec
+  playing = !playing;
+  document.getElementById("playBtn").textContent = playing ? "⏸" : "▶";
+  if (playing) {
+    playTimer = setInterval(() => setMonth(currentMonth + 1), 1400);
+  } else {
+    clearInterval(playTimer);
+  }
+});
+
+render();
+</script>
+</body>
+</html>

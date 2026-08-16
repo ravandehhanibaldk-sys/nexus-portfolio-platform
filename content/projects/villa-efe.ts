@@ -39,6 +39,48 @@ const villaEfe: ProjectInput = {
   differentiator:
     "The platform's only ground-up new-construction project — a large-scale luxury coastal villa on a steep waterfront site with a full below-grade basement and engineered soil retention, organized as a four-level privacy hierarchy — as opposed to Villa Red Sun's budget-driven renovation of two existing buildings.",
 
+  /**
+   * Climate Interface — ported verbatim from an externally built, user-approved
+   * standalone HTML/CSS/JS deliverable (villa-efe-climate-interface/). Source
+   * data: Complete-Climate-Site-Analysis-B-villa-efe.txt (Kyrenia/Girne regional
+   * climatology for temperature/rainfall/wind; humidity from a separate Athalassa
+   * regional reference, 2012–2021 — explicitly not exact-site, labeled
+   * accordingly). Solar altitude/time is real only at JUN/DEC (the report's own
+   * calculated solstice values); every other month is the approved deliverable's
+   * own two-point interpolation, baked in here rather than re-derived at render
+   * time. Wind speed is held at the single official annual mean (3.0 m/s) for
+   * every month per the report's own explicit warning against treating any
+   * third-party monthly wind breakdown as reliable — only direction varies
+   * (winter vs. the rest of the year).
+   */
+  climateInstrument: {
+    eyebrow: "B / 03 — SITE CLIMATE INSTRUMENT",
+    title: "VILLA EFE",
+    locationLabel: "GIRNE / KYRENIA",
+    accentColor: "#e0ae58",
+    heroObjectPosition: "39% 27%",
+    images: {
+      winter: "winter.png",
+      spring: "spring.png",
+      summer: "summer.png",
+      autumn: "autumn.png",
+    },
+    months: [
+      { month: "JAN", season: "winter", temperature: { value: 54.5, unit: "F", source: "regional-climatology" }, rainfall: { value: 117, unit: "mm", source: "regional-climatology" }, wind: { directionLabel: "W / NW → E / SE", speedLabel: "3.0 M/S" }, humidity: { value: 69, unit: "%", source: "regional-reference-athalassa" }, solar: { altitudeDeg: 31.2, time: "11:45", source: "derived" } },
+      { month: "FEB", season: "winter", temperature: { value: 55.4, unit: "F", source: "regional-climatology" }, rainfall: { value: 79, unit: "mm", source: "regional-climatology" }, wind: { directionLabel: "W / NW → E / SE", speedLabel: "3.0 M/S" }, humidity: { value: 64, unit: "%", source: "regional-reference-athalassa" }, solar: { altitudeDeg: 40.6, time: "11:58", source: "derived" } },
+      { month: "MAR", season: "spring", temperature: { value: 58.1, unit: "F", source: "regional-climatology" }, rainfall: { value: 60, unit: "mm", source: "regional-climatology" }, wind: { directionLabel: "W → E", speedLabel: "3.0 M/S" }, humidity: { value: 55, unit: "%", source: "regional-reference-athalassa" }, solar: { altitudeDeg: 50.0, time: "12:10", source: "derived" } },
+      { month: "APR", season: "spring", temperature: { value: 62.6, unit: "F", source: "regional-climatology" }, rainfall: { value: 20, unit: "mm", source: "regional-climatology" }, wind: { directionLabel: "W → E", speedLabel: "3.0 M/S" }, humidity: { value: 47, unit: "%", source: "regional-reference-athalassa" }, solar: { altitudeDeg: 59.3, time: "12:23", source: "derived" } },
+      { month: "MAY", season: "spring", temperature: { value: 69.8, unit: "F", source: "regional-climatology" }, rainfall: { value: 13, unit: "mm", source: "regional-climatology" }, wind: { directionLabel: "W → E", speedLabel: "3.0 M/S" }, humidity: { value: 42, unit: "%", source: "regional-reference-athalassa" }, solar: { altitudeDeg: 68.7, time: "12:35", source: "derived" } },
+      { month: "JUN", season: "summer", temperature: { value: 77.0, unit: "F", source: "regional-climatology" }, rainfall: { value: 2, unit: "mm", source: "regional-climatology" }, wind: { directionLabel: "W → E", speedLabel: "3.0 M/S" }, humidity: { value: 41, unit: "%", source: "regional-reference-athalassa" }, solar: { altitudeDeg: 78.1, time: "12:48", source: "solar-calculation-table" } },
+      { month: "JUL", season: "summer", temperature: { value: 81.5, unit: "F", source: "regional-climatology" }, rainfall: { value: 0, unit: "mm", source: "regional-climatology" }, wind: { directionLabel: "W → E", speedLabel: "3.0 M/S" }, humidity: { value: 37, unit: "%", source: "regional-reference-athalassa" }, solar: { altitudeDeg: 78.1, time: "12:48", source: "derived" } },
+      { month: "AUG", season: "summer", temperature: { value: 82.4, unit: "F", source: "regional-climatology" }, rainfall: { value: 0, unit: "mm", source: "regional-climatology" }, wind: { directionLabel: "W → E", speedLabel: "3.0 M/S" }, humidity: { value: 39, unit: "%", source: "regional-reference-athalassa" }, solar: { altitudeDeg: 68.7, time: "12:35", source: "derived" } },
+      { month: "SEP", season: "autumn", temperature: { value: 78.8, unit: "F", source: "regional-climatology" }, rainfall: { value: 5, unit: "mm", source: "regional-climatology" }, wind: { directionLabel: "W → E", speedLabel: "3.0 M/S" }, humidity: { value: 42, unit: "%", source: "regional-reference-athalassa" }, solar: { altitudeDeg: 59.3, time: "12:23", source: "derived" } },
+      { month: "OCT", season: "autumn", temperature: { value: 71.6, unit: "F", source: "regional-climatology" }, rainfall: { value: 37, unit: "mm", source: "regional-climatology" }, wind: { directionLabel: "W → E", speedLabel: "3.0 M/S" }, humidity: { value: 46, unit: "%", source: "regional-reference-athalassa" }, solar: { altitudeDeg: 50.0, time: "12:10", source: "derived" } },
+      { month: "NOV", season: "autumn", temperature: { value: 65.3, unit: "F", source: "regional-climatology" }, rainfall: { value: 68, unit: "mm", source: "regional-climatology" }, wind: { directionLabel: "W → E", speedLabel: "3.0 M/S" }, humidity: { value: 54, unit: "%", source: "regional-reference-athalassa" }, solar: { altitudeDeg: 40.6, time: "11:58", source: "derived" } },
+      { month: "DEC", season: "winter", temperature: { value: 58.1, unit: "F", source: "regional-climatology" }, rainfall: { value: 133, unit: "mm", source: "regional-climatology" }, wind: { directionLabel: "W / NW → E / SE", speedLabel: "3.0 M/S" }, humidity: { value: 66, unit: "%", source: "regional-reference-athalassa" }, solar: { altitudeDeg: 31.2, time: "11:45", source: "solar-calculation-table" } },
+    ],
+  },
+
   beats: {
     clientChallenge: {
       question: "What did the client need, and why did it require starting from scratch?",
@@ -50,31 +92,25 @@ const villaEfe: ProjectInput = {
       text: "The site is a rare waterfront plot directly at sea level with uninterrupted panoramic Mediterranean views, on land with a very steep natural slope that creates multiple access levels. Standing inside the villa facing the sea means facing true north; the opposite side of the site opens onto mountain and forest views. The same site also brought real constraints: extreme proximity to the sea, a high groundwater level, and significant level differences across the plot.",
       assets: [
         {
-          src: "Location - Plan - Final_result.png",
+          src: "B-47-site-spotting-villa-efe_result.png",
           alt: "Location plan showing the villa's position on its waterfront site.",
           category: "site-analysis",
           caption: "Location plan — waterfront site.",
         },
         {
-          src: "Location - Plan - Final - Guide_result.png",
-          alt: "Annotated location plan guide.",
-          category: "site-analysis",
-          caption: "Location plan, annotated.",
-        },
-        {
-          src: "5-Plan-Top-Site_result.png",
+          src: "B-15-plan-top-site-villa-efe_result.png",
           alt: "Site plan, top view.",
           category: "site-analysis",
           caption: "Site plan — top view.",
         },
         {
-          src: "5-Plan-Top-Site-AirFlow_result.png",
+          src: "B-34-airflow-plan-top-site-villa-efe_result.png",
           alt: "Site airflow diagram.",
           category: "airflow-diagram",
           caption: "Airflow diagram — site.",
         },
         {
-          src: "PrivacyGradient-5-Plan-Top-Site_result.png",
+          src: "B-43-privacy-gradient-plan-top-site-villa-efe_result.png",
           alt: "Site privacy gradient diagram.",
           category: "privacy-diagram",
           caption: "Privacy gradient diagram — site.",
@@ -84,12 +120,6 @@ const villaEfe: ProjectInput = {
           alt: "Solar path diagram for the Villa Efe site, showing sun-angle geometry across the year.",
           category: "solar-path-diagram",
           caption: "Solar path analysis — site coordinates.",
-        },
-        {
-          src: "B-24-illustration-section-plan-top-site-villa-efe_result.png",
-          alt: "Illustrated site plan with section cut-lines.",
-          category: "plan",
-          caption: "Site plan with section cut-lines.",
         },
       ],
     },
@@ -114,11 +144,10 @@ const villaEfe: ProjectInput = {
           tier: "Service, entertainment & staff accommodation",
           isFinal: false,
           assets: [
-            { src: "1-Plan-Top-BS_result.png", alt: "Basement floor plan.", category: "plan", caption: "Floor plan — Basement." },
-            { src: "1-Plan-Top-BS-AirFlow_result.png", alt: "Basement airflow diagram.", category: "airflow-diagram", caption: "Airflow diagram — Basement." },
-            { src: "Circulation-1-Plan-Top-BS_result.png", alt: "Basement circulation diagram.", category: "circulation-diagram", caption: "Circulation diagram — Basement." },
-            { src: "PrivacyGradient-1-Plan-Top-BS_result.png", alt: "Basement privacy gradient diagram.", category: "privacy-diagram", caption: "Privacy gradient diagram — Basement." },
-            { src: "B-20-illustration-section-plan-top-bs-villa-efe_result.png", alt: "Illustrated Basement plan with section cut-lines.", category: "plan", caption: "Basement plan with section cut-lines." },
+            { src: "B-11-plan-top-bs-villa-efe_result.png", alt: "Basement floor plan.", category: "plan", caption: "Floor plan — Basement." },
+            { src: "B-30-airflow-plan-top-bs-villa-efe_result.png", alt: "Basement airflow diagram.", category: "airflow-diagram", caption: "Airflow diagram — Basement." },
+            { src: "B-35-circulation-plan-top-bs-villa-efe_result.png", alt: "Basement circulation diagram.", category: "circulation-diagram", caption: "Circulation diagram — Basement." },
+            { src: "B-39-privacy-gradient-plan-top-bs-villa-efe_result.png", alt: "Basement privacy gradient diagram.", category: "privacy-diagram", caption: "Privacy gradient diagram — Basement." },
           ],
         },
         {
@@ -127,10 +156,9 @@ const villaEfe: ProjectInput = {
           tier: "Public family & social spaces",
           isFinal: false,
           assets: [
-            { src: "2-Plan-Top-GF_result.png", alt: "Ground floor plan.", category: "plan", caption: "Floor plan — Ground Floor." },
-            { src: "2-Plan-Top-GF-AirFlow_result.png", alt: "Ground floor airflow diagram.", category: "airflow-diagram", caption: "Airflow diagram — Ground Floor." },
-            { src: "PrivacyGradient-2-Plan-Top-GF_result.png", alt: "Ground floor privacy gradient diagram.", category: "privacy-diagram", caption: "Privacy gradient diagram — Ground Floor." },
-            { src: "B-21-illustration-section-plan-top-gf-villa-efe_result.png", alt: "Illustrated Ground Floor plan with section cut-lines.", category: "plan", caption: "Ground Floor plan with section cut-lines." },
+            { src: "B-12-plan-top-gf-villa-efe_result.png", alt: "Ground floor plan.", category: "plan", caption: "Floor plan — Ground Floor." },
+            { src: "B-31-airflow-plan-top-gf-villa-efe_result.png", alt: "Ground floor airflow diagram.", category: "airflow-diagram", caption: "Airflow diagram — Ground Floor." },
+            { src: "B-40-privacy-gradient-plan-top-gf-villa-efe_result.png", alt: "Ground floor privacy gradient diagram.", category: "privacy-diagram", caption: "Privacy gradient diagram — Ground Floor." },
           ],
         },
         {
@@ -139,11 +167,10 @@ const villaEfe: ProjectInput = {
           tier: "Private bedrooms",
           isFinal: false,
           assets: [
-            { src: "3-Plan-Top-F1_result.png", alt: "First floor plan.", category: "plan", caption: "Floor plan — First Floor." },
-            { src: "3-Plan-Top-F1-AirFlow_result.png", alt: "First floor airflow diagram.", category: "airflow-diagram", caption: "Airflow diagram — First Floor." },
-            { src: "Circulation-3-Plan-Top-F1_result.png", alt: "First floor circulation diagram.", category: "circulation-diagram", caption: "Circulation diagram — First Floor." },
-            { src: "PrivacyGradient-3-Plan-Top-F1_result.png", alt: "First floor privacy gradient diagram.", category: "privacy-diagram", caption: "Privacy gradient diagram — First Floor." },
-            { src: "B-22-illustration-section-plan-top-f1-villa-efe_result.png", alt: "Illustrated First Floor plan with section cut-lines.", category: "plan", caption: "First Floor plan with section cut-lines." },
+            { src: "B-13-plan-top-f1-villa-efe_result.png", alt: "First floor plan.", category: "plan", caption: "Floor plan — First Floor." },
+            { src: "B-32-airflow-plan-top-f1-villa-efe_result.png", alt: "First floor airflow diagram.", category: "airflow-diagram", caption: "Airflow diagram — First Floor." },
+            { src: "B-37-circulation-plan-top-f1-villa-efe_result.png", alt: "First floor circulation diagram.", category: "circulation-diagram", caption: "Circulation diagram — First Floor." },
+            { src: "B-41-privacy-gradient-plan-top-f1-villa-efe_result.png", alt: "First floor privacy gradient diagram.", category: "privacy-diagram", caption: "Privacy gradient diagram — First Floor." },
           ],
         },
         {
@@ -152,11 +179,10 @@ const villaEfe: ProjectInput = {
           tier: "Leisure & panoramic outdoor living",
           isFinal: false,
           assets: [
-            { src: "4-Plan-Top-GRoof_result.png", alt: "Roof terrace plan.", category: "plan", caption: "Floor plan — Roof Terrace." },
-            { src: "4-Plan-Top-GRoof-AirFlow_result.png", alt: "Roof terrace airflow diagram.", category: "airflow-diagram", caption: "Airflow diagram — Roof Terrace." },
+            { src: "B-14-plan-top-groof-villa-efe_result.png", alt: "Roof terrace plan.", category: "plan", caption: "Floor plan — Roof Terrace." },
+            { src: "B-33-airflow-plan-top-groof-villa-efe_result.png", alt: "Roof terrace airflow diagram.", category: "airflow-diagram", caption: "Airflow diagram — Roof Terrace." },
             { src: "B-38-circulation-plan-top-groof-villa-efe_result.png", alt: "Roof terrace circulation diagram.", category: "circulation-diagram", caption: "Circulation diagram — Roof Terrace." },
-            { src: "PrivacyGradient-4-Plan-Top-GRoof_result.png", alt: "Roof terrace privacy gradient diagram.", category: "privacy-diagram", caption: "Privacy gradient diagram — Roof Terrace." },
-            { src: "B-23-illustration-section-plan-top-groof-villa-efe_result.png", alt: "Illustrated Roof Terrace plan with section cut-lines.", category: "plan", caption: "Roof Terrace plan with section cut-lines." },
+            { src: "B-42-privacy-gradient-plan-top-groof-villa-efe_result.png", alt: "Roof terrace privacy gradient diagram.", category: "privacy-diagram", caption: "Privacy gradient diagram — Roof Terrace." },
           ],
         },
       ],
@@ -169,18 +195,28 @@ const villaEfe: ProjectInput = {
     finalArchitecture: {
       question: "What was actually built — inside and out?",
       text: "The completed villa, shown through its exterior presence on the coastline and its finished interior spaces — including the poolside terrace, dining room, living room, and master suite — carrying through the same sequence of interconnected, view-framed living environments described in the design strategy.",
+      sectionLocator: {
+        levels: [
+          { id: "bs", label: "Basement", plan: { src: "B-20-illustration-section-plan-top-bs-villa-efe_result.png", alt: "Illustrated Basement plan with section cut-lines.", category: "plan", caption: "Basement plan with section cut-lines." } },
+          { id: "gf", label: "Ground Floor", plan: { src: "B-21-illustration-section-plan-top-gf-villa-efe_result.png", alt: "Illustrated Ground Floor plan with section cut-lines.", category: "plan", caption: "Ground Floor plan with section cut-lines." } },
+          { id: "f1", label: "First Floor", plan: { src: "B-22-illustration-section-plan-top-f1-villa-efe_result.png", alt: "Illustrated First Floor plan with section cut-lines.", category: "plan", caption: "First Floor plan with section cut-lines." } },
+          { id: "roof", label: "Roof Terrace", plan: { src: "B-23-illustration-section-plan-top-groof-villa-efe_result.png", alt: "Illustrated Roof Terrace plan with section cut-lines.", category: "plan", caption: "Roof Terrace plan with section cut-lines." } },
+          { id: "site", label: "Site", plan: { src: "B-24-illustration-section-plan-top-site-villa-efe_result.png", alt: "Illustrated site plan with section cut-lines.", category: "plan", caption: "Site plan with section cut-lines." } },
+        ],
+        sectionA: { src: "B-18-illustration-section-a-a-villa-efe_result.png", alt: "Illustrated building section A-A.", category: "section", caption: "Section A-A — illustrated." },
+        sectionB: { src: "B-19-illustration-section-b-b-villa-efe_result.png", alt: "Illustrated building section B-B.", category: "section", caption: "Section B-B — illustrated." },
+      },
       assets: [
-        { src: "B-18-illustration-section-a-a-villa-efe_result.png", alt: "Illustrated building section A-A.", category: "section", caption: "Section A-A — illustrated." },
-        { src: "B-19-illustration-section-b-b-villa-efe_result.png", alt: "Illustrated building section B-B.", category: "section", caption: "Section B-B — illustrated." },
-        { src: "B-01-villa-efe-exterior-view-01_result.png", alt: "Exterior view 01, final design.", category: "exterior" },
-        { src: "B-02-villa-efe-exterior-view-02_result.png", alt: "Exterior view 02, final design.", category: "exterior" },
-        { src: "B-03-villa-efe-exterior-view-03_result.png", alt: "Exterior view 03, final design.", category: "exterior" },
-        { src: "B-04-villa-efe-exterior-view-04_result.png", alt: "Exterior view 04, final design.", category: "exterior" },
-        { src: "B-05-villa-efe-interior-poolside_result.png", alt: "Poolside interior, final design.", category: "interior" },
-        { src: "B-06-villa-efe--interior-dining-room_result.png", alt: "Dining room interior, final design.", category: "interior" },
-        { src: "B-07-villa-efe--interior-living-room_result.png", alt: "Living room interior, final design.", category: "interior" },
-        { src: "B-08-villa-efe--interior-master-bedroom_result.png", alt: "Master bedroom interior, final design.", category: "interior" },
-        { src: "B-09-villa-efe--interior-master-bedroom-bathroom_result.png", alt: "Master bedroom bathroom interior, final design.", category: "interior" },
+        { src: "B-01-villa-efe-exterior-view-01_result.png", alt: "Exterior view 01, final design.", category: "exterior", caption: "Exterior — View 01" },
+        { src: "B-02-villa-efe-exterior-view-02_result.png", alt: "Exterior view 02, final design.", category: "exterior", caption: "Exterior — View 02" },
+        { src: "B-03-villa-efe-exterior-view-03_result.png", alt: "Exterior view 03, final design.", category: "exterior", caption: "Exterior — View 03" },
+        { src: "B-04-villa-efe-exterior-view-04_result.png", alt: "Exterior view 04, final design.", category: "exterior", caption: "Exterior — View 04" },
+        { src: "B-05-villa-efe-interior-pool-side_result.png", alt: "Poolside interior, final design.", category: "interior", caption: "Interior — Poolside" },
+        { src: "B-06-villa-efe-interior-dining-room_result.png", alt: "Dining room interior, final design.", category: "interior", caption: "Interior — Dining Room" },
+        { src: "B-07-villa-efe-interior-living-room_result.png", alt: "Living room interior, final design.", category: "interior", caption: "Interior — Living Room" },
+        { src: "B-08-villa-efe-interior-kitchen_result.png", alt: "Kitchen interior, final design.", category: "interior", caption: "Interior — Kitchen" },
+        { src: "B-09-villa-efe-interior-master-bedroom_result.png", alt: "Master bedroom interior, final design.", category: "interior", caption: "Interior — Master Bedroom" },
+        { src: "B-10-villa-efe-interior-master-bedroom-bathroom_result.png", alt: "Master bedroom bathroom interior, final design.", category: "interior", caption: "Interior — Master Bathroom" },
       ],
     },
     reflection: {

@@ -21,6 +21,18 @@
   --color-ink-dark: #f4f2ee;
 
   /*
+    Environmental accent set (Phase 3C) — semantic, not decorative.
+    Used exclusively by the Environmental Response module to encode
+    meaning (sun/light, shadow, air) — never applied as generic UI color.
+  */
+  --color-env-sun: #b3703f; /* warm copper/terracotta — sun, light */
+  --color-env-shadow: #7c8892; /* desaturated blue-grey — cast shadow */
+  --color-env-wind: #5c7a8a; /* muted Nordic blue — air, wind context */
+  --color-env-stone: #ede7db; /* soft limestone/sand — ground plane */
+  --color-env-timber: #a98868; /* muted natural timber — architecture */
+  --color-env-sage: #8a9482; /* desaturated landscape green — context/planting */
+
+  /*
     Spacing (Section 15) — 8pt scale.
     Tailwind v4's default spacing scale (base unit 0.25rem) already lands
     exactly on our required steps, so it is intentionally NOT overridden here
@@ -83,4 +95,33 @@ body {
 ::selection {
   background: var(--color-accent);
   color: var(--color-paper);
+}
+
+/* Phase 3C — slow, quiet drifting stroke for the Wind Context flow lines. */
+@keyframes wind-flow-drift {
+  from {
+    stroke-dashoffset: 0;
+  }
+  to {
+    stroke-dashoffset: -220;
+  }
+}
+
+.wind-flow-line {
+  animation: wind-flow-drift 6s linear infinite;
+}
+
+/* Phase 3C — native CSS transitions for the solar scene's SVG geometry
+   (cx/cy/rx/opacity). Framer Motion's `animate` prop does not reliably
+   drive raw circle/ellipse geometry attributes; browsers animate these
+   presentation attributes natively via CSS transitions instead. */
+.env-motion {
+  transition-property: cx, cy, rx, x, width, opacity;
+  transition-duration: 0.7s;
+  transition-timing-function: var(--ease-editorial);
+}
+
+.env-motion-instant {
+  transition-duration: 0.05s;
+  transition-timing-function: linear;
 }

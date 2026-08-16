@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>ISOLATED R&D — Phase 3.5 — Climate Interface (high-fidelity)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1c1a17;
+    --ink-soft: rgba(28,26,23,0.72);
+    --ink-faint: rgba(28,26,23,0.5);
+    --paper: #f6f3ee;
+    --sun: #c17a45;
+    --sun-soft: #d99a63;
+    --slate: #5c6b74;
+    --slate-soft: rgba(92,107,116,0.55);
+    --rain: #46606b;
+    --accent: #b3703f;
+    --hairline: rgba(28,26,23,0.16);
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--paper); }
+  body { font-family: "Inter", system-ui, sans-serif; }
+
+  .stage {
+    position: relative;
+    width: 100%;
+    max-width: 1400px;
+    aspect-ratio: 16 / 10;
+    margin: 0 auto;
+    overflow: hidden;
+    background: var(--paper);
+  }
+
+  .bg-photo {
+    position: absolute; inset: 0; width: 100%; height: 100%;
+    object-fit: cover;
+    filter: grayscale(28%) brightness(1.16) contrast(0.88) saturate(0.75) sepia(0.05);
+    transition: filter 0.6s ease;
+  }
+  /* Pale atmospheric scrim — heavier at the edges (where text/data sit),
+     lighter through the center so the building itself stays legible.
+     This is the single biggest lever for reaching the reference's pale,
+     "climate instrument" register regardless of the source photo's own
+     native lighting mood. */
+  .scrim {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 70% 60% at 50% 48%, rgba(246,243,238,0.08) 0%, rgba(246,243,238,0.42) 62%, rgba(246,243,238,0.72) 100%),
+      linear-gradient(to bottom, rgba(246,243,238,0.55) 0%, rgba(246,243,238,0.08) 22%, rgba(246,243,238,0.08) 66%, rgba(246,243,238,0.6) 100%);
+    pointer-events: none;
+  }
+
+  .overlay-svg { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+
+  /* ---- Title block ---- */
+  .title-block { position: absolute; top: 5.5%; left: 5%; }
+  .project-name { font-family: "Fraunces", serif; font-weight: 400; font-size: clamp(28px, 3.4vw, 46px);
+    letter-spacing: 0.04em; color: var(--ink); margin: 0; text-transform: uppercase; line-height: 1; }
+  .project-sub { font-size: 11px; letter-spacing: 0.32em; text-transform: uppercase; color: var(--ink-soft);
+    margin: 10px 0 18px; font-weight: 500; }
+  .site-line { font-size: 11px; letter-spacing: 0.06em; color: var(--ink-faint); margin: 3px 0; font-variant-numeric: tabular-nums; }
+
+  /* ---- Provenance micro-label (dot + text, no box — carried over from
+     the previous fix, refined further here) ---- */
+  .prov { display: inline-flex; align-items: center; gap: 5px; font-size: 9.5px; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--ink-faint); margin-top: 2px; }
+  .prov::before { content: ""; width: 4px; height: 4px; border-radius: 50%; background: currentColor; opacity: 0.65; }
+  .prov.real { color: #5b7a5b; }
+  .prov.derived { color: var(--accent); }
+  .prov.regional { color: var(--slate); }
+
+  /* ---- Solar block ---- */
+  .solar-label-block { position: absolute; top: 26%; right: 6.5%; text-align: left; }
+  .solar-label-block .heading { font-size: 10px; letter-spacing: 0.24em; text-transform: uppercase; color: var(--ink-soft); margin-bottom: 6px; font-weight: 500; }
+  .solar-label-block .time { font-family: "Fraunces", serif; font-size: 22px; color: var(--ink); margin: 0; }
+  .solar-label-block .alt { font-size: 11px; color: var(--ink-faint); margin-top: 2px; font-variant-numeric: tabular-nums; }
+
+  /* ---- Bottom readouts ---- */
+  .readout { position: absolute; bottom: 9%; }
+  .readout.temp { left: 5%; }
+  .readout.rain { right: 6.5%; text-align: right; }
+  .readout .value { font-family: "Fraunces", serif; font-weight: 400; font-size: clamp(30px, 3.6vw, 48px); color: var(--ink); line-height: 1; }
+  .readout .label { font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--ink-soft); margin-top: 8px; font-weight: 500; }
+  .readout .qualifier { font-size: 10.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-faint); margin-top: 10px; }
+
+  .temp-bar { width: 220px; height: 3px; border-radius: 2px; margin-top: 14px;
+    background: linear-gradient(to right, var(--slate) 0%, var(--paper) 50%, var(--sun) 100%); position: relative; }
+  .temp-bar .marker { position: absolute; top: -3px; width: 9px; height: 9px; border-radius: 50%; background: var(--ink); border: 2px solid var(--paper); transform: translateX(-50%); }
+
+  /* ---- Month rail (bottom edge, minimal) ---- */
+  .month-rail { position: absolute; bottom: 2.4%; left: 50%; transform: translateX(-50%);
+    display: flex; gap: 0; align-items: flex-end; }
+  .month-tick { width: 34px; text-align: center; cursor: pointer; padding: 8px 0 4px; position: relative; }
+  .month-tick .dot { width: 3px; height: 3px; border-radius: 50%; background: var(--ink-faint); margin: 0 auto 6px; transition: all 0.25s ease; }
+  .month-tick .lbl { font-size: 9px; letter-spacing: 0.1em; color: var(--ink-faint); text-transform: uppercase; transition: color 0.25s ease; }
+  .month-tick.active .dot { background: var(--accent); width: 5px; height: 5px; }
+  .month-tick.active .lbl { color: var(--ink); font-weight: 600; }
+  .month-tick:hover .lbl { color: var(--ink); }
+
+  /* ---- Project toggle ---- */
+  .project-toggle { position: absolute; top: 5.5%; right: 6.5%; display: flex; gap: 18px; }
+  .project-toggle button { background: none; border: none; font-family: "Inter"; font-size: 10px; letter-spacing: 0.16em;
+    text-transform: uppercase; color: var(--ink-faint); cursor: pointer; padding: 0 0 6px; border-bottom: 1px solid transparent; }
+  .project-toggle button.active { color: var(--ink); border-bottom-color: var(--accent); }
+
+  .caption { max-width: 1400px; margin: 14px auto 0; padding: 0 8px; font-family: "Inter"; font-size: 11px; color: #9a958c; line-height: 1.6; }
+</style>
+</head>
+<body>
+
+<div class="stage" id="stage">
+  <img class="bg-photo" id="bgPhoto" src="assets/red-sun-exterior.png" alt="" />
+  <div class="scrim"></div>
+  <svg class="overlay-svg" id="overlaySvg" viewBox="0 0 1400 875" preserveAspectRatio="none"></svg>
+
+  <div class="project-toggle">
+    <button id="btn-redsun" class="active">Villa Red Sun</button>
+    <button id="btn-efe">Villa Efe</button>
+  </div>
+
+  <div class="title-block">
+    <p class="project-name" id="projectName">Villa Red Sun</p>
+    <p class="project-sub">Climate Interface</p>
+    <p class="site-line" id="siteLine">55.516°N 12.208°E</p>
+    <p class="prov" id="siteProv"></p>
+  </div>
+
+  <div class="solar-label-block">
+    <p class="heading">Solar Position</p>
+    <p class="time" id="solarTime">Solar Noon</p>
+    <p class="alt" id="solarAlt">55.3°</p>
+    <p class="prov derived" id="solarProv">Derived</p>
+  </div>
+
+  <div class="readout temp">
+    <p class="value" id="tempValue">8.8°C</p>
+    <p class="label">Mean Air Temperature</p>
+    <div class="temp-bar"><div class="marker" id="tempMarker" style="left:50%"></div></div>
+    <p class="prov real" id="tempProv">Real — station</p>
+  </div>
+
+  <div class="readout rain">
+    <p class="value" id="rainValue">65mm</p>
+    <p class="label">Precipitation, this month</p>
+    <p class="qualifier" id="rainQualifier">Moderate</p>
+    <p class="prov real" id="rainProv">Real — station</p>
+  </div>
+
+  <div class="month-rail" id="monthRail"></div>
+</div>
+
+<p class="caption" id="caption">ISOLATED R&D — Phase 3.5. Background: real exterior render from the authoritative asset library, shown with a display-time desaturation/lightening treatment only (source file untouched). All figures sourced from the Complete Climate Site Analysis reports; see provenance micro-labels beside each value.</p>
+
+<script type="module">
+const MONTHS = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+
+// Data inlined directly (rather than fetch()'d) so this file works
+// standalone via file:// — identical content to
+// villa-red-sun-climate.json / villa-efe-climate.json in this same
+// folder, transcribed verbatim from the two authoritative
+// Complete-Climate-Site-Analysis reports. Kept in sync manually; the
+// .json files remain the canonical isolated data source for the other
+// prototypes in rd/climate-response/.
+const REDSUN_DATA = {"project":"villa-red-sun","label":"Villa Red Sun","location":"Solrød Municipality, Zealand, Denmark","coordinates":"55.516105°N, 12.208375°E","climate":"Cfb — Temperate oceanic / marine west-coast","solar":{"provenance":"A","summerSolstice":{"points":[{"time":"Sunrise","clock":"04:27","azimuth":43.6,"altitude":-0.8},{"time":"10:00","clock":"10:00","azimuth":112.3,"altitude":42.4},{"time":"Solar Noon","clock":"13:12","azimuth":180.0,"altitude":55.3},{"time":"14:00","clock":"14:00","azimuth":200.1,"altitude":56.8},{"time":"Sunset","clock":"21:58","azimuth":316.4,"altitude":-0.8}]},"winterSolstice":{"points":[{"time":"Sunrise","clock":"08:37","azimuth":132.9,"altitude":-0.8},{"time":"10:00","clock":"10:00","azimuth":150.5,"altitude":6.4},{"time":"Solar Noon","clock":"12:09","azimuth":180.0,"altitude":11.0},{"time":"14:00","clock":"14:00","azimuth":205.5,"altitude":7.6},{"time":"Sunset","clock":"15:41","azimuth":227.1,"altitude":-0.8}]}},"wind":{"prevailingAnnual":{"primary":"W/WSW","azimuthDeg":275}},"rainfall":{"provenance":"C","monthlyMm":[53,36,30,28,58,70,65,88,49,64,69,63]},"temperature":{"provenance":"C","monthlyMeanC":[0.8,0.7,3.2,7.5,11.5,14.7,17.8,17.0,13.7,9.6,6.0,2.7]},"sunshine":{"provenance":"C","annualHours":1747,"monthlyHours":[47,62,146,215,241,245,252,195,160,103,46,34]}};
+const EFE_DATA = {"project":"villa-efe","label":"Villa Efe","location":"Kyrenia (Girne) District, Northern Cyprus","coordinates":"35.3442167°N, 33.2428083°E","climate":"Hot-summer Mediterranean — dry summer / wet winter","solar":{"provenance":"A","summerSolstice":{"points":[{"time":"Sunrise","clock":"05:32","azimuth":60.1,"altitude":-0.8},{"time":"10:00","clock":"10:00","azimuth":96.4,"altitude":51.8},{"time":"Solar Noon","clock":"12:48","azimuth":180.0,"altitude":78.1},{"time":"14:00","clock":"14:00","azimuth":237.4,"altitude":70.4},{"time":"Sunset","clock":"20:05","azimuth":299.9,"altitude":-0.8}]},"winterSolstice":{"points":[{"time":"Sunrise","clock":"06:52","azimuth":118.5,"altitude":-0.8},{"time":"10:00","clock":"10:00","azimuth":153.1,"altitude":26.2},{"time":"Solar Noon","clock":"11:45","azimuth":180.0,"altitude":31.2},{"time":"14:00","clock":"14:00","azimuth":213.7,"altitude":23.1},{"time":"Sunset","clock":"16:38","azimuth":241.5,"altitude":-0.8}]}},"wind":{"prevailingAnnual":{"primary":"W","azimuthDeg":270}},"rainfall":{"provenance":"D","monthlyMm":[117,79,60,20,13,2,0,0,5,37,68,133]},"temperature":{"provenance":"D","monthlyMeanC":[12.5,13.0,14.5,17.0,21.0,25.0,27.5,28.0,26.0,22.0,18.5,14.5]},"sunshine":{"provenance":"D","annualHours":3134.7,"monthlyHours":[179.8,173.6,220.1,252.0,316.2,360.0,375.1,365.8,300.0,251.1,186.0,155.0]}};
+
+let data = { redsun: REDSUN_DATA, efe: EFE_DATA };
+let currentProject = "redsun";
+let currentMonth = 6; // July
+
+async function loadData() { /* no-op — data is inlined above */ }
+
+function derivedMonthlySolarAltitude(solar) {
+  const summer = solar.summerSolstice.points.find(p => p.time === "Solar Noon").altitude;
+  const winter = solar.winterSolstice.points.find(p => p.time === "Solar Noon").altitude;
+  const mean = (summer + winter) / 2, amp = (summer - winter) / 2;
+  return MONTHS.map((_, i) => mean + amp * Math.cos(((i - 5.5) / 12) * 2 * Math.PI));
+}
+
+function buildMonthRail() {
+  const el = document.getElementById("monthRail");
+  el.innerHTML = "";
+  MONTHS.forEach((m, i) => {
+    const d = document.createElement("div");
+    d.className = "month-tick" + (i === currentMonth ? " active" : "");
+    d.innerHTML = `<div class="dot"></div><div class="lbl">${m}</div>`;
+    d.addEventListener("click", () => { currentMonth = i; render(); });
+    el.appendChild(d);
+  });
+}
+
+function qualitativeRain(value, monthlyArr) {
+  const max = Math.max(...monthlyArr);
+  const min = Math.min(...monthlyArr);
+  if (value <= 0.5) return "Dry — negligible";
+  const frac = (value - min) / (max - min || 1);
+  if (frac > 0.75) return "Peak season";
+  if (frac > 0.4) return "Moderate";
+  return "Light";
+}
+
+function render() {
+  const p = data[currentProject];
+  if (!p) return;
+
+  document.getElementById("btn-redsun").classList.toggle("active", currentProject === "redsun");
+  document.getElementById("btn-efe").classList.toggle("active", currentProject === "efe");
+  document.getElementById("bgPhoto").src = currentProject === "redsun" ? "assets/red-sun-exterior.png" : "assets/efe-exterior.png";
+  document.getElementById("projectName").textContent = p.label;
+  document.getElementById("siteLine").textContent = p.coordinates.replace(", ", "  ");
+  document.getElementById("siteProv").innerHTML = `<span class="prov real" style="margin:0;">Coordinates — exact site</span>`.replace('<p','<span').replace('/p>','/span>');
+  document.getElementById("siteProv").className = "prov real";
+  document.getElementById("siteProv").textContent = "Exact site coordinates";
+
+  buildMonthRail();
+
+  // --- SOLAR ---
+  const monthlyAlt = derivedMonthlySolarAltitude(p.solar);
+  const altitude = Math.max(0, monthlyAlt[currentMonth]);
+  const isSolstice = currentMonth === 5 || currentMonth === 11; // Jun / Dec
+  let timeLabel = "≈ Solar Noon";
+  let provLabel = "Derived — interpolated";
+  let provClass = "prov derived";
+  if (isSolstice) {
+    const which = currentMonth === 5 ? p.solar.summerSolstice : p.solar.winterSolstice;
+    const noon = which.points.find(pt => pt.time === "Solar Noon");
+    timeLabel = noon.clock + " Local";
+    provLabel = "Real — calculated from exact coordinates";
+    provClass = "prov real";
+  }
+  document.getElementById("solarTime").textContent = timeLabel;
+  document.getElementById("solarAlt").textContent = "Altitude " + altitude.toFixed(1) + "°";
+  document.getElementById("solarProv").textContent = provLabel;
+  document.getElementById("solarProv").className = provClass;
+
+  // --- TEMPERATURE ---
+  const temps = p.temperature.monthlyMeanC;
+  const temp = temps[currentMonth];
+  const tMin = Math.min(...temps), tMax = Math.max(...temps);
+  document.getElementById("tempValue").textContent = temp.toFixed(1) + "°C";
+  document.getElementById("tempMarker").style.left = (((temp - tMin) / (tMax - tMin)) * 100).toFixed(1) + "%";
+  const tempIsStation = p.temperature.provenance === "C";
+  document.getElementById("tempProv").textContent = tempIsStation ? "Real — station data" : "Regional — coastal climatology";
+  document.getElementById("tempProv").className = "prov " + (tempIsStation ? "real" : "regional");
+
+  // --- RAINFALL ---
+  const rain = p.rainfall.monthlyMm;
+  const rainVal = rain[currentMonth];
+  document.getElementById("rainValue").textContent = rainVal + "mm";
+  document.getElementById("rainQualifier").textContent = qualitativeRain(rainVal, rain);
+  const rainIsStation = p.rainfall.provenance === "C";
+  document.getElementById("rainProv").textContent = rainIsStation ? "Real — station data" : "Regional — climatology";
+  document.getElementById("rainProv").className = "prov " + (rainIsStation ? "real" : "regional");
+
+  // --- SVG overlay: sun arc + glow + wind streamlines, positioned in a
+  // 1400x875 coordinate space matching the stage's 16:10 aspect ratio ---
+  const sunshineShare = Math.min(1, p.sunshine.annualHours / 3200);
+  const arcCx = 1080, arcCy = 470, arcR = 340;
+  const angle = Math.PI - (altitude / 90) * Math.PI * 0.92;
+  const sunX = arcCx + arcR * Math.cos(angle) * 0.86;
+  const sunY = arcCy - arcR * Math.sin(angle) * 0.92;
+  const arcPath = `M ${arcCx - arcR*0.8} ${arcCy - 10} A ${arcR} ${arcR*0.85} 0 0 1 ${arcCx + arcR*0.9} ${arcCy - 40}`;
+
+  // Streamlines confirmed genuinely invisible against the photo's tree
+  // texture even at higher stroke-width/opacity (verified via screenshot,
+  // twice). Fixed two ways: (1) moved into the clear sky band near the
+  // top of the frame instead of crossing the treeline, (2) each line now
+  // has a soft pale "halo" stroke beneath the colored center stroke, so
+  // it stays legible against any background texture, not just this one.
+  const windAz = (p.wind.prevailingAnnual.azimuthDeg || 270);
+  const windTilt = ((windAz - 270) / 90) * 6;
+  let streamlines = "";
+  for (let i = 0; i < 5; i++) {
+    const yBase = 70 + i * 26;
+    const wobble = 14 + sunshineShare * 5;
+    const d = `M -20 ${yBase} C 380 ${yBase - wobble - windTilt*i}, 900 ${yBase + wobble}, 1420 ${yBase - windTilt*i}`;
+    streamlines += `<path d="${d}" fill="none" stroke="#faf8f4" stroke-width="5" opacity="0.5" stroke-linecap="round"/>`;
+    streamlines += `<path d="${d}" fill="none" stroke="var(--slate)" stroke-width="1.4" opacity="${0.55 + (5-i)*0.06}" stroke-linecap="round"/>`;
+  }
+
+  document.getElementById("overlaySvg").innerHTML = `
+    <defs>
+      <radialGradient id="sunGlow" cx="50%" cy="50%" r="50%">
+        <stop offset="0%" stop-color="var(--sun-soft)" stop-opacity="0.85"/>
+        <stop offset="40%" stop-color="var(--sun)" stop-opacity="0.4"/>
+        <stop offset="100%" stop-color="var(--sun)" stop-opacity="0"/>
+      </radialGradient>
+    </defs>
+    ${streamlines}
+    <path d="${arcPath}" fill="none" stroke="var(--sun)" stroke-width="1.75" opacity="0.55" stroke-dasharray="1 7" stroke-linecap="round"/>
+    <circle cx="${sunX}" cy="${sunY}" r="110" fill="url(#sunGlow)" style="mix-blend-mode:multiply"/>
+    <circle cx="${sunX}" cy="${sunY}" r="20" fill="var(--sun)" opacity="0.95"/>
+    <circle cx="${sunX}" cy="${sunY}" r="9" fill="#fff" opacity="0.5"/>
+  `;
+}
+
+document.getElementById("btn-redsun").addEventListener("click", () => { currentProject = "redsun"; render(); });
+document.getElementById("btn-efe").addEventListener("click", () => { currentProject = "efe"; render(); });
+
+loadData().then(render);
+</script>
+</body>
+</html>

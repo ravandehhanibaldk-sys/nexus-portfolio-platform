@@ -1,0 +1,170 @@
+{
+  "app/layout.tsx": {
+    "mtime": 1785574056.4770393,
+    "seen": 1786650811.0429776,
+    "ast_hash": "b8f33651141e5ec3c4b9af8960910a0f",
+    "semantic_hash": "b8f33651141e5ec3c4b9af8960910a0f"
+  },
+  "app/page.tsx": {
+    "mtime": 1785682378.0797822,
+    "seen": 1786650811.0429845,
+    "ast_hash": "2e53407cfa254e172e18c5fdc9c24895",
+    "semantic_hash": "2e53407cfa254e172e18c5fdc9c24895"
+  },
+  "app/projects/villa-efe/page.tsx": {
+    "mtime": 1785682355.9931955,
+    "seen": 1786650811.0429876,
+    "ast_hash": "be4b15f5419b68f878ff90353a286629",
+    "semantic_hash": "be4b15f5419b68f878ff90353a286629"
+  },
+  "app/projects/villa-red-sun/page.tsx": {
+    "mtime": 1786514357.5194237,
+    "seen": 1786650811.0429895,
+    "ast_hash": "ba53b489a9822f59957378edbedfbd68",
+    "semantic_hash": "ba53b489a9822f59957378edbedfbd68"
+  },
+  "components/dev/model-export-test.tsx": {
+    "mtime": 1786538160.9062805,
+    "seen": 1786650811.0429912,
+    "ast_hash": "927d28a585ba5a6983a8ad1aa80aac84",
+    "semantic_hash": "927d28a585ba5a6983a8ad1aa80aac84"
+  },
+  "components/project/alternatives-comparator.tsx": {
+    "mtime": 1785681924.0879903,
+    "seen": 1786650811.0429928,
+    "ast_hash": "6f8c91a9fb1d4ea6f5ba6bd9e2118179",
+    "semantic_hash": "6f8c91a9fb1d4ea6f5ba6bd9e2118179"
+  },
+  "components/project/back-to-portfolio.tsx": {
+    "mtime": 1785681961.4007564,
+    "seen": 1786650811.0429947,
+    "ast_hash": "39ea7c6ba692ef84b406d3f7de3436ff",
+    "semantic_hash": "39ea7c6ba692ef84b406d3f7de3436ff"
+  },
+  "components/project/environmental-response.tsx": {
+    "mtime": 1786538160.9062805,
+    "seen": 1786650811.042996,
+    "ast_hash": "f7021175e4cdb1c63c2540de54d7801c",
+    "semantic_hash": "f7021175e4cdb1c63c2540de54d7801c"
+  },
+  "components/project/final-architecture.tsx": {
+    "mtime": 1786514357.521517,
+    "seen": 1786650811.0429976,
+    "ast_hash": "ad4a294720ec4de68d2f460eca35efed",
+    "semantic_hash": "ad4a294720ec4de68d2f460eca35efed"
+  },
+  "components/project/frame.tsx": {
+    "mtime": 1785681898.0976863,
+    "seen": 1786650811.0429993,
+    "ast_hash": "18d7716f2afc06252bbee892bfdee815",
+    "semantic_hash": "18d7716f2afc06252bbee892bfdee815"
+  },
+  "components/project/hero.tsx": {
+    "mtime": 1785682001.678559,
+    "seen": 1786650811.043001,
+    "ast_hash": "ff85416670f1f2f41ed4ec4ee3bc1101",
+    "semantic_hash": "ff85416670f1f2f41ed4ec4ee3bc1101"
+  },
+  "components/project/lightbox.tsx": {
+    "mtime": 1785682093.20609,
+    "seen": 1786650811.0430028,
+    "ast_hash": "5f50c7c378b02ad1cf97166846854269",
+    "semantic_hash": "5f50c7c378b02ad1cf97166846854269"
+  },
+  "components/project/narrative-text-block.tsx": {
+    "mtime": 1785574234.309753,
+    "seen": 1786650811.0430045,
+    "ast_hash": "cc35fcd8da8c7799693dc1e43c9e6e4e",
+    "semantic_hash": "cc35fcd8da8c7799693dc1e43c9e6e4e"
+  },
+  "components/project/progress-nav.tsx": {
+    "mtime": 1785577609.1515734,
+    "seen": 1786650811.043006,
+    "ast_hash": "725ef330010c5d48afad3f32c35b397a",
+    "semantic_hash": "725ef330010c5d48afad3f32c35b397a"
+  },
+  "components/project/project-page.tsx": {
+    "mtime": 1785682030.8127067,
+    "seen": 1786650811.0430079,
+    "ast_hash": "db4a8241f02021c38ad2f69a782769d5",
+    "semantic_hash": "db4a8241f02021c38ad2f69a782769d5"
+  },
+  "components/project/reflection.tsx": {
+    "mtime": 1785574301.1586087,
+    "seen": 1786650811.0430093,
+    "ast_hash": "4b91651953a98244e4591e033c65c897",
+    "semantic_hash": "4b91651953a98244e4591e033c65c897"
+  },
+  "components/project/section-locator.tsx": {
+    "mtime": 1786538160.9104054,
+    "seen": 1786650811.0430107,
+    "ast_hash": "09a7397590c7f42a13716b69529044dc",
+    "semantic_hash": "09a7397590c7f42a13716b69529044dc"
+  },
+  "components/project/site-analysis.tsx": {
+    "mtime": 1786514357.5225244,
+    "seen": 1786650811.0430124,
+    "ast_hash": "6b01f8082a9d821ef34af22a7f521b25",
+    "semantic_hash": "6b01f8082a9d821ef34af22a7f521b25"
+  },
+  "content/projects/villa-efe.ts": {
+    "mtime": 1786514357.524516,
+    "seen": 1786650811.0430138,
+    "ast_hash": "56958c0f5fd563ec4ca27df98c4027b8",
+    "semantic_hash": "56958c0f5fd563ec4ca27df98c4027b8"
+  },
+  "content/projects/villa-red-sun.ts": {
+    "mtime": 1786514357.5265326,
+    "seen": 1786650811.0430155,
+    "ast_hash": "14a6a68efc2dd5c0853953e18d36bf02",
+    "semantic_hash": "14a6a68efc2dd5c0853953e18d36bf02"
+  },
+  "eslint.config.mjs": {
+    "mtime": 1785578464.1101575,
+    "seen": 1786650811.0430171,
+    "ast_hash": "94aa000dae45b89eede1274eac20c974",
+    "semantic_hash": "94aa000dae45b89eede1274eac20c974"
+  },
+  "lib/content-schema.ts": {
+    "mtime": 1786514357.528524,
+    "seen": 1786650811.0430186,
+    "ast_hash": "580f0759590e95d196b67e5f4303828e",
+    "semantic_hash": "580f0759590e95d196b67e5f4303828e"
+  },
+  "lib/utils.ts": {
+    "mtime": 1785681988.1918304,
+    "seen": 1786650811.0430267,
+    "ast_hash": "d7fc42443ae09b76e655a2b5b43c4ea7",
+    "semantic_hash": "d7fc42443ae09b76e655a2b5b43c4ea7"
+  },
+  "next.config.ts": {
+    "mtime": 1785574003.2735188,
+    "seen": 1786650811.0430286,
+    "ast_hash": "e311d5d63ad684cb2833ebf467d93bd1",
+    "semantic_hash": "e311d5d63ad684cb2833ebf467d93bd1"
+  },
+  "package.json": {
+    "mtime": 1786514357.5305173,
+    "seen": 1786650811.04303,
+    "ast_hash": "e1ec36e7c3c07ca0ee90557764b1e403",
+    "semantic_hash": "e1ec36e7c3c07ca0ee90557764b1e403"
+  },
+  "postcss.config.mjs": {
+    "mtime": 1785574014.5286882,
+    "seen": 1786650811.0430317,
+    "ast_hash": "239f3ebf717465dc636818a1a619398d",
+    "semantic_hash": "239f3ebf717465dc636818a1a619398d"
+  },
+  "rd/3d-benchmark/package.json": {
+    "mtime": 1786538161.8907027,
+    "seen": 1786650811.0430336,
+    "ast_hash": "18ab402db454051822e64eeb05ea189c",
+    "semantic_hash": "18ab402db454051822e64eeb05ea189c"
+  },
+  "tsconfig.json": {
+    "mtime": 1785576072.8911257,
+    "seen": 1786650811.043035,
+    "ast_hash": "da7f19e4f4a0566ef235f080efe86f33",
+    "semantic_hash": "da7f19e4f4a0566ef235f080efe86f33"
+  }
+}

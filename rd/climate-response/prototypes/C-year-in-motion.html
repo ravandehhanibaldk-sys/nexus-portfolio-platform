@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>ISOLATED R&D — Phase 3 — Prototype C: Year in Motion</title>
+<style>
+  :root {
+    --paper: #faf9f6; --ink: #161513; --neutral: #6b6a64; --divider: #e6e3dc; --accent: #a85c3b;
+    --sun: #b3703f; --rain: #4a6b7a; --stone: #ede7db; --timber: #a98868;
+  }
+  html, body { margin: 0; background: var(--paper); color: var(--ink); font-family: system-ui, sans-serif; }
+  .wrap { max-width: 780px; margin: 0 auto; padding: 24px; }
+  h1 { font-size: 13px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent); margin: 0 0 6px; }
+  p.sub { font-size: 12px; color: var(--neutral); margin: 0 0 20px; line-height: 1.5; max-width: 640px; }
+  .toolbar { display: flex; gap: 8px; margin-bottom: 16px; align-items: center; flex-wrap: wrap; }
+  button { font: inherit; font-size: 11px; text-transform: uppercase; letter-spacing: 0.07em; padding: 7px 12px;
+    border: 1px solid var(--divider); background: #fff; color: var(--neutral); cursor: pointer; }
+  button.active { border-color: var(--accent); color: var(--ink); }
+  input[type=range] { flex: 1; min-width: 200px; accent-color: var(--accent); }
+  .stage { border: 1px solid var(--divider); background: #fff; padding: 10px; }
+  svg { width: 100%; height: auto; display: block; }
+  .monthLabel { font-family: Georgia, serif; font-size: 28px; text-align: center; margin: 10px 0; }
+  .reduced-motion-note { font-size: 10px; color: var(--neutral); margin-top: 10px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Prototype C — Year in Motion</h1>
+  <p class="sub">Continuous January → December playback. Play/Pause/Scrub/Jump-to-month. Respects <code>prefers-reduced-motion</code> — when enabled, continuous playback is disabled and only manual scrubbing with instant (non-animated) state changes is offered.</p>
+
+  <div class="toolbar">
+    <button id="btn-redsun" class="active">Villa Red Sun</button>
+    <button id="btn-efe">Villa Efe</button>
+  </div>
+  <div class="toolbar">
+    <button id="playBtn">▶ Play Year</button>
+    <button id="pauseBtn" disabled>⏸ Pause</button>
+    <input type="range" id="scrubber" min="0" max="11" step="0.01" value="6"/>
+  </div>
+
+  <div class="monthLabel" id="monthLabel">Jul</div>
+  <div class="stage"><svg id="scene" viewBox="0 0 600 300"></svg></div>
+  <p class="reduced-motion-note" id="rmNote"></p>
+</div>
+
+<script type="module">
+const MONTHS = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+let data = { redsun: null, efe: null };
+let currentProject = "redsun";
+let t = 6; // continuous month position, 0..11
+let playing = false;
+let rafId = null;
+const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+async function loadData() {
+  const [rs, efe] = await Promise.all([
+    fetch("../data/villa-red-sun-climate.json").then(r => r.json()),
+    fetch("../data/villa-efe-climate.json").then(r => r.json()),
+  ]);
+  data.redsun = rs; data.efe = efe;
+}
+
+function derivedMonthlySolarAltitude(solar) {
+  const summer = solar.summerSolstice.points.find(p => p.time === "Solar Noon").altitude;
+  const winter = solar.winterSolstice.points.find(p => p.time === "Solar Noon").altitude;
+  const mean = (summer + winter) / 2, amp = (summer - winter) / 2;
+  return MONTHS.map((_, i) => mean + amp * Math.cos(((i - 5.5) / 12) * 2 * Math.PI));
+}
+
+function lerp(a, b, f) { return a + (b - a) * f; }
+function interpAt(arr, t) {
+  const i = Math.floor(t), frac = t - i;
+  const a = arr[((i % 12) + 12) % 12], b = arr[((i + 1) % 12 + 12) % 12];
+  return lerp(a, b, frac);
+}
+
+function render() {
+  const p = data[currentProject];
+  if (!p) return;
+  document.getElementById("btn-redsun").classList.toggle("active", currentProject === "redsun");
+  document.getElementById("btn-efe").classList.toggle("active", currentProject === "efe");
+
+  const monthIdx = Math.round(t) % 12;
+  document.getElementById("monthLabel").textContent = MONTHS[monthIdx];
+
+  const monthlyAlt = derivedMonthlySolarAltitude(p.solar);
+  const altitude = Math.max(0, interpAt(monthlyAlt, t));
+  const temp = interpAt(p.temperature.monthlyMeanC, t);
+  const rain = interpAt(p.rainfall.monthlyMm, t);
+  const maxRain = Math.max(...p.rainfall.monthlyMm);
+  const sunshine = interpAt(p.sunshine.monthlyHours, t);
+  const maxSunshine = Math.max(...p.sunshine.monthlyHours);
+
+  const cx = 300, cy = 200;
+  const maxAlt = 90;
+  const arcR = 170;
+  const sunAngle = Math.PI - (altitude / maxAlt) * Math.PI;
+  const sunX = cx + arcR * Math.cos(sunAngle) * 0.95;
+  const sunY = cy - arcR * Math.sin(sunAngle) * 0.8 - 10;
+
+  const warmth = Math.max(0, Math.min(1, (temp + 2) / 30));
+  const skyColor = `color-mix(in srgb, var(--sun) ${8 + warmth*14}%, #f5f2ea)`;
+  const rainOpacity = Math.min(0.5, (rain / maxRain) * 0.5);
+
+  document.getElementById("scene").innerHTML = `
+    <rect width="600" height="220" fill="${skyColor}"/>
+    <rect y="220" width="600" height="80" fill="var(--stone)"/>
+    <rect width="600" height="220" fill="var(--sun)" opacity="${(sunshine/maxSunshine)*0.12}"/>
+    <circle cx="${sunX}" cy="${sunY}" r="${20 + warmth*8}" fill="var(--sun)" opacity="0.2"/>
+    <circle cx="${sunX}" cy="${sunY}" r="5" fill="var(--sun)"/>
+    <g opacity="${rainOpacity}">
+      ${Array.from({length:12}).map((_,i) => `<line x1="${100+i*35}" y1="150" x2="${94+i*35}" y2="200" stroke="var(--rain)" stroke-width="1.5"/>`).join("")}
+    </g>
+    <ellipse cx="300" cy="233" rx="95" ry="6" fill="var(--ink)" opacity="0.08"/>
+    <polygon points="235,230 235,188 365,188 365,230" fill="var(--timber)" opacity="0.55" stroke="var(--ink)" stroke-opacity="0.5" stroke-width="1.25"/>
+    <polygon points="235,188 250,166 350,166 365,188" fill="#fff" opacity="0.65" stroke="var(--ink)" stroke-opacity="0.4" stroke-width="1.25"/>
+    <text x="300" y="270" text-anchor="middle" font-size="12" fill="var(--ink)">${temp.toFixed(1)}°C · ${rain.toFixed(0)}mm · ${sunshine.toFixed(0)}h sun · sun ${altitude.toFixed(0)}° (derived)</text>
+    <text x="300" y="290" text-anchor="middle" font-size="9" fill="var(--neutral)">${p.label} — continuous interpolation between real monthly samples for display smoothness only</text>
+  `;
+  document.getElementById("scrubber").value = t;
+}
+
+function animate() {
+  if (!playing) return;
+  t += 0.02;
+  if (t >= 12) t = 0;
+  render();
+  rafId = requestAnimationFrame(animate);
+}
+
+document.getElementById("playBtn").addEventListener("click", () => {
+  if (prefersReducedMotion) {
+    document.getElementById("rmNote").textContent = "Continuous playback disabled (prefers-reduced-motion is active in this browser). Use the scrubber instead.";
+    return;
+  }
+  playing = true;
+  document.getElementById("playBtn").disabled = true;
+  document.getElementById("pauseBtn").disabled = false;
+  animate();
+});
+document.getElementById("pauseBtn").addEventListener("click", () => {
+  playing = false;
+  document.getElementById("playBtn").disabled = false;
+  document.getElementById("pauseBtn").disabled = true;
+  if (rafId) cancelAnimationFrame(rafId);
+});
+document.getElementById("scrubber").addEventListener("input", (e) => {
+  playing = false;
+  document.getElementById("playBtn").disabled = false;
+  document.getElementById("pauseBtn").disabled = true;
+  t = parseFloat(e.target.value);
+  render();
+});
+document.getElementById("btn-redsun").addEventListener("click", () => { currentProject = "redsun"; render(); });
+document.getElementById("btn-efe").addEventListener("click", () => { currentProject = "efe"; render(); });
+
+if (prefersReducedMotion) {
+  document.getElementById("rmNote").textContent = "prefers-reduced-motion is active in this browser: Play Year is disabled by design; scrubbing still works and applies instantly.";
+}
+
+loadData().then(render);
+</script>
+</body>
+</html>

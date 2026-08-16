@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>ISOLATED R&D — Phase 0 3D Benchmark Harness (not part of the portfolio)</title>
+<style>
+  html, body { margin: 0; background: #ede7db; font-family: monospace; }
+  #hud {
+    position: fixed; top: 0; left: 0; z-index: 10;
+    background: rgba(255,255,255,0.9); padding: 10px 14px; font-size: 12px;
+    line-height: 1.5; max-width: 480px; white-space: pre-wrap;
+  }
+  #controls { position: fixed; top: 0; right: 0; z-index: 10; background: rgba(255,255,255,0.9); padding: 10px 14px; font-size: 12px; }
+  canvas { display: block; }
+  a, button { font-family: monospace; }
+</style>
+</head>
+<body>
+<div id="hud">loading…</div>
+<div id="controls">
+  <div><b>ISOLATED R&D HARNESS</b> — not part of the portfolio</div>
+  <div>model: <select id="modelSel">
+    <option value="assets/source.glb">source.glb (original, 3.21MB)</option>
+    <option value="assets/draco.glb">draco.glb (compressed, 121KB)</option>
+    <option value="assets/meshopt.glb">meshopt.glb (compressed, 381KB)</option>
+    <option value="assets/source.fbx">source.fbx (original, 1.85MB)</option>
+  </select></div>
+  <div>pixelRatio: <select id="prSel">
+    <option value="1">1 (fixed)</option>
+    <option value="device" selected>devicePixelRatio (actual: <span id="dprVal"></span>)</option>
+    <option value="2">2 (fixed)</option>
+  </select></div>
+  <div>antialias: <select id="aaSel"><option value="1" selected>on</option><option value="0">off</option></select></div>
+  <div><button id="reloadBtn">Reload with settings</button></div>
+  <div><button id="orbitBtn">Toggle auto-orbit</button></div>
+</div>
+<script type="importmap">
+{
+  "imports": {
+    "three": "https://cdn.jsdelivr.net/npm/three@0.185.1/build/three.module.js",
+    "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.185.1/examples/jsm/"
+  }
+}
+</script>
+<script type="module">
+import * as THREE from "three";
+import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
+import { FBXLoader } from "three/addons/loaders/FBXLoader.js";
+import { DRACOLoader } from "three/addons/loaders/DRACOLoader.js";
+import { OrbitControls } from "three/addons/controls/OrbitControls.js";
+
+const hud = document.getElementById("hud");
+const params = new URLSearchParams(location.search);
+document.getElementById("dprVal").textContent = window.devicePixelRatio;
+
+function log(msg) { hud.textContent = msg; }
+
+let renderer, scene, camera, controls, clock;
+let autoOrbit = true;
+let frameTimes = [];
+let renderCallTimes = [];
+let lastFrameStart = performance.now();
+let rafFired = 0;
+let rafCheckStart = performance.now();
+
+function setupScene(pixelRatioMode, antialias) {
+  const canvas = document.createElement("canvas");
+  document.body.appendChild(canvas);
+  renderer = new THREE.WebGLRenderer({ canvas, antialias, alpha: false });
+  const pr = pixelRatioMode === "device" ? window.devicePixelRatio : parseFloat(pixelRatioMode);
+  renderer.setPixelRatio(pr);
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  renderer.outputColorSpace = THREE.SRGBColorSpace;
+  renderer.toneMapping = THREE.ACESFilmicToneMapping;
+
+  scene = new THREE.Scene();
+  scene.background = new THREE.Color(0xede7db);
+
+  camera = new THREE.PerspectiveCamera(40, window.innerWidth / window.innerHeight, 0.01, 10000);
+
+  const ambient = new THREE.AmbientLight(0xffffff, 0.65);
+  scene.add(ambient);
+  const dir1 = new THREE.DirectionalLight(0xffffff, 1.1);
+  dir1.position.set(8, 12, 6);
+  scene.add(dir1);
+  const dir2 = new THREE.DirectionalLight(0xffffff, 0.35);
+  dir2.position.set(-6, 4, -8);
+  scene.add(dir2);
+
+  controls = new OrbitControls(camera, renderer.domElement);
+  controls.enableDamping = true;
+  controls.dampingFactor = 0.08;
+
+  clock = new THREE.Clock();
+
+  window.addEventListener("resize", () => {
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+  });
+
+  return { pr, antialias };
+}
+
+function fitCameraToObject(object) {
+  const box = new THREE.Box3().setFromObject(object);
+  const size = new THREE.Vector3();
+  const center = new THREE.Vector3();
+  box.getSize(size);
+  box.getCenter(center);
+  const maxDim = Math.max(size.x, size.y, size.z);
+  const distance = maxDim * 1.6;
+  camera.position.set(
+    center.x + distance * Math.cos(0.5) * Math.sin(0.6),
+    center.y + distance * Math.sin(0.5),
+    center.z + distance * Math.cos(0.5) * Math.cos(0.6)
+  );
+  camera.lookAt(center);
+  camera.updateProjectionMatrix();
+  controls.target.copy(center);
+  controls.minDistance = maxDim * 0.3;
+  controls.maxDistance = maxDim * 4;
+  controls.update();
+  return { center, maxDim };
+}
+
+async function loadModel(url, pixelRatioMode, antialias) {
+  const t0 = performance.now();
+  const { pr } = setupScene(pixelRatioMode, antialias);
+
+  let object;
+  let parseStart;
+  if (url.endsWith(".fbx")) {
+    const loader = new FBXLoader();
+    parseStart = performance.now();
+    object = await loader.loadAsync(url);
+  } else {
+    const loader = new GLTFLoader();
+    const draco = new DRACOLoader();
+    draco.setDecoderPath("https://cdn.jsdelivr.net/npm/three@0.185.1/examples/jsm/libs/draco/");
+    loader.setDRACOLoader(draco);
+    parseStart = performance.now();
+    const gltf = await loader.loadAsync(url);
+    object = gltf.scene;
+  }
+  const parseEnd = performance.now();
+  scene.add(object);
+
+  const { center, maxDim } = fitCameraToObject(object);
+
+  let meshCount = 0, triCount = 0, matSet = new Set();
+  object.traverse((o) => {
+    if (o.isMesh) {
+      meshCount++;
+      const g = o.geometry;
+      const idx = g.index ? g.index.count : g.attributes.position.count;
+      triCount += idx / 3;
+      const mats = Array.isArray(o.material) ? o.material : [o.material];
+      mats.forEach((m) => m && matSet.add(m.uuid));
+    }
+  });
+
+  const loadTotal = performance.now() - t0;
+  const parseMs = parseEnd - parseStart;
+
+  // Exposed for manual, rAF-independent benchmarking (this sandboxed browser
+  // pane does not reliably fire requestAnimationFrame — see README notes).
+  window.__renderer = renderer;
+  window.__scene = scene;
+  window.__camera = camera;
+  window.__controls = controls;
+  window.__manualBenchmark = function (frames = 300) {
+    const times = [];
+    for (let i = 0; i < frames; i++) {
+      controls.update();
+      const t0r = performance.now();
+      renderer.render(scene, camera);
+      times.push(performance.now() - t0r);
+    }
+    times.sort((a, b) => a - b);
+    const sum = times.reduce((a, b) => a + b, 0);
+    const info = renderer.info;
+    return {
+      frames,
+      avgMs: sum / frames,
+      medianMs: times[Math.floor(frames / 2)],
+      p95Ms: times[Math.floor(frames * 0.95)],
+      minMs: times[0],
+      maxMs: times[times.length - 1],
+      impliedFps: 1000 / (sum / frames),
+      drawCalls: info.render.calls,
+      renderedTriangles: info.render.triangles,
+      geometries: info.memory.geometries,
+      textures: info.memory.textures,
+      canvasPixels: [renderer.domElement.width, renderer.domElement.height],
+      pixelRatio: renderer.getPixelRatio(),
+    };
+  };
+  window.__orbitAndBenchmark = function (frames = 300) {
+    const times = [];
+    const startAzimuth = 0;
+    for (let i = 0; i < frames; i++) {
+      // simulate continuous orbit drag: rotate camera around target each frame
+      const angle = (i / frames) * Math.PI * 2;
+      const target = controls.target;
+      const dist = camera.position.distanceTo(target);
+      const elevation = 0.45;
+      camera.position.set(
+        target.x + dist * Math.cos(elevation) * Math.sin(angle),
+        target.y + dist * Math.sin(elevation),
+        target.z + dist * Math.cos(elevation) * Math.cos(angle)
+      );
+      camera.lookAt(target);
+      const t0r = performance.now();
+      renderer.render(scene, camera);
+      times.push(performance.now() - t0r);
+    }
+    times.sort((a, b) => a - b);
+    const sum = times.reduce((a, b) => a + b, 0);
+    return {
+      frames,
+      avgMs: sum / frames,
+      medianMs: times[Math.floor(frames / 2)],
+      p95Ms: times[Math.floor(frames * 0.95)],
+      minMs: times[0],
+      maxMs: times[times.length - 1],
+      impliedFps: 1000 / (sum / frames),
+    };
+  };
+
+  const stats = {
+    url, pixelRatio: pr, antialias,
+    loadTotalMs: loadTotal.toFixed(1),
+    parseMs: parseMs.toFixed(1),
+    meshCount, triCount: Math.round(triCount), materialCount: matSet.size,
+    center: [center.x.toFixed(2), center.y.toFixed(2), center.z.toFixed(2)],
+    maxDim: maxDim.toFixed(2),
+  };
+  window.__lastStats = stats;
+  return stats;
+}
+
+function animate() {
+  requestAnimationFrame(animate);
+  rafFired++;
+
+  const frameStart = performance.now();
+  const dt = frameStart - lastFrameStart;
+  lastFrameStart = frameStart;
+  frameTimes.push(dt);
+  if (frameTimes.length > 120) frameTimes.shift();
+
+  if (autoOrbit) {
+    const t = clock.getElapsedTime();
+    const radius = camera.position.length();
+    // gentle constant-speed orbit for interaction-quality sampling
+  }
+  controls.update();
+
+  const renderStart = performance.now();
+  renderer.render(scene, camera);
+  const renderEnd = performance.now();
+  renderCallTimes.push(renderEnd - renderStart);
+  if (renderCallTimes.length > 120) renderCallTimes.shift();
+
+  if (rafFired % 15 === 0) {
+    const avgFrame = frameTimes.reduce((a, b) => a + b, 0) / frameTimes.length;
+    const avgRender = renderCallTimes.reduce((a, b) => a + b, 0) / renderCallTimes.length;
+    const fps = 1000 / avgFrame;
+    const info = renderer.info;
+    const s = window.__lastStats || {};
+    log(
+      `MODEL: ${s.url}\n` +
+      `pixelRatio=${s.pixelRatio}  antialias=${s.antialias}\n` +
+      `loadTotal=${s.loadTotalMs}ms  parse=${s.parseMs}ms\n` +
+      `meshes=${s.meshCount}  triangles=${s.triCount}  materials=${s.materialCount}\n` +
+      `--- LIVE (last 120 frames) ---\n` +
+      `avg frame time: ${avgFrame.toFixed(2)}ms  (~${fps.toFixed(1)} fps by rAF cadence)\n` +
+      `avg renderer.render() CPU time: ${avgRender.toFixed(3)}ms\n` +
+      `renderer.info.render.calls: ${info.render.calls}\n` +
+      `renderer.info.render.triangles: ${info.render.triangles}\n` +
+      `renderer.info.memory.geometries: ${info.memory.geometries}\n` +
+      `renderer.info.memory.textures: ${info.memory.textures}\n` +
+      `rAF callbacks fired so far: ${rafFired} (over ${((performance.now()-rafCheckStart)/1000).toFixed(1)}s wall time)\n` +
+      `canvas actual pixels: ${renderer.domElement.width}x${renderer.domElement.height}\n` +
+      `auto-orbit: ${autoOrbit}`
+    );
+    window.__benchmarkSnapshot = {
+      avgFrameMs: avgFrame, avgRenderMs: avgRender, fpsByRaf: fps,
+      drawCalls: info.render.calls, renderedTriangles: info.render.triangles,
+      geometries: info.memory.geometries, textures: info.memory.textures,
+      rafFired, wallSeconds: (performance.now()-rafCheckStart)/1000,
+      canvasWidth: renderer.domElement.width, canvasHeight: renderer.domElement.height,
+      stats: s,
+    };
+  }
+}
+
+async function boot() {
+  const modelUrl = params.get("model") || "assets/source.glb";
+  const pr = params.get("pr") || "device";
+  const aa = params.get("aa") !== "0";
+  document.getElementById("modelSel").value = modelUrl;
+  document.getElementById("prSel").value = pr;
+  document.getElementById("aaSel").value = aa ? "1" : "0";
+
+  log("loading " + modelUrl + " …");
+  await loadModel(modelUrl, pr, aa);
+  rafCheckStart = performance.now();
+  rafFired = 0;
+  animate();
+}
+
+document.getElementById("reloadBtn").addEventListener("click", () => {
+  const model = document.getElementById("modelSel").value;
+  const pr = document.getElementById("prSel").value;
+  const aa = document.getElementById("aaSel").value;
+  location.search = `?model=${encodeURIComponent(model)}&pr=${pr}&aa=${aa}`;
+});
+document.getElementById("orbitBtn").addEventListener("click", () => { autoOrbit = !autoOrbit; });
+
+boot();
+</script>
+</body>
+</html>

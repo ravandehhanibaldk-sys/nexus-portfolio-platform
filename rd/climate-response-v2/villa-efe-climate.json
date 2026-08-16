@@ -1,0 +1,105 @@
+{
+  "_comment": "ISOLATED R&D DATA — Phase 3. Transcribed verbatim from Complete-Climate-Site-Analysis-B-villa-efe.txt, read in full. Every value carries provenance. Not used by production code.",
+  "project": "villa-efe",
+  "label": "Villa Efe",
+  "location": "Kyrenia (Girne) District, Northern Cyprus",
+  "coordinates": "35.3442167°N, 33.2428083°E",
+  "climate": "Hot-summer Mediterranean — dry summer / wet winter",
+  "months": ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],
+
+  "solar": {
+    "provenance": "A",
+    "provenanceLabel": "Calculated directly from exact coordinates",
+    "source": "Solar position equations, exact site coordinates",
+    "summerSolstice": {
+      "date": "21 June", "daylightHours": "14h 33m",
+      "points": [
+        { "time": "Sunrise", "clock": "05:32", "azimuth": 60.1, "altitude": -0.8 },
+        { "time": "10:00", "clock": "10:00", "azimuth": 96.4, "altitude": 51.8 },
+        { "time": "Solar Noon", "clock": "12:48", "azimuth": 180.0, "altitude": 78.1 },
+        { "time": "14:00", "clock": "14:00", "azimuth": 237.4, "altitude": 70.4 },
+        { "time": "Sunset", "clock": "20:05", "azimuth": 299.9, "altitude": -0.8 }
+      ]
+    },
+    "winterSolstice": {
+      "date": "21 December", "daylightHours": "9h 46m",
+      "points": [
+        { "time": "Sunrise", "clock": "06:52", "azimuth": 118.5, "altitude": -0.8 },
+        { "time": "10:00", "clock": "10:00", "azimuth": 153.1, "altitude": 26.2 },
+        { "time": "Solar Noon", "clock": "11:45", "azimuth": 180.0, "altitude": 31.2 },
+        { "time": "14:00", "clock": "14:00", "azimuth": 213.7, "altitude": 23.1 },
+        { "time": "Sunset", "clock": "16:38", "azimuth": 241.5, "altitude": -0.8 }
+      ]
+    },
+    "springAutumn": { "status": "NOT_ESTABLISHED", "note": "No independently calculated equinox positions in source report." }
+  },
+
+  "wind": {
+    "provenance": "C",
+    "provenanceLabel": "Station/official — K.K.T.C. Meteorological Department, 1991-2020",
+    "source": "K.K.T.C. Meteorological Department (official Northern Cyprus met service)",
+    "prevailingAnnual": { "primary": "W", "secondary": "NW/SW", "azimuthDeg": 270 },
+    "annualMeanSpeedMs": 3.0,
+    "annualMeanSpeedKmh": 10.8,
+    "seasonal": {
+      "winter": { "primary": "W/NW", "secondary": "E/NE episodes" },
+      "spring": { "primary": "W", "secondary": "NW/SW" },
+      "summer": { "primary": "W", "secondary": "SW/NW" },
+      "autumn": { "primary": "W", "secondary": "NW/SW/E" }
+    },
+    "monthlySpeed": { "status": "NOT_ESTABLISHED", "secondaryContextOnly": "A non-official Kyrenia climatology gives ~3.8-5.1 m/s monthly range, strongest Feb/winter, lowest ~October — explicitly NOT to be used as an engineering value per the source report." },
+    "extremeRecorded": { "valueMs": 37.8, "valueKmh": 136, "period": "1991-2020", "location": "Girne region", "note": "Observed historical extreme, NOT an annual mean or design wind speed." }
+  },
+
+  "rainfall": {
+    "provenance": "C/D",
+    "provenanceLabel": "Two real sources disagree — Girne station (C) vs. long-term Kyrenia regional climatology (D). Source report recommends a range, not a single number.",
+    "source": "Primary monthly series: long-term Kyrenia regional climatology (BBC Weather + K.K.T.C. attribution). Alternate annual total: Girne station 2009-2013.",
+    "annualTotalMm": { "recommendedRangeMm": [500, 535], "girneStation2009_2013Mm": 506.44, "kyreniaRegionalMm": 534, "note": "Do not treat either single figure as an exact-coordinate measurement." },
+    "monthlyMm": [117,79,60,20,13,2,0,0,5,37,68,133],
+    "monthlyMmSource": "Long-term Kyrenia regional climatology only — the 506.44mm Girne-station figure has no accompanying monthly breakdown in the source report.",
+    "wetSeason": { "months": "Oct-May", "totalMm": 527, "share": 0.987 },
+    "drySeason": { "months": "Jun-Sep", "totalMm": 7, "share": 0.013 },
+    "seasonalSupported": false,
+    "rainyDaysMonthly": [13,10,7,4,2,0,0,0,1,3,7,11],
+    "rainyDaysAnnual": 58,
+    "extremeHistorical": { "valueMm": 215, "period": "24h", "date": "31 January 1985", "location": "Girne", "note": "Official KKTC historical record. NOT a return-period value." },
+    "extremeReturn": { "status": "NOT_ESTABLISHED" }
+  },
+
+  "temperature": {
+    "provenance": "D",
+    "provenanceLabel": "Regional — long-term Kyrenia climatology (coastal). An alternate inland Athalassa 2012-2021 series exists but is explicitly not preferred (warmer, inland station).",
+    "source": "Kyrenia regional climatology (coastal)",
+    "monthlyMeanHighC": [16,17,19,22,26,30,33,33,31,27,23,18],
+    "monthlyMeanLowC":  [9,9,10,12,16,20,22,23,21,17,14,11],
+    "monthlyMeanC":     [12.5,13.0,14.5,17.0,21.0,25.0,27.5,28.0,26.0,22.0,18.5,14.5],
+    "annualMeanC": 20,
+    "annualMeanHighC": 24.6,
+    "annualMeanLowC": 15.3,
+    "diurnalRangeC": 9,
+    "absoluteExtremes": { "status": "NOT_ESTABLISHED", "note": "45.3-46.6°C records exist for Cyprus generally but are explicitly NOT Girne-site records — different stations." },
+    "hdd": { "status": "NOT_ESTABLISHED" },
+    "cdd": { "status": "NOT_ESTABLISHED" }
+  },
+
+  "humidity": {
+    "provenance": "D",
+    "provenanceLabel": "Regional reference only — Athalassa station, ~22km from Kyrenia, 2012-2021. Explicitly NOT exact-site Girne measurements.",
+    "source": "Athalassa station (2012-2021), ~22km from the site",
+    "monthlyPercent": [69,64,55,47,42,41,37,39,42,46,54,66],
+    "annualMeanPercent": 50,
+    "seasonalPercent": { "winter": "64-69%", "spring": "42-55%", "summer": "37-41%", "autumn": "42-54%" }
+  },
+
+  "sunshine": {
+    "provenance": "D",
+    "provenanceLabel": "Regional — Kyrenia climatology attributed to BBC Weather + K.K.T.C. meteorological service",
+    "source": "Kyrenia regional climatology",
+    "monthlyHours": [179.8,173.6,220.1,252.0,316.2,360.0,375.1,365.8,300.0,251.1,186.0,155.0],
+    "annualHours": 3134.7,
+    "qualitativeDaily": { "summer": "~12h/day", "winter": "~5h/day", "source": "K.K.T.C. Meteorological Department (official)" },
+    "annualSolarEnergy": { "value": 546.4, "unit": "cal/cm²", "source": "K.K.T.C. Meteorological Department (official)" },
+    "cloudCover": { "status": "NOT_ESTABLISHED", "qualitative": "Predominantly clear summers, increased cloud/storm winter, transitional spring/autumn." }
+  }
+}

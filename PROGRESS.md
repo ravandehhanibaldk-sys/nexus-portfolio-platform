@@ -159,6 +159,64 @@ Following Project Manager election of all seven `IA_DECISION_RESOLUTION_BRIEF.md
 | **C. GitHub push status** | **NOT PUSHED.** The local commit has not been pushed to `origin/master`. `origin/master` still points at `d478466` only. |
 | **D. Production deployment status** | **NOT DEPLOYED.** The live site (`nexus-portfolio-platform-ferz.vercel.app`) still serves a build from `d478466` — it does **not** contain any Phase 1 or Phase 2 work from this date. It already contained both Villa Red Sun and Villa Efe (that was true from the initial commit), but not the new Wind/Solar Path/Section/Circulation/Orientation-plan mapping described above. Push/deploy is a separate, explicitly-gated future action, not part of this entry.
 
+## ✅ 2026-08-10 — EXECUTION PHASE 3 Status: Content & Asset Remapping (local, uncommitted at time of writing)
+
+Semantic (not blind numeric) remapping of the remaining Villa Red Sun / Villa Efe asset references to the authoritative library, per Project Manager directive. Every mapping below was established from explicit content evidence (matching room-type/diagram-type/tier labels between old and new filenames), corroborated by direct visual inspection for every high-risk case: both new interiors' bedroom/bathroom identity, the newly-inserted Villa Efe kitchen (B-08), the Villa Efe location-plan/site-spotting correspondence, and one exterior pair per project. Diagram-type entries (Plan/Airflow/Circulation/Privacy-Gradient per tier/level) were mapped via explicit tier/level + diagram-type name correspondence in both old and new filenames — the same verified pattern, not re-opened image-by-image.
+
+**Hero:** Villa Red Sun's `heroVideo` field removed. Both projects now use the static-image fallback exclusively (Hero picks the first `exterior` asset in `finalArchitecture`, which is now the current authoritative A-01/B-01). The old hero video file itself was **not deleted** — see Orphaned Assets below.
+
+**Villa Red Sun — mapped (evidence: explicit label correspondence, spot-verified):**
+| Old | New | Reason |
+|---|---|---|
+| `A-01`–`A-05`, `A-07`, `A-08` (exterior/interior) | same filenames, bytes replaced | Same view/room number both libraries; A-01 and the master-bedroom/kitchen pairing visually spot-checked identical composition, re-rendered |
+| `A-06-...-dinning-room-...` | `A-06-...-dining-room-...` | Same room, corrected spelling in authoritative library |
+| `Spotting-On-TheSite-A-villa-red-sun` | `A-34-site-spotting-villa-red-sun` | Visually confirmed same aerial site-spotting diagram, re-rendered |
+| `Plan-Idea-{B-2,C-1,D}-Top` | `A-09`/`A-10`/`A-11` | Explicit tier label match (b2/c1/d) |
+| `Plan-Idea-{B-2,C-1,D}-Top-AirFlow` | `A-20`/`A-21`/`A-22` | Explicit tier + diagram-type match |
+| `Circulation-Plan-Idea-{B-2,C-1,D}-Top` | `A-23`/`A-24`/`A-25` | Explicit tier + diagram-type match |
+| `PrivacyGradient-Plan-Idea-{B-2,C-1,D}-Top` | `A-26`/`A-27`/`A-28` | Explicit tier + diagram-type match |
+| `Plan-Idea-D-Top-Illustration` | `A-16-illustration-section-plan-idea-d-top` | Both explicitly "illustrated plan with section cut-lines" for proposal D |
+
+**Villa Red Sun — REVIEW REQUIRED (left untouched, no authoritative equivalent found):**
+- `MasterPlan-Idea-{B-2,C-1,D}-Top` (3 files) — the new library only has one plan-type file per tier (`A-09/10/11`), not a separate master-plan; PM decision needed on whether `master-plan` is retired as a category or re-derived.
+- `SiteAnalysis-A-villa-red-sun` + `-Illustration` (2 files) — visually confirmed to be a composite solar/wind/orientation overview diagram with no equivalent single asset in the new 34-file library; its constituent concepts (solar path, wind) are now separately covered by A-29/A-33, but the composite itself has no direct replacement.
+
+**Villa Efe — mapped (evidence: explicit label correspondence, spot-verified):**
+| Old | New | Reason |
+|---|---|---|
+| `B-01`–`B-04` (exteriors) | same filenames, bytes replaced | Same view number, spot-checked |
+| `B-05-...-poolside` | `B-05-...-pool-side` | Same room (hyphenation only) |
+| `B-06-...--interior-dining-room` | `B-06-...-interior-dining-room` | Same room (double-hyphen typo corrected) |
+| `B-07-...--interior-living-room` | `B-07-...-interior-living-room` | Same room (typo corrected) |
+| *(none — new)* | `B-08-...-interior-kitchen` | **New room added to the library.** Visually confirmed genuine kitchen (island, cooktop, sink, sea view). Not a replacement for anything old — a net addition. |
+| `B-08-...--interior-master-bedroom` (old) | `B-09-...-interior-master-bedroom` | Visually confirmed same bedroom/view/composition, re-rendered. **Not the same asset as new B-08** — see Special B-08 Check below. |
+| `B-09-...--interior-master-bedroom-bathroom` (old) | `B-10-...-interior-master-bedroom-bathroom` | Visually confirmed same bathroom/composition, re-rendered |
+| `1`/`2`/`3`/`4-Plan-Top-{BS,GF,F1,GRoof}` | `B-11`/`B-12`/`B-13`/`B-14` | Explicit level label match |
+| `{1-4}-Plan-Top-{level}-AirFlow` | `B-30`/`B-31`/`B-32`/`B-33` | Explicit level + diagram-type match |
+| `PrivacyGradient-{1-4}-Plan-Top-{level}` | `B-39`/`B-40`/`B-41`/`B-42` | Explicit level + diagram-type match |
+| `Circulation-1-Plan-Top-BS`, `Circulation-3-Plan-Top-F1` | `B-35`, `B-37` | Explicit level + diagram-type match (Roof already `B-38` from EXECUTION PHASE 2; GF stays absent) |
+| `5-Plan-Top-Site` | `B-15-plan-top-site` | Explicit "site" + "plan-top" match |
+| `5-Plan-Top-Site-AirFlow` | `B-34-airflow-plan-top-site` | Explicit "site" + diagram-type match |
+| `PrivacyGradient-5-Plan-Top-Site` | `B-43-privacy-gradient-plan-top-site` | Explicit "site" + diagram-type match |
+| `Location - Plan - Final` | `B-47-site-spotting-villa-efe` | Visually confirmed same aerial site view, now professionally annotated (Project Site / Coast Road / Adjacent Buildings labels) |
+
+**Villa Efe — removed:**
+- `Location - Plan - Final - Guide` — visually confirmed to be a near-duplicate of "Location - Plan - Final" (same aerial photo, only a north arrow added) — a production input superseded by the far more complete `B-47` annotated diagram. Removed as redundant, not merely left stale.
+
+### Special B-08 Check — result
+
+**CONFIRMED CORRECT.** The new authoritative library inserted a kitchen render at `B-08`, shifting master-bedroom (old `B-08`) → new `B-09`, and master-bedroom-bathroom (old `B-09`) → new `B-10`. This was not a blind numeric swap: old `B-08` and new `B-09` were opened and visually compared (same woman-on-bed, same sea-view composition, confirmed re-render of the same shot), old `B-09` and new `B-10` likewise (same bathroom scene), and new `B-08` was independently opened and confirmed to be a genuine kitchen with no old counterpart. Content now reads Poolside → Dining → Living → **Kitchen (new)** → Master Bedroom → Master Bedroom Bathroom, matching the authoritative library's actual room sequence.
+
+### Orphaned Assets — documented, NOT deleted (delete later, per instruction)
+
+**Decision: DELETE = NO.** All old/superseded files below remain physically present in `public/images/` and `public/videos/`; none were removed. Counts supersede the "13 orphans" noted after EXECUTION PHASE 2 — this remapping pass increased the total substantially, as expected.
+
+- **Villa Red Sun — 20 orphaned files** in `public/images/villa-red-sun/`: the old-spelling `A-06-...-dinning-room-...`, all 3 `MasterPlan-Idea-*` (retained — still referenced, not orphaned), 9 old `Plan-Idea-*`/`*-AirFlow`/`Circulation-*`/`PrivacyGradient-*` per-tier files, 3 old `DayLight-Plan-Idea-*` (orphaned since EXECUTION PHASE 2), `Plan-Idea-D-Top-Illustration`, `Section-A-Illustration` + `Section-B-Illustration` (orphaned since EXECUTION PHASE 2), `Spotting-On-TheSite-A-villa-red-sun`.
+- **Villa Efe — 31 orphaned files** in `public/images/villa-efe/`: 8 old `{1-4}-Plan-Top-*`/`*-AirFlow` per-level files, 4 old `Circulation-*-Plan-Top-*` (2 of which — GF and Roof — were already orphaned since EXECUTION PHASE 2), 5 old `DayLight-*` (orphaned since EXECUTION PHASE 2), 5 old `PrivacyGradient-*-Plan-Top-*`, both `Location - Plan - Final*` files, 4 old-named interiors (`poolside`, double-hyphen `dining-room`/`living-room`/`master-bedroom`/`master-bedroom-bathroom`), and the pre-existing unreferenced `B-05-villa-efe-interior-_result.png` (known since before EXECUTION PHASE 2).
+- **1 orphaned video:** `public/videos/villa-red-sun/Hero-villa-red-sun-exterior-view-01-ORG_erasio.mp4` — no longer referenced by any content field, not deleted.
+
+No file was deleted in this pass. Cleanup is explicitly deferred to a future, separately-authorized pass.
+
 ## Next Actions (in order)
 
 1. Hanibal: write the real Reflection text for both projects (or confirm the placeholders should stay for now), and decide on the ProgressNav mobile pattern (Known Gap #4).
