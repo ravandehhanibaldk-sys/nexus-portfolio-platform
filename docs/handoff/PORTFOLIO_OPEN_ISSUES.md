@@ -94,27 +94,40 @@ Local commits only, nothing pushed to `origin/master`, per instruction.
 ## MATERIAL
 
 ### N3 — PDF Site Analysis sheets still photographic
-**ASSESSED, not implemented — genuine scope limit, not an oversight.**
-Direction in `PDF-VISUAL-DIRECTION.md` asks for hand-drawn line-art
-matching the plan/section illustration family, replacing the current
-photographic-aerial-plus-overlay treatment. Checked for an existing
-produced asset first (same approach that resolved M2) —
-`SiteAnalysis-A-villa-red-sun-Illustration_result.jpg` exists and was
-opened directly, but it's a richer *overlay* on the same photographic
-aerial base (sun-path arc, wind/noise annotations), not hand-drawn line
-work — it doesn't satisfy the direction's actual ask. No line-art
-version exists anywhere searched.
+**ASSESSED IN DEPTH, not implemented — confirmed genuine scope limit,
+full handoff package prepared.** See `SITE-ANALYSIS-ILLUSTRATION-BRIEF.md`
+(repo root) for the complete writeup. Summary:
 
-This is real architectural illustration production — accurately
-drawing real site boundary geometry, real adjacent-building footprints,
-real road/coast position in line-art form — not something to
-approximate or invent without real survey/site data, per CLAUDE.md rule
-4's spirit applied to spatial claims. Left as-is rather than faked.
-`PDF-VISUAL-DIRECTION.md` itself already confirms the current
-photographic version is "accurate and usable... not a correctness fix,"
-so this remains a real but non-blocking gap. **Needs Hanibal's own
-input** (commissioning new artwork, or providing source geometry) to
-move forward — not a decision an AI session should make unilaterally.
+- Investigated how the existing illustrated Final Architecture plates
+  (`A-16`, `B-20…24`) were actually produced: no script/pipeline exists
+  anywhere in this repo — they're part of the original delivered asset
+  library (pre-dating all git history), and opening them directly shows
+  they're full painterly 3D renders (real furniture, people, materials,
+  render-style lighting) — a 3ds Max/V-Ray/Corona output, not flat
+  vector line-art. Not reproducible in this session by any available
+  tool: an image-generation model can't reliably reproduce that exact
+  render style AND can't guarantee preserving real site geometry
+  (boundary shape, every neighboring building's true footprint, road
+  curvature) from a reference photo — it reinterprets rather than
+  traces, which risks inventing spatial claims. A manual SVG trace has
+  the same core precision problem from a raster source, without
+  survey/CAD ground truth.
+- Also checked for an already-produced illustrated asset first (the
+  method that resolved M2) — `SiteAnalysis-A-villa-red-sun-Illustration_
+  result.jpg` exists but is a richer *overlay* on the same photographic
+  aerial base, not hand-drawn line work; doesn't satisfy the ask.
+- **Prepared full production brief** for Hanibal's own 3D visualization
+  workflow: exact geometric reference files for both projects, the style
+  to match, deliverable spec, and exact integration points (PDF +
+  website) for handoff back once produced. Villa Red Sun's website
+  doesn't currently show a Site Analysis image at all (separate,
+  already-approved decision) — flagged in the brief so that's not
+  assumed to need a matching change.
+
+Current photographic version stays in place and remains accurate/usable
+in the meantime — confirmed by `PDF-VISUAL-DIRECTION.md` itself as "not
+a correctness fix." **Needs Hanibal's own production work** to move
+forward.
 
 ---
 
