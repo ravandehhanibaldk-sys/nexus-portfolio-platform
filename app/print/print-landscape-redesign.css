@@ -1,0 +1,44 @@
+.print-root {
+  background: #ffffff;
+}
+
+.sheet {
+  box-sizing: border-box;
+  position: relative;
+  background: var(--color-paper);
+  color: var(--color-ink);
+  overflow: hidden;
+  break-inside: avoid;
+  display: flex;
+  flex-direction: column;
+}
+
+.sheet:not(:first-of-type) {
+  break-before: page;
+}
+
+.sheet[data-orientation="portrait"],
+.sheet[data-orientation="landscape"] {
+  width: 297mm;
+  height: 210mm;
+}
+
+.sheet-pad {
+  padding: 18mm 16mm;
+  height: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+.print-root, .print-root * {
+  animation-duration: 0.001ms !important;
+  transition-duration: 0.001ms !important;
+}
+
+@media print {
+  @page {
+    size: 297mm 210mm;
+    margin: 0;
+  }
+}

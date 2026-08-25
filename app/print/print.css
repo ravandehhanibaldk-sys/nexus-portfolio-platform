@@ -1,0 +1,71 @@
+/*
+ * Print-document stylesheet — used ONLY by /print/portfolio.
+ * Physical A4 sheets in real mm units so the export script can capture
+ * each orientation in a separate Playwright page.pdf() pass and merge
+ * them back into document order (see scripts/export-pdf.mjs). Not part
+ * of the live site's design system file (app/globals.css) — this route
+ * is never linked from the website; it exists only for PDF capture.
+ */
+
+.print-root {
+  background: #ffffff;
+}
+
+.sheet {
+  box-sizing: border-box;
+  position: relative;
+  background: var(--color-paper);
+  color: var(--color-ink);
+  overflow: hidden;
+  break-inside: avoid;
+  display: flex;
+  flex-direction: column;
+}
+
+/*
+ * break-before (not break-after) deliberately: the export script renders
+ * two separate passes (portrait-only, landscape-only), each hiding the
+ * other orientation's sheets via display:none. A `:last-of-type` /
+ * break-after rule can't tell "last sheet in the DOM" from "last VISIBLE
+ * sheet in this pass" — display:none doesn't change :last-of-type — so a
+ * break-after on the last visible sheet of a pass forced a trailing blank
+ * page. break-before on every non-first sheet has no such failure mode: a
+ * leading break-before on whichever sheet is first-visible in a pass is a
+ * no-op (nothing to break from), so both passes paginate correctly.
+ */
+.sheet:not(:first-of-type) {
+  break-before: page;
+}
+
+.sheet[data-orientation="portrait"] {
+  width: 210mm;
+  height: 297mm;
+}
+
+.sheet[data-orientation="landscape"] {
+  width: 297mm;
+  height: 210mm;
+}
+
+.sheet-pad {
+  padding: 18mm 16mm;
+  height: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Disable motion for capture — Framer Motion mount transitions should
+   have settled by the time export runs, but this removes any native
+   CSS-transition drift as a second safeguard. */
+.print-root, .print-root * {
+  animation-duration: 0.001ms !important;
+  transition-duration: 0.001ms !important;
+}
+
+@media print {
+  @page {
+    size: A4;
+    margin: 0;
+  }
+}
