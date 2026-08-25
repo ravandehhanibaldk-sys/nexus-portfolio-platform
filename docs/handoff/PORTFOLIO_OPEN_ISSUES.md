@@ -93,25 +93,40 @@ Local commits only, nothing pushed to `origin/master`, per instruction.
 
 ## MATERIAL
 
-None currently open — see In Progress below for the two items still
-being worked through this session.
+### N3 — PDF Site Analysis sheets still photographic
+**ASSESSED, not implemented — genuine scope limit, not an oversight.**
+Direction in `PDF-VISUAL-DIRECTION.md` asks for hand-drawn line-art
+matching the plan/section illustration family, replacing the current
+photographic-aerial-plus-overlay treatment. Checked for an existing
+produced asset first (same approach that resolved M2) —
+`SiteAnalysis-A-villa-red-sun-Illustration_result.jpg` exists and was
+opened directly, but it's a richer *overlay* on the same photographic
+aerial base (sun-path arc, wind/noise annotations), not hand-drawn line
+work — it doesn't satisfy the direction's actual ask. No line-art
+version exists anywhere searched.
+
+This is real architectural illustration production — accurately
+drawing real site boundary geometry, real adjacent-building footprints,
+real road/coast position in line-art form — not something to
+approximate or invent without real survey/site data, per CLAUDE.md rule
+4's spirit applied to spatial claims. Left as-is rather than faked.
+`PDF-VISUAL-DIRECTION.md` itself already confirms the current
+photographic version is "accurate and usable... not a correctness fix,"
+so this remains a real but non-blocking gap. **Needs Hanibal's own
+input** (commissioning new artwork, or providing source geometry) to
+move forward — not a decision an AI session should make unilaterally.
 
 ---
 
-## IN PROGRESS (this session)
+## RESOLVED (continued)
 
 ### N4 — PDF print typography scale
-Formalizing the currently ad hoc `text-[19px]`-style sizing in the PDF
-print components into one documented, consistent scale.
-
-### N3 — PDF Site Analysis sheets still photographic
-Direction was written in `PDF-VISUAL-DIRECTION.md` (redraw as line-work
-matching the plan/section illustration style); its precondition (Plans &
-Sections / Environmental sheet work) is done. Being assessed/actioned
-this session — see that section of this session's final report for the
-honest feasibility read (this is real asset-production work, not a
-layout change, and has real limits on what can responsibly be produced
-without fabricating new architectural content).
+**RESOLVED.** 13 ad hoc `text-[Npx]` values across the landscape print
+sheets consolidated into one documented 6-step scale (`.pt-micro`
+through `.pt-display`) in `app/print/print-landscape-redesign.css`.
+Verified zero content overflow across all 18 sheets (measured, not
+assumed) and via real PDF re-export/visual confirmation on multiple
+pages.
 
 ---
 
