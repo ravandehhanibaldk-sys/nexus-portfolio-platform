@@ -13,6 +13,7 @@ import { AboutSheetLandscape } from "@/components/print-landscape/about-sheet-la
 import { ProjectOpeningSheetLandscape } from "@/components/print-landscape/project-opening-sheet-landscape";
 import { NarrativeSheetLandscape } from "@/components/print-landscape/narrative-sheet-landscape";
 import { VisualizationSheetLandscape } from "@/components/print-landscape/visualization-sheet-landscape";
+import { ReflectionSheetLandscape } from "@/components/print-landscape/reflection-sheet-landscape";
 
 export default function TestFullLandscapeRedesignPage() {
   const rsAssets = villaRedSun.beats.finalArchitecture.assets;
@@ -70,44 +71,45 @@ export default function TestFullLandscapeRedesignPage() {
           find(rsAssets, "A-08-villa-red-sun-interior-master-bedroom-01_result.png"),
         ]}
       />
+      <ReflectionSheetLandscape index={8} project={villaRedSun} pageLabel="Villa Red Sun" />
 
       <ProjectOpeningSheetLandscape
-        index={8}
+        index={9}
         project={villaEfe}
         heroSrc="B-01-villa-efe-exterior-view-01_result.png"
         pageLabel="Villa Efe"
       />
       <NarrativeSheetLandscape
-        index={9}
+        index={10}
         project={villaEfe}
         pageLabel="Villa Efe"
         siteImageSrc={efSiteImg.src}
         siteImageAlt={efSiteImg.alt.en}
         siteImageCaption={efSiteImg.caption?.en}
       />
-      <EfeDesignEvolutionSheet index={10} />
-      <EfeLevelsSheet index={11} />
+      <EfeDesignEvolutionSheet index={11} />
+      <EfeLevelsSheet index={12} />
       <PlansGridSheet
-        index={12}
+        index={13}
         projectId="villa-efe"
         pageLabel="Villa Efe"
         levels={villaEfe.beats.finalArchitecture.sectionLocator!.levels}
       />
       <SectionsOnlySheet
-        index={13}
+        index={14}
         projectId="villa-efe"
         pageLabel="Villa Efe"
         sectionA={villaEfe.beats.finalArchitecture.sectionLocator!.sectionA}
         sectionB={villaEfe.beats.finalArchitecture.sectionLocator!.sectionB}
       />
       <EnvironmentalSheet
-        index={14}
+        index={15}
         pageLabel="Villa Efe"
         projectId="villa-efe"
         imageSrc="villa-efe-environmental_result.png"
       />
       <VisualizationSheetLandscape
-        index={15}
+        index={16}
         projectId="villa-efe"
         pageLabel="Villa Efe"
         lead={find(efAssets, "B-03-villa-efe-exterior-view-03_result.png")}
@@ -118,6 +120,7 @@ export default function TestFullLandscapeRedesignPage() {
           find(efAssets, "B-09-villa-efe-interior-master-bedroom_result.png"),
         ]}
       />
+      <ReflectionSheetLandscape index={17} project={villaEfe} pageLabel="Villa Efe" />
     </div>
   );
 }
