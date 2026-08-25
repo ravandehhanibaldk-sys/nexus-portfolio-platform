@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 760" role="img" aria-labelledby="title desc">
+<title id="title">Wind Exposure — twin</title>
+<desc id="desc">Primary and secondary directional exposure arrows with removable schematic site context and north indicator.</desc>
+
+<style>
+  .heading { font-family:Fraunces, Georgia, serif; fill:#24344a; }
+  .body { font-family:Inter, Arial, sans-serif; fill:#334155; }
+  .label { font-family:Inter, Arial, sans-serif; fill:#566274; letter-spacing:1.4px; }
+  .data { font-family:Inter, Arial, sans-serif; fill:#24344a; }
+  .solar { stroke:#e58b1a; fill:none; }
+  .solar-fill { fill:#e58b1a; }
+  .wind { stroke:#4f9fd9; fill:none; }
+  .wind-secondary { stroke:#62b8ae; fill:none; }
+  .ref { stroke:#9ba4ad; fill:none; stroke-dasharray:6 6; }
+  .fine { stroke:#c5c9ce; fill:none; }
+  .mass-front { fill:#f5f3ee; stroke:#8d9399; }
+  .mass-side { fill:#dddcd7; stroke:#8d9399; }
+  .mass-top { fill:#fbfaf7; stroke:#8d9399; }
+  .shadow { fill:#aeb2b4; opacity:.28; }
+  .north { stroke:#28343f; fill:none; }
+</style>
+
+
+<g id="component-wind-exposure">
+  <text x="42" y="56" class="heading" font-size="30">Wind Exposure</text>
+  <text x="42" y="84" class="label" font-size="12">DIRECTIONAL EXPOSURE · TWIN MASSING</text>
+  <g id="context">
+    <path d="M120 570 C260 500 390 520 520 560 C690 610 820 545 1040 505" class="fine"/>
+    <path d="M120 600 C270 535 390 550 520 590 C700 635 850 575 1040 535" class="fine"/>
+    <g fill="#d6d8d6" stroke="#a9adae">
+      <circle cx="220" cy="470" r="22"/><circle cx="250" cy="455" r="18"/><circle cx="920" cy="430" r="20"/><circle cx="950" cy="415" r="15"/>
+    </g>
+  </g>
+  <g id="building-mass" transform="scale(1.0) translate(0.0 0.0)">
+<g id="building-mass-volume-1">
+<path id="building-mass-volume-1-front" class="mass-front" d="M 430,500 L 580,500 L 580,610 L 430,610 Z"/>
+<path id="building-mass-volume-1-side" class="mass-side" d="M 580,500 L 630.0,450.0 L 630.0,560.0 L 580,610 Z"/>
+<path id="building-mass-volume-1-top" class="mass-top" d="M 430,500 L 480.0,450.0 L 630.0,450.0 L 580,500 Z"/>
+<path id="building-mass-volume-1-opening" d="M 454,528 L 478,516 L 478,592 L 454,604 Z" fill="#e9e7e1" stroke="#a1a4a6"/>
+</g>
+<g id="building-mass-volume-2">
+<path id="building-mass-volume-2-front" class="mass-front" d="M 625,528 L 750,528 L 750,610 L 625,610 Z"/>
+<path id="building-mass-volume-2-side" class="mass-side" d="M 750,528 L 792.5,485.5 L 792.5,567.5 L 750,610 Z"/>
+<path id="building-mass-volume-2-top" class="mass-top" d="M 625,528 L 667.5,485.5 L 792.5,485.5 L 750,528 Z"/>
+<path id="building-mass-volume-2-opening" d="M 649,556 L 673,544 L 673,592 L 649,604 Z" fill="#e9e7e1" stroke="#a1a4a6"/>
+</g>
+</g>
+  <g id="primary-direction">
+    <path d="M100 350 C250 350 330 380 455 420" class="wind" stroke-width="7"/>
+    <path d="M445 412 l22 7 l-16 14 z" fill="#4f9fd9"/>
+  </g>
+  <g id="secondary-direction">
+    <path d="M980 235 C870 260 805 300 735 345" class="wind-secondary" stroke-width="6"/>
+    <path d="M742 335 l-20 4 l10 17 z" fill="#62b8ae"/>
+  </g>
+  <g id="north-indicator" transform="translate(1060 620)">
+    <circle r="26" fill="none" stroke="#28343f"/><line class="north" x1="0" y1="15" x2="0" y2="-15"/><path d="M0 -15 l-5 10 h10 z" fill="#28343f"/><text class="heading" x="0" y="-32" font-size="14" text-anchor="middle">N</text>
+  </g>
+  <text x="75" y="660" class="label" font-size="11">CONTEXT LAYER IS REMOVABLE / SCHEMATIC</text>
+</g>
+</svg>

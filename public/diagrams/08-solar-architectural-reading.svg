@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 760" role="img" aria-labelledby="title desc">
+<title id="title">Solar Architectural Reading</title>
+<desc id="desc">Solar interpretation layout with replaceable paragraph and optional classification chips that can be hidden without collapsing the illustration.</desc>
+
+<style>
+  .heading { font-family:Fraunces, Georgia, serif; fill:#24344a; }
+  .body { font-family:Inter, Arial, sans-serif; fill:#334155; }
+  .label { font-family:Inter, Arial, sans-serif; fill:#566274; letter-spacing:1.4px; }
+  .data { font-family:Inter, Arial, sans-serif; fill:#24344a; }
+  .solar { stroke:#e58b1a; fill:none; }
+  .solar-fill { fill:#e58b1a; }
+  .wind { stroke:#4f9fd9; fill:none; }
+  .wind-secondary { stroke:#62b8ae; fill:none; }
+  .ref { stroke:#9ba4ad; fill:none; stroke-dasharray:6 6; }
+  .fine { stroke:#c5c9ce; fill:none; }
+  .mass-front { fill:#f5f3ee; stroke:#8d9399; }
+  .mass-side { fill:#dddcd7; stroke:#8d9399; }
+  .mass-top { fill:#fbfaf7; stroke:#8d9399; }
+  .shadow { fill:#aeb2b4; opacity:.28; }
+  .north { stroke:#28343f; fill:none; }
+</style>
+
+
+<g id="component-solar-reading">
+  <text x="45" y="60" class="heading" font-size="30">Solar Architectural Reading</text>
+  <line x1="45" y1="82" x2="78" y2="82" stroke="#e58b1a" stroke-width="3"/>
+  <g id="solar-reading-illustration">
+    <path id="solar-reading-sun-path" class="solar" stroke-width="2" stroke-dasharray="6 7" d="M330 410 C300 170 640 80 930 360"/>
+    <circle id="solar-reading-sun-1" cx="330" cy="410" r="7" class="solar-fill"/><circle id="solar-reading-sun-2" cx="620" cy="120" r="7" class="solar-fill"/><circle id="solar-reading-sun-3" cx="930" cy="360" r="7" class="solar-fill"/>
+    {massing("building-mass", "twin", x=545, y=470)}
+  </g>
+  <g id="solar-reading-text" transform="translate(55 155)">
+    <text class="label" font-size="11">INTERPRETIVE READING</text>
+    <text id="interpretive-paragraph" class="body" x="0" y="38" font-size="16">
+      <tspan x="0" dy="0">Replace this paragraph with the</tspan>
+      <tspan x="0" dy="25">data-derived solar interpretation.</tspan>
+    </text>
+  </g>
+  <g id="solar-reading-chips" transform="translate(55 610)">
+    <g id="solar-chip-1"><rect width="170" height="44" rx="4" fill="#fbfaf7" stroke="#e3d7c4"/><text id="solar-chip-1-label" class="label" x="12" y="18" font-size="9">CLASSIFICATION</text><text id="solar-chip-1-value" class="data" x="12" y="35" font-size="12">OPTIONAL</text></g>
+    <g id="solar-chip-2" transform="translate(190 0)"><rect width="170" height="44" rx="4" fill="#fbfaf7" stroke="#e3d7c4"/><text id="solar-chip-2-label" class="label" x="12" y="18" font-size="9">CLASSIFICATION</text><text id="solar-chip-2-value" class="data" x="12" y="35" font-size="12">OPTIONAL</text></g>
+    <g id="solar-chip-3" transform="translate(380 0)"><rect width="170" height="44" rx="4" fill="#fbfaf7" stroke="#e3d7c4"/><text id="solar-chip-3-label" class="label" x="12" y="18" font-size="9">CLASSIFICATION</text><text id="solar-chip-3-value" class="data" x="12" y="35" font-size="12">OPTIONAL</text></g>
+  </g>
+</g>
+</svg>

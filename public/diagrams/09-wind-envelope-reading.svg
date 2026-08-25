@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 760" role="img" aria-labelledby="title desc">
+<title id="title">Wind Envelope Reading</title>
+<desc id="desc">Wind-envelope interpretation layout with replaceable paragraph and optional classification chips; specific façade claims are not baked in.</desc>
+
+<style>
+  .heading { font-family:Fraunces, Georgia, serif; fill:#24344a; }
+  .body { font-family:Inter, Arial, sans-serif; fill:#334155; }
+  .label { font-family:Inter, Arial, sans-serif; fill:#566274; letter-spacing:1.4px; }
+  .data { font-family:Inter, Arial, sans-serif; fill:#24344a; }
+  .solar { stroke:#e58b1a; fill:none; }
+  .solar-fill { fill:#e58b1a; }
+  .wind { stroke:#4f9fd9; fill:none; }
+  .wind-secondary { stroke:#62b8ae; fill:none; }
+  .ref { stroke:#9ba4ad; fill:none; stroke-dasharray:6 6; }
+  .fine { stroke:#c5c9ce; fill:none; }
+  .mass-front { fill:#f5f3ee; stroke:#8d9399; }
+  .mass-side { fill:#dddcd7; stroke:#8d9399; }
+  .mass-top { fill:#fbfaf7; stroke:#8d9399; }
+  .shadow { fill:#aeb2b4; opacity:.28; }
+  .north { stroke:#28343f; fill:none; }
+</style>
+
+
+<g id="component-wind-envelope-reading">
+  <text x="45" y="60" class="heading" font-size="30">Wind Envelope Reading</text>
+  <line x1="45" y1="82" x2="78" y2="82" stroke="#4f9fd9" stroke-width="3"/>
+  <g id="wind-envelope-illustration">
+    <path id="envelope-flow-1" class="wind" stroke-width="2.5" d="M350 175 C500 130 700 135 1030 250"/>
+    <path id="envelope-flow-2" class="wind" stroke-width="2.5" d="M320 220 C500 175 720 190 1030 305"/>
+    <path id="envelope-flow-3" class="wind" stroke-width="2.5" d="M320 270 C500 230 720 245 1030 360"/>
+    {massing("building-mass", "twin", x=570, y=455)}
+    <path id="exposed-face-overlay" d="M465 345 L650 345 L650 470 L465 470 Z" fill="#4f9fd9" opacity=".18" stroke="#4f9fd9"/>
+  </g>
+  <g id="wind-envelope-text" transform="translate(55 155)">
+    <text class="label" font-size="11">INTERPRETIVE READING</text>
+    <text id="wind-envelope-paragraph" class="body" x="0" y="38" font-size="16">
+      <tspan x="0" dy="0">Replace this paragraph with the</tspan>
+      <tspan x="0" dy="25">data-derived wind-envelope interpretation.</tspan>
+    </text>
+  </g>
+  <g id="wind-envelope-chips" transform="translate(55 610)">
+    <g id="wind-chip-1"><rect width="170" height="44" rx="4" fill="#f7fbfd" stroke="#d4e4ec"/><text id="wind-chip-1-label" class="label" x="12" y="18" font-size="9">CLASSIFICATION</text><text id="wind-chip-1-value" class="data" x="12" y="35" font-size="12">OPTIONAL</text></g>
+    <g id="wind-chip-2" transform="translate(190 0)"><rect width="170" height="44" rx="4" fill="#f7fbfd" stroke="#d4e4ec"/><text id="wind-chip-2-label" class="label" x="12" y="18" font-size="9">CLASSIFICATION</text><text id="wind-chip-2-value" class="data" x="12" y="35" font-size="12">OPTIONAL</text></g>
+    <g id="wind-chip-3" transform="translate(380 0)"><rect width="170" height="44" rx="4" fill="#f7fbfd" stroke="#d4e4ec"/><text id="wind-chip-3-label" class="label" x="12" y="18" font-size="9">CLASSIFICATION</text><text id="wind-chip-3-value" class="data" x="12" y="35" font-size="12">OPTIONAL</text></g>
+  </g>
+</g>
+</svg>

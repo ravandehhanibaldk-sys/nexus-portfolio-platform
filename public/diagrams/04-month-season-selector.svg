@@ -1,0 +1,101 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 430" role="img" aria-labelledby="title desc">
+<title id="title">Month / Season Selector</title>
+<desc id="desc">Twelve independently addressable month nodes, fixed season markers, track, and visual state examples.</desc>
+
+<style>
+  .heading { font-family:Fraunces, Georgia, serif; fill:#24344a; }
+  .body { font-family:Inter, Arial, sans-serif; fill:#334155; }
+  .label { font-family:Inter, Arial, sans-serif; fill:#566274; letter-spacing:1.4px; }
+  .data { font-family:Inter, Arial, sans-serif; fill:#24344a; }
+  .solar { stroke:#e58b1a; fill:none; }
+  .solar-fill { fill:#e58b1a; }
+  .wind { stroke:#4f9fd9; fill:none; }
+  .wind-secondary { stroke:#62b8ae; fill:none; }
+  .ref { stroke:#9ba4ad; fill:none; stroke-dasharray:6 6; }
+  .fine { stroke:#c5c9ce; fill:none; }
+  .mass-front { fill:#f5f3ee; stroke:#8d9399; }
+  .mass-side { fill:#dddcd7; stroke:#8d9399; }
+  .mass-top { fill:#fbfaf7; stroke:#8d9399; }
+  .shadow { fill:#aeb2b4; opacity:.28; }
+  .north { stroke:#28343f; fill:none; }
+</style>
+
+
+<g id="component-month-selector">
+  <text x="42" y="56" class="heading" font-size="30">Month / Season Selector</text>
+  <text x="42" y="84" class="label" font-size="12">SEMANTIC VISUAL STATES · DEFAULT / HOVER / SELECTED</text>
+  <line id="month-track" x1="80" y1="250" x2="1120" y2="250" stroke="#b9bdc0" stroke-width="2"/>
+  
+<g id="month-jan" data-state="default">
+  <circle id="month-jan-node" cx="80" cy="250" r="7" fill="#b9bdc0"/>
+  <circle id="month-jan-selected" cx="80" cy="250" r="16" fill="#4f89c7" opacity="0"/>
+  <text id="month-jan-label" x="80" y="220" class="label" text-anchor="middle" font-size="12">JAN</text>
+</g>
+<g id="month-feb" data-state="default">
+  <circle id="month-feb-node" cx="174" cy="250" r="7" fill="#b9bdc0"/>
+  <circle id="month-feb-selected" cx="174" cy="250" r="16" fill="#4f89c7" opacity="0"/>
+  <text id="month-feb-label" x="174" y="220" class="label" text-anchor="middle" font-size="12">FEB</text>
+</g>
+<g id="month-mar" data-state="default">
+  <circle id="month-mar-node" cx="268" cy="250" r="7" fill="#b9bdc0"/>
+  <circle id="month-mar-selected" cx="268" cy="250" r="16" fill="#4f89c7" opacity="0"/>
+  <text id="month-mar-label" x="268" y="220" class="label" text-anchor="middle" font-size="12">MAR</text>
+</g>
+<g id="month-apr" data-state="default">
+  <circle id="month-apr-node" cx="362" cy="250" r="7" fill="#b9bdc0"/>
+  <circle id="month-apr-selected" cx="362" cy="250" r="16" fill="#4f89c7" opacity="0"/>
+  <text id="month-apr-label" x="362" y="220" class="label" text-anchor="middle" font-size="12">APR</text>
+</g>
+<g id="month-may" data-state="default">
+  <circle id="month-may-node" cx="456" cy="250" r="7" fill="#b9bdc0"/>
+  <circle id="month-may-selected" cx="456" cy="250" r="16" fill="#4f89c7" opacity="0"/>
+  <text id="month-may-label" x="456" y="220" class="label" text-anchor="middle" font-size="12">MAY</text>
+</g>
+<g id="month-jun" data-state="default">
+  <circle id="month-jun-node" cx="550" cy="250" r="7" fill="#b9bdc0"/>
+  <circle id="month-jun-selected" cx="550" cy="250" r="16" fill="#4f89c7" opacity="0"/>
+  <text id="month-jun-label" x="550" y="220" class="label" text-anchor="middle" font-size="12">JUN</text>
+</g>
+<g id="month-jul" data-state="default">
+  <circle id="month-jul-node" cx="644" cy="250" r="7" fill="#b9bdc0"/>
+  <circle id="month-jul-selected" cx="644" cy="250" r="16" fill="#4f89c7" opacity="0"/>
+  <text id="month-jul-label" x="644" y="220" class="label" text-anchor="middle" font-size="12">JUL</text>
+</g>
+<g id="month-aug" data-state="default">
+  <circle id="month-aug-node" cx="738" cy="250" r="7" fill="#b9bdc0"/>
+  <circle id="month-aug-selected" cx="738" cy="250" r="16" fill="#4f89c7" opacity="0"/>
+  <text id="month-aug-label" x="738" y="220" class="label" text-anchor="middle" font-size="12">AUG</text>
+</g>
+<g id="month-sep" data-state="default">
+  <circle id="month-sep-node" cx="832" cy="250" r="7" fill="#b9bdc0"/>
+  <circle id="month-sep-selected" cx="832" cy="250" r="16" fill="#4f89c7" opacity="0"/>
+  <text id="month-sep-label" x="832" y="220" class="label" text-anchor="middle" font-size="12">SEP</text>
+</g>
+<g id="month-oct" data-state="default">
+  <circle id="month-oct-node" cx="926" cy="250" r="7" fill="#b9bdc0"/>
+  <circle id="month-oct-selected" cx="926" cy="250" r="16" fill="#4f89c7" opacity="0"/>
+  <text id="month-oct-label" x="926" y="220" class="label" text-anchor="middle" font-size="12">OCT</text>
+</g>
+<g id="month-nov" data-state="default">
+  <circle id="month-nov-node" cx="1020" cy="250" r="7" fill="#b9bdc0"/>
+  <circle id="month-nov-selected" cx="1020" cy="250" r="16" fill="#4f89c7" opacity="0"/>
+  <text id="month-nov-label" x="1020" y="220" class="label" text-anchor="middle" font-size="12">NOV</text>
+</g>
+<g id="month-dec" data-state="default">
+  <circle id="month-dec-node" cx="1114" cy="250" r="7" fill="#b9bdc0"/>
+  <circle id="month-dec-selected" cx="1114" cy="250" r="16" fill="#4f89c7" opacity="0"/>
+  <text id="month-dec-label" x="1114" y="220" class="label" text-anchor="middle" font-size="12">DEC</text>
+</g>
+  <g id="season-markers">
+    <g id="season-winter"><circle cx="150" cy="145" r="15" fill="none" stroke="#6fa7c6" stroke-width="2"/><path d="M150 125 v40 M130 145 h40 M136 131 l28 28 M164 131 l-28 28" stroke="#6fa7c6"/></g>
+    <g id="season-spring"><path d="M430 130 q20 -22 40 0" stroke="#5d9d54" fill="none" stroke-width="3"/><path d="M450 130 l-10 20 l20 -5" fill="none" stroke="#5d9d54"/></g>
+    <g id="season-summer"><circle cx="690" cy="145" r="12" fill="none" stroke="#e5a51a" stroke-width="2"/><line x1="708.0" y1="145.0" x2="717.0" y2="145.0" stroke="#e5a51a"/><line x1="702.7" y1="157.7" x2="709.1" y2="164.1" stroke="#e5a51a"/><line x1="690.0" y1="163.0" x2="690.0" y2="172.0" stroke="#e5a51a"/><line x1="677.3" y1="157.7" x2="670.9" y2="164.1" stroke="#e5a51a"/><line x1="672.0" y1="145.0" x2="663.0" y2="145.0" stroke="#e5a51a"/><line x1="677.3" y1="132.3" x2="670.9" y2="125.9" stroke="#e5a51a"/><line x1="690.0" y1="127.0" x2="690.0" y2="118.0" stroke="#e5a51a"/><line x1="702.7" y1="132.3" x2="709.1" y2="125.9" stroke="#e5a51a"/></g>
+    <g id="season-autumn"><path d="M960 130 q18 -8 24 12 q-14 12 -24 5 q-8 -10 0 -17z" fill="none" stroke="#d77b3b" stroke-width="2"/></g>
+  </g>
+  <g id="month-state-guide" transform="translate(70 330)">
+    <circle cx="0" cy="0" r="7" fill="#b9bdc0"/><text class="label" x="20" y="4" font-size="11">DEFAULT</text>
+    <circle cx="130" cy="0" r="7" fill="#b9bdc0" stroke="#4f89c7" stroke-width="3"/><text class="label" x="150" y="4" font-size="11">HOVER</text>
+    <circle cx="270" cy="0" r="7" fill="#4f89c7"/><text class="label" x="290" y="4" font-size="11">SELECTED</text>
+  </g>
+</g>
+</svg>

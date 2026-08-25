@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 760" role="img" aria-labelledby="title desc">
+<title id="title">Architectural Wind Flow — twin</title>
+<desc id="desc">Qualitative individual wind streamlines with independent primary and secondary groups around a reusable building mass.</desc>
+
+<style>
+  .heading { font-family:Fraunces, Georgia, serif; fill:#24344a; }
+  .body { font-family:Inter, Arial, sans-serif; fill:#334155; }
+  .label { font-family:Inter, Arial, sans-serif; fill:#566274; letter-spacing:1.4px; }
+  .data { font-family:Inter, Arial, sans-serif; fill:#24344a; }
+  .solar { stroke:#e58b1a; fill:none; }
+  .solar-fill { fill:#e58b1a; }
+  .wind { stroke:#4f9fd9; fill:none; }
+  .wind-secondary { stroke:#62b8ae; fill:none; }
+  .ref { stroke:#9ba4ad; fill:none; stroke-dasharray:6 6; }
+  .fine { stroke:#c5c9ce; fill:none; }
+  .mass-front { fill:#f5f3ee; stroke:#8d9399; }
+  .mass-side { fill:#dddcd7; stroke:#8d9399; }
+  .mass-top { fill:#fbfaf7; stroke:#8d9399; }
+  .shadow { fill:#aeb2b4; opacity:.28; }
+  .north { stroke:#28343f; fill:none; }
+</style>
+
+
+<g id="component-wind-flow">
+  <text x="42" y="56" class="heading" font-size="30">Architectural Wind Flow</text>
+  <text x="42" y="84" class="label" font-size="12">QUALITATIVE STREAMLINE SYSTEM · TWIN MASSING</text>
+  <g id="wind-streamlines-primary" class="primary-wind">
+    <path id="wind-flow-1" class="wind" stroke-width="2.2" d="M80 190 C250 180 385 235 520 220 C650 205 592 120 1120 170"/><path id="wind-flow-2" class="wind" stroke-width="2.2" d="M80 230 C250 220 360 275 520 260 C650 245 574 160 1120 210"/><path id="wind-flow-3" class="wind" stroke-width="2.2" d="M80 270 C250 260 385 315 520 300 C650 285 610 200 1120 250"/><path id="wind-flow-4" class="wind" stroke-width="2.2" d="M80 310 C250 300 360 355 520 340 C650 325 592 240 1120 290"/><path id="wind-flow-5" class="wind" stroke-width="1.7" d="M80 350 C250 340 385 395 520 380 C650 365 574 280 1120 330"/>
+  </g>
+  <g id="wind-streamlines-secondary" class="secondary-wind">
+    <path id="wind-flow-6" class="wind" stroke-width="1.7" d="M80 390 C250 380 360 435 520 420 C650 405 610 320 1120 370"/><path id="wind-flow-7" class="wind" stroke-width="1.7" d="M80 430 C250 420 385 475 520 460 C650 445 592 360 1120 410"/>
+  </g>
+  <g id="wind-flow-arrowheads" fill="#4f9fd9">
+    <path d="M300 275 l18 -6 l-6 18 z"/><path d="M790 350 l18 -6 l-6 18 z"/><path d="M1010 280 l18 -6 l-6 18 z"/>
+  </g>
+  <g id="building-mass" transform="scale(1.0) translate(0.0 0.0)">
+<g id="building-mass-volume-1">
+<path id="building-mass-volume-1-front" class="mass-front" d="M 430,505 L 580,505 L 580,615 L 430,615 Z"/>
+<path id="building-mass-volume-1-side" class="mass-side" d="M 580,505 L 630.0,455.0 L 630.0,565.0 L 580,615 Z"/>
+<path id="building-mass-volume-1-top" class="mass-top" d="M 430,505 L 480.0,455.0 L 630.0,455.0 L 580,505 Z"/>
+<path id="building-mass-volume-1-opening" d="M 454,533 L 478,521 L 478,597 L 454,609 Z" fill="#e9e7e1" stroke="#a1a4a6"/>
+</g>
+<g id="building-mass-volume-2">
+<path id="building-mass-volume-2-front" class="mass-front" d="M 625,533 L 750,533 L 750,615 L 625,615 Z"/>
+<path id="building-mass-volume-2-side" class="mass-side" d="M 750,533 L 792.5,490.5 L 792.5,572.5 L 750,615 Z"/>
+<path id="building-mass-volume-2-top" class="mass-top" d="M 625,533 L 667.5,490.5 L 792.5,490.5 L 750,533 Z"/>
+<path id="building-mass-volume-2-opening" d="M 649,561 L 673,549 L 673,597 L 649,609 Z" fill="#e9e7e1" stroke="#a1a4a6"/>
+</g>
+</g>
+  <g id="wind-flow-legend" transform="translate(70 635)">
+    <line class="wind" x1="0" y1="0" x2="55" y2="0" stroke-width="3"/><text class="label" x="70" y="4" font-size="11">PRIMARY</text>
+    <line class="wind-secondary" x1="185" y1="0" x2="240" y2="0" stroke-width="3"/><text class="label" x="255" y="4" font-size="11">SECONDARY</text>
+  </g>
+</g>
+</svg>

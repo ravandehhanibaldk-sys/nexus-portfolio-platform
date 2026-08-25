@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 300" role="img" aria-labelledby="title desc">
+<title id="title">Solar Metric Strip</title>
+<desc id="desc">Four independent solar metric value slots with static labels and icons; values are neutral placeholders.</desc>
+
+<style>
+  .heading { font-family:Fraunces, Georgia, serif; fill:#24344a; }
+  .body { font-family:Inter, Arial, sans-serif; fill:#334155; }
+  .label { font-family:Inter, Arial, sans-serif; fill:#566274; letter-spacing:1.4px; }
+  .data { font-family:Inter, Arial, sans-serif; fill:#24344a; }
+  .solar { stroke:#e58b1a; fill:none; }
+  .solar-fill { fill:#e58b1a; }
+  .wind { stroke:#4f9fd9; fill:none; }
+  .wind-secondary { stroke:#62b8ae; fill:none; }
+  .ref { stroke:#9ba4ad; fill:none; stroke-dasharray:6 6; }
+  .fine { stroke:#c5c9ce; fill:none; }
+  .mass-front { fill:#f5f3ee; stroke:#8d9399; }
+  .mass-side { fill:#dddcd7; stroke:#8d9399; }
+  .mass-top { fill:#fbfaf7; stroke:#8d9399; }
+  .shadow { fill:#aeb2b4; opacity:.28; }
+  .north { stroke:#28343f; fill:none; }
+</style>
+
+
+<g id="component-solar-metrics">
+  <rect x="30" y="35" width="1140" height="230" rx="22" fill="#fbfaf7" stroke="#d7c8ad"/>
+  <g id="daylight-metric" transform="translate(80 75)"><circle r="35" fill="none" stroke="#e5a51a" stroke-width="2"/><circle r="12" fill="none" stroke="#e5a51a" stroke-width="2"/><text class="label" x="65" y="-8" font-size="11">DAYLIGHT</text><text id="daylight-value" class="data" x="65" y="28" font-size="30">—</text></g>
+  <g id="noon-altitude-metric" transform="translate(360 75)"><path d="M-28 25 Q0 -30 28 25" fill="none" stroke="#63a34d" stroke-width="2"/><circle cx="0" cy="-2" r="8" fill="#63a34d"/><text class="label" x="65" y="-8" font-size="11">NOON ALTITUDE</text><text id="noon-altitude-value" class="data" x="65" y="28" font-size="30">—</text></g>
+  <g id="sunrise-metric" transform="translate(665 75)"><path d="M-25 20 Q0 -5 25 20" fill="none" stroke="#ef7c1a" stroke-width="2"/><circle cx="0" cy="20" r="10" fill="#ef7c1a"/><text class="label" x="65" y="-8" font-size="11">SUNRISE</text><text id="sunrise-value" class="data" x="65" y="28" font-size="30">00:00</text></g>
+  <g id="sunset-metric" transform="translate(950 75)"><path d="M-25 20 Q0 -5 25 20" fill="none" stroke="#e34d69" stroke-width="2"/><circle cx="0" cy="20" r="10" fill="#e34d69"/><text class="label" x="65" y="-8" font-size="11">SUNSET</text><text id="sunset-value" class="data" x="65" y="28" font-size="30">00:00</text></g>
+</g>
+</svg>

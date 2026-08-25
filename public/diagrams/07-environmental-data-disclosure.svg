@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 760" role="img" aria-labelledby="title desc">
+<title id="title">Environmental Data Disclosure</title>
+<desc id="desc">Four independent disclosure content slots plus a replaceable limitations note.</desc>
+
+<style>
+  .heading { font-family:Fraunces, Georgia, serif; fill:#24344a; }
+  .body { font-family:Inter, Arial, sans-serif; fill:#334155; }
+  .label { font-family:Inter, Arial, sans-serif; fill:#566274; letter-spacing:1.4px; }
+  .data { font-family:Inter, Arial, sans-serif; fill:#24344a; }
+  .solar { stroke:#e58b1a; fill:none; }
+  .solar-fill { fill:#e58b1a; }
+  .wind { stroke:#4f9fd9; fill:none; }
+  .wind-secondary { stroke:#62b8ae; fill:none; }
+  .ref { stroke:#9ba4ad; fill:none; stroke-dasharray:6 6; }
+  .fine { stroke:#c5c9ce; fill:none; }
+  .mass-front { fill:#f5f3ee; stroke:#8d9399; }
+  .mass-side { fill:#dddcd7; stroke:#8d9399; }
+  .mass-top { fill:#fbfaf7; stroke:#8d9399; }
+  .shadow { fill:#aeb2b4; opacity:.28; }
+  .north { stroke:#28343f; fill:none; }
+</style>
+
+
+<g id="component-environmental-disclosure">
+  <rect x="35" y="30" width="1130" height="500" rx="24" fill="#fff" stroke="#d8dce0"/>
+  <circle cx="100" cy="105" r="48" fill="#edf4f8"/><path d="M85 120 Q85 75 125 70 Q122 110 92 125" fill="none" stroke="#35556b" stroke-width="3"/><path d="M88 120 L112 93" stroke="#35556b" stroke-width="3"/>
+  <text x="170" y="92" class="heading" font-size="24">ENVIRONMENTAL DATA DISCLOSURE</text>
+  <text x="170" y="122" class="body" font-size="15">Important information about this data</text>
+  <line x1="70" y1="165" x2="1130" y2="165" stroke="#d8dce0"/>
+  <g id="frequency-disclosure"><text class="label" x="100" y="215" font-size="11">FREQUENCY</text><text id="frequency-disclosure-value" class="body" x="100" y="245" font-size="17">—</text></g>
+  <g id="wind-speed-disclosure"><text class="label" x="620" y="215" font-size="11">WIND SPEED</text><text id="wind-speed-disclosure-value" class="body" x="620" y="245" font-size="17">—</text></g>
+  <g id="direction-disclosure"><text class="label" x="100" y="330" font-size="11">DIRECTION</text><text id="direction-disclosure-value" class="body" x="100" y="360" font-size="17">—</text></g>
+  <g id="source-data-disclosure"><text class="label" x="620" y="330" font-size="11">SOURCE DATA</text><text id="source-data-disclosure-value" class="body" x="620" y="360" font-size="17">—</text></g>
+  <text id="disclosure-limitation-note" class="label" x="100" y="455" font-size="11">LIMITATIONS NOTE — REPLACE WITH PROJECT-SPECIFIC HONEST CAVEAT.</text>
+</g>
+</svg>
