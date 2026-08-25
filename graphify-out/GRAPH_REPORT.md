@@ -1,16 +1,16 @@
 # Graph Report - All Final For Claude Code  (2026-08-16)
 
 ## Corpus Check
-- 54 files · ~14,094,310 words
+- 54 files · ~14,095,865 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 347 nodes · 393 edges · 20 communities (16 shown, 4 thin omitted)
+- 337 nodes · 382 edges · 19 communities (15 shown, 4 thin omitted)
 - Extraction: 100% EXTRACTED · 0% INFERRED · 0% AMBIGUOUS
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `17aad544`
+- Built from commit: `16ebe724`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -31,7 +31,6 @@
 - [[_COMMUNITY_Community 13|Community 13]]
 - [[_COMMUNITY_Community 14|Community 14]]
 - [[_COMMUNITY_Community 15|Community 15]]
-- [[_COMMUNITY_Community 16|Community 16]]
 - [[_COMMUNITY_Community 17|Community 17]]
 - [[_COMMUNITY_Community 18|Community 18]]
 - [[_COMMUNITY_Community 19|Community 19]]
@@ -63,7 +62,7 @@
 ## Import Cycles
 - None detected.
 
-## Communities (20 total, 4 thin omitted)
+## Communities (19 total, 4 thin omitted)
 
 ### Community 0 - "Community 0"
 Cohesion: 0.06
@@ -82,8 +81,8 @@ Cohesion: 0.11
 Nodes (24): app/page.tsx, Home(), projects, villa-efe/page.tsx, metadata, AlternativesComparator(), BackToPortfolio(), Frame() (+16 more)
 
 ### Community 4 - "Community 4"
-Cohesion: 0.09
-Nodes (22): alternativeSchema, assetSchema, beatSchema, ClimateInstrument, climateInstrumentSchema, ClimateMonth, climateMonthSchema, ProjectAlternative (+14 more)
+Cohesion: 0.08
+Nodes (23): alternativeSchema, assetSchema, beatSchema, ClimateInstrument, climateInstrumentSchema, ClimateMonth, climateMonthSchema, ProjectAlternative (+15 more)
 
 ### Community 5 - "Community 5"
 Cohesion: 0.05
@@ -117,10 +116,6 @@ Nodes (14): ✅ 2026-08-10 — EXECUTION PHASE 2 Status: IMPLEMENTED AND VERIFIE
 Cohesion: 0.40
 Nodes (3): fraunces, inter, metadata
 
-### Community 16 - "Community 16"
-Cohesion: 0.17
-Nodes (3): Measurement, ModelExportTest(), metadata
-
 ### Community 17 - "Community 17"
 Cohesion: 0.25
 Nodes (7): Data source, How to run, Known limitations, Phase 3.6 — Real Photo + Live Climate Instrument (Villa Red Sun), Solar calculation method, Validation against the source report, What this is
@@ -130,7 +125,7 @@ Cohesion: 0.29
 Nodes (6): description, devDependencies, @gltf-transform/cli, name, private, version
 
 ## Knowledge Gaps
-- **245 isolated node(s):** `Villa Red Sun — GLB + FBX Comparative Forensic Test`, `Phase 3D — Authoritative 3D Export Forensic Audit (Final Diagnostic Pass)`, `1. EXECUTIVE SUMMARY`, `2. AUTHORITATIVE SOURCE VERIFICATION`, `3. SOURCE UNIT / SCALE VERIFICATION` (+240 more)
+- **244 isolated node(s):** `metadata`, `Villa Red Sun — GLB + FBX Comparative Forensic Test`, `Phase 3D — Authoritative 3D Export Forensic Audit (Final Diagnostic Pass)`, `1. EXECUTIVE SUMMARY`, `2. AUTHORITATIVE SOURCE VERIFICATION` (+239 more)
   These have ≤1 connection - possible missing edges or undocumented components.
 - **4 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
@@ -139,8 +134,8 @@ _Questions this graph is uniquely positioned to answer:_
 
 - **Why does `devDependencies` connect `Community 2` to `Community 9`?**
   _High betweenness centrality (0.005) - this node is a cross-community bridge._
-- **What connects `Villa Red Sun — GLB + FBX Comparative Forensic Test`, `Phase 3D — Authoritative 3D Export Forensic Audit (Final Diagnostic Pass)`, `1. EXECUTIVE SUMMARY` to the rest of the system?**
-  _245 weakly-connected nodes found - possible documentation gaps or missing edges._
+- **What connects `metadata`, `Villa Red Sun — GLB + FBX Comparative Forensic Test`, `Phase 3D — Authoritative 3D Export Forensic Audit (Final Diagnostic Pass)` to the rest of the system?**
+  _244 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `Community 0` be split into smaller, more focused modules?**
   _Cohesion score 0.06451612903225806 - nodes in this community are weakly interconnected._
 - **Should `Community 1` be split into smaller, more focused modules?**
@@ -148,6 +143,6 @@ _Questions this graph is uniquely positioned to answer:_
 - **Should `Community 3` be split into smaller, more focused modules?**
   _Cohesion score 0.1092436974789916 - nodes in this community are weakly interconnected._
 - **Should `Community 4` be split into smaller, more focused modules?**
-  _Cohesion score 0.08817204301075268 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.0784313725490196 - nodes in this community are weakly interconnected._
 - **Should `Community 5` be split into smaller, more focused modules?**
   _Cohesion score 0.05128205128205128 - nodes in this community are weakly interconnected._

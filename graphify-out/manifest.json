@@ -15,14 +15,9 @@
     "semantic_hash": "be4b15f5419b68f878ff90353a286629"
   },
   "app/projects/villa-red-sun/page.tsx": {
-    "mtime": 1786670952.2276573,
-    "ast_hash": "ba53b489a9822f59957378edbedfbd68",
-    "semantic_hash": "ba53b489a9822f59957378edbedfbd68"
-  },
-  "components/dev/model-export-test.tsx": {
-    "mtime": 1786670952.8246727,
-    "ast_hash": "927d28a585ba5a6983a8ad1aa80aac84",
-    "semantic_hash": "927d28a585ba5a6983a8ad1aa80aac84"
+    "mtime": 1786848519.0009112,
+    "ast_hash": "f62894571c6275ab55e3f6e8db01bd6b",
+    "semantic_hash": ""
   },
   "components/project/alternatives-comparator.tsx": {
     "mtime": 1785681924.0879903,
@@ -85,8 +80,8 @@
     "semantic_hash": ""
   },
   "content/projects/villa-efe.ts": {
-    "mtime": 1786671350.787738,
-    "ast_hash": "c33e169f9672b04e88b55f3c67443628",
+    "mtime": 1786840079.1246462,
+    "ast_hash": "36df0e4d25047e64aa09150d81de6aef",
     "semantic_hash": ""
   },
   "content/projects/villa-red-sun.ts": {
@@ -977,6 +972,11 @@
   "rd/climate-response-v2/assets/red-sun-exterior.png": {
     "mtime": 1786670954.4017334,
     "ast_hash": "6856dc6390337bcd574ca6603c53a08f",
+    "semantic_hash": ""
+  },
+  "VISUAL-DNA.md": {
+    "mtime": 1786844718.440228,
+    "ast_hash": "21dac0a168211a774f366d4c80299185",
     "semantic_hash": ""
   }
 }
