@@ -88,65 +88,72 @@ the two efforts.
 
 ## 4. Current Approved State — Both Tracks
 
-**FACT — Website.**
-- Villa Red Sun and Villa Efe pages both live, both locales working.
-- Environmental Diagrams component (`components/project/environmental-diagrams.tsx`
-  + `.module.css`) went through a full structural rewrite this cycle: real
-  ancestor-width investigation → viewport breakout → an explicit two-column
-  flex layout (not the earlier row-locked CSS grid) so a Solar/Wind card
-  height mismatch no longer forces a shared row to stretch and leave a dead
-  gap. `pnpm lint` and `pnpm build` passed clean after this work (last
-  verified 2026-08-20/21 in-session; re-verify before trusting it's still
-  clean, since 63 files are uncommitted — see Section 5).
+**FACT — Website.** Rewritten 2026-08-25 after a long autonomous session
+closed out nearly every open item from the previous version of this
+document. Current state:
+- Villa Red Sun and Villa Efe pages both live, both locales (en/da)
+  fully working, including reflection closing text (see below).
+- Environmental Diagrams component: the row-2 height mismatch (former
+  M1) is resolved — two independent flex columns, `EnvironmentalDisclosure`
+  moved to the Solar column to rebalance — verified live on both projects.
 - Components 08 (`Solar Architectural Reading`) and 09 (`Wind Envelope
-  Reading`) render correctly (real massing, real data, correct chip-hiding
-  behavior) but with visibly less rich illustration/color than the
-  project's own original reference concept images — **confirmed via direct
-  inspection of the raw source SVGs** that this is because
-  `public/diagrams/08-solar-architectural-reading.svg` and
-  `09-wind-envelope-reading.svg` are themselves unfinished template stubs
-  in the delivered "approved final" SVG package (literal placeholder text,
-  generic undifferentiated chip boxes) — not a bug in the wiring code. See
-  `PORTFOLIO_OPEN_ISSUES.md`.
-- Villa Efe's page gained one new content asset this cycle: an 8-panel
-  "design evolution" composite image, verified to depict Villa Efe (not
-  Villa Red Sun, despite a stale reference in the task brief that named the
-  wrong source folder), placed in the "04 — Design Thinking" section,
-  captioned in English and Danish, verified on desktop/mobile/both locales,
-  zero console errors, lint/build clean.
+  Reading`) **no longer ship broken placeholder content.** A machine-wide
+  read-only search found a genuinely richer original source
+  (`Desktop/.../All Final File/Environmental-Diagrams-Final/`); both SVGs
+  now carry real illustrated building/sun-path/wind-flow artwork.
+  Fabricated-looking specific claims from that source (exact facade/
+  exposure values) were deliberately not carried over — see
+  `PORTFOLIO_OPEN_ISSUES.md` M2 for the full reasoning. Chips remain
+  force-hidden in production, unchanged from before.
+- Villa Efe's 8-panel "design evolution" composite image — confirmed
+  present and correctly displayed (re-verified this session by reading
+  the raw file directly).
+- **Reflection (Component 19.9)**: both English and Danish
+  `reflection.text` are now real, finished, first-person content for
+  both projects — no placeholder remains in either locale. English was
+  already complete; Danish was authorized and translated by Hanibal this
+  session.
+- **About page**: the process-cycle (IDEA → SITE → ... → REFLECTION) was
+  redesigned from a flat single-line label into a typographic sequence —
+  input words smaller/neutral, resolution words larger/full-ink, quiet
+  arrow separators — on both the website and the PDF About sheet. Same
+  eight words, same order, nothing else on the page changed.
 
-**FACT — PDF.** Per `PDF-VISUAL-DIRECTION.md` (dated 2026-08-22, the most
-current PDF-track status document found):
-- Plans & Sections sheet layout — **done, confirmed with screenshots.**
-- Environmental Analysis print sheet redesign — **done, confirmed with
-  screenshots.**
-- Site Analysis graphics redraw (from photographic overlay to illustrated
-  line-work matching the plan/section drawing style) — **direction written,
-  not implemented.** Explicitly held pending confirmation of the items
-  above.
-- Print typography scale (formalizing ad hoc `text-[19px]`-style sizing
-  into one consistent print-specific scale) — **recommendation only, not
-  implemented.**
+**FACT — PDF.**
+- Plans & Sections sheet layout — done, confirmed with screenshots.
+- Environmental Analysis print sheet redesign — done, confirmed with
+  screenshots. Note: this sheet uses a separate, pre-produced static PNG
+  per project — it does not render 08/09 live, and never has.
+- **Reflection is now integrated as the closing sheet per project**
+  (`components/print-landscape/reflection-sheet-landscape.tsx`), same
+  dark bookend treatment as the website. 18 sheets total (was 15/16).
+  Verified via real rendered PDF pixels, not just DOM.
+- About page cycle redesign applied to the PDF About sheet too, verified
+  via real rendered PDF page.
+- Site Analysis graphics redraw and print typography scale — status
+  tracked in `PORTFOLIO_OPEN_ISSUES.md` (N3/N4), being worked this
+  session; check that document and this session's final report for the
+  actual outcome, since N3 in particular has real feasibility limits
+  (asset production, not a layout change).
 
-## 5. Uncommitted Work — Important Risk Fact
+## 5. Git State
 
-**FACT.** `git status --short` shows **63 changed/untracked paths** in the
-working copy, including most of the recent work described above
-(`environmental-diagrams.tsx`, the entire `app/print/`, `components/print/`,
-`components/efe/`, `components/red-sun/`, `dictionaries/`, and more — none
-of it committed to git). The last real commit is `16ebe72` ("Remove
-ModelExportTest dev tool from production route"); everything since then
-exists only in the working tree, backed up only by the file-level backup
-folders, not by git history.
+**FACT.** All work through this session is committed locally, in atomic,
+logically-grouped commits — see `git log --oneline` for the full
+sequence (i18n infrastructure, Environmental Diagrams, editorial
+redesign, About page, PDF pipeline, graphify refresh, handoff docs,
+Danish reflection text, PDF Reflection sheet, launch.json fix, About
+typography redesign, diagram 08/09 replacement, and any commits from
+this session's remaining work). Nothing has been pushed to
+`origin/master`, per standing instruction — local commits only until
+Hanibal reviews and decides.
 
-## 6. Current Next Priority — Website Environmental Layout
+## 6. Current Next Priority
 
-**FACT, per the task that opened this handoff request.** The next priority
-is the **Website's Environmental Diagram layout** — continuing/finishing
-the structural work described in Section 4. The known concrete remaining
-item (see `PORTFOLIO_OPEN_ISSUES.md` for full severity list) is the row-2
-height mismatch between the compact Solar Metrics strip and the taller Wind
-Exposure illustration, which was explicitly reported as unresolved in the
-last structural pass — no swap or reflow found that fixes it without either
-violating the "don't touch source SVGs" rule or artificially stretching a
-shorter card.
+**FACT, as of this rewrite.** With B1, M1, M2, M3, and M4 all resolved,
+the remaining open work is N3 (PDF Site Analysis illustration redraw)
+and N4 (PDF print typography scale) — see `PORTFOLIO_OPEN_ISSUES.md` for
+current status of both. Once those are settled, the portfolio is at a
+fully finalized, ready-for-Hanibal's-review state across both the
+website and the PDF, per his standing instruction to push everything
+through without pausing for interim check-ins.
