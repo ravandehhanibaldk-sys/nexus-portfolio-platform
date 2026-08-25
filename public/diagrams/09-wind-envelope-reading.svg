@@ -25,10 +25,93 @@
   <text x="45" y="60" class="heading" font-size="30">Wind Envelope Reading</text>
   <line x1="45" y1="82" x2="78" y2="82" stroke="#4f9fd9" stroke-width="3"/>
   <g id="wind-envelope-illustration">
-    <path id="envelope-flow-1" class="wind" stroke-width="2.5" d="M350 175 C500 130 700 135 1030 250"/>
-    <path id="envelope-flow-2" class="wind" stroke-width="2.5" d="M320 220 C500 175 720 190 1030 305"/>
-    <path id="envelope-flow-3" class="wind" stroke-width="2.5" d="M320 270 C500 230 720 245 1030 360"/>
-    {massing("building-mass", "twin", x=570, y=455)}
+    <!--
+      building-mass + ambient wind-flow context — real vector geometry
+      adapted from the project's own Environmental-Diagrams-Final/
+      09-wind_envelope_reading_variant_A_production.svg (found via
+      machine-wide search per Hanibal's direction), replacing the broken
+      `{massing(...)}` template placeholder and the previous 3 bare flow
+      lines this file shipped with. Wrapped in one translate/scale
+      transform computed from the source's own bounding box
+      (520,205)-(1510,900) to fit this illustration area without
+      overlapping the chip row (y>=610) — no path data redrawn, only
+      repositioned as rigid groups.
+
+      Deliberately NOT carried over from the source: its "wind-direction"
+      arrow/SW label and "NE" compass label. Unlike 03/06 (Wind Exposure,
+      Prevailing Sector), this component has never been wired to rotate to
+      a real per-month compass bearing — those labels in the source are
+      generic reference-image dressing, not derived from either project's
+      real wind data. Showing a fixed "SW"/"NE" here would read as a
+      specific directional claim this component doesn't actually verify,
+      which is the same category of problem CLAUDE.md rule 4 exists for.
+      The flow-line paths themselves are kept as ambient/qualitative
+      artwork only, matching the existing project convention that
+      wind-flow line shapes are decorative context, not data (see
+      wind-diagram.tsx's WindFlow comment on 02's wind-streamlines-*).
+    -->
+    <g id="building-mass" transform="translate(-22.9 -59.0) scale(0.727)">
+      <g id="site-grid" opacity=".72" stroke="#d9dee4" stroke-width="1">
+        <path d="M650 720 L1240 410 L1510 565 L915 900 Z" fill="#f6f8fa"/>
+        <path d="M700 690 L1285 390"/>
+        <path d="M760 725 L1345 425"/>
+        <path d="M820 760 L1405 460"/>
+        <path d="M880 795 L1465 495"/>
+        <path d="M940 830 L1510 555"/>
+        <path d="M760 645 L1095 845"/>
+        <path d="M815 616 L1150 812"/>
+        <path d="M870 587 L1205 780"/>
+        <path d="M925 558 L1260 748"/>
+        <path d="M980 529 L1315 716"/>
+        <path d="M1035 500 L1370 685"/>
+        <path d="M1090 471 L1425 653"/>
+      </g>
+      <g id="context-trees" fill="#cfd4d8" opacity=".62">
+        <g transform="translate(1310 650)">
+          <rect x="-4" y="18" width="8" height="26" fill="#b9bdc0"/>
+          <circle cy="8" r="22"/><circle cx="-15" cy="17" r="17"/><circle cx="15" cy="17" r="17"/>
+        </g>
+        <g transform="translate(1430 580) scale(.8)">
+          <rect x="-4" y="18" width="8" height="26" fill="#b9bdc0"/>
+          <circle cy="8" r="22"/><circle cx="-15" cy="17" r="17"/><circle cx="15" cy="17" r="17"/>
+        </g>
+        <g transform="translate(1220 800) scale(.7)">
+          <rect x="-4" y="18" width="8" height="26" fill="#b9bdc0"/>
+          <circle cy="8" r="22"/><circle cx="-15" cy="17" r="17"/><circle cx="15" cy="17" r="17"/>
+        </g>
+      </g>
+      <path d="M855 605 L1095 475 L1370 625 L1130 760 Z" fill="#dfe3e7" opacity=".62"/>
+      <g id="building-volume">
+        <path d="M885 525 L1105 405 L1330 530 L1110 650 Z" fill="#ffffff" stroke="#c4cbd2" stroke-width="2"/>
+        <path d="M885 525 L885 690 L1110 815 L1110 650 Z" fill="#eef1f4" stroke="#c4cbd2" stroke-width="2"/>
+        <path d="M1110 650 L1330 530 L1330 695 L1110 815 Z" fill="#e7eaee" stroke="#c4cbd2" stroke-width="2"/>
+        <path d="M1030 495 L1125 444 L1200 485 L1105 536 Z" fill="#dfe3e7" stroke="#c4cbd2" stroke-width="2"/>
+        <path d="M1030 495 L1030 545 L1105 586 L1105 536 Z" fill="#e9ecef" stroke="#c4cbd2" stroke-width="2"/>
+        <path d="M1105 536 L1200 485 L1200 535 L1105 586 Z" fill="#d7dce1" stroke="#c4cbd2" stroke-width="2"/>
+        <path d="M1200 485 L1270 447 L1400 520 L1330 558 Z" fill="#ffffff" stroke="#c4cbd2" stroke-width="2"/>
+        <path d="M1330 558 L1400 520 L1400 655 L1330 695 Z" fill="#e5e8eb" stroke="#c4cbd2" stroke-width="2"/>
+        <path d="M1200 485 L1200 620 L1330 695 L1330 558 Z" fill="#f0f2f4" stroke="#c4cbd2" stroke-width="2"/>
+        <path d="M885 525 L1110 650 L1110 815 L885 690 Z" fill="#5aa8ea" fill-opacity=".8" stroke="#2b7fbe" stroke-width="2.5"/>
+        <g stroke="#d6e7f5" stroke-width="2" opacity=".85">
+          <path d="M960 567 L960 731"/>
+          <path d="M1035 608 L1035 773"/>
+          <path d="M885 607 L1110 732"/>
+          <path d="M885 662 L1110 787"/>
+        </g>
+        <g fill="none" stroke="#b9c1c9" stroke-width="2">
+          <path d="M1110 650 L1110 815"/>
+          <path d="M1330 530 L1330 695"/>
+          <path d="M1270 447 L1270 582"/>
+        </g>
+      </g>
+      <g id="wind-flow" fill="none" stroke="#5aa8ea" stroke-linecap="round">
+        <path d="M570 690 C700 600 730 470 865 355 C950 283 1045 250 1135 220" stroke-width="4" opacity=".55"/>
+        <path d="M540 735 C700 625 760 495 895 385 C990 305 1080 270 1190 238" stroke-width="3" opacity=".42"/>
+        <path d="M610 790 C750 690 820 555 945 450 C1045 365 1155 320 1270 295" stroke-width="3" opacity=".35"/>
+        <path d="M650 835 C805 720 870 620 1005 500 C1125 395 1250 350 1380 330" stroke-width="2.5" opacity=".28"/>
+        <path d="M520 650 C665 560 700 425 820 330 C900 267 990 225 1080 205" stroke-width="2.5" opacity=".30"/>
+      </g>
+    </g>
     <path id="exposed-face-overlay" d="M465 345 L650 345 L650 470 L465 470 Z" fill="#4f9fd9" opacity=".18" stroke="#4f9fd9"/>
   </g>
   <g id="wind-envelope-text" transform="translate(55 155)">
@@ -38,10 +121,26 @@
       <tspan x="0" dy="25">data-derived wind-envelope interpretation.</tspan>
     </text>
   </g>
+  <!--
+    Three chip slots, unconditionally hidden by wind-diagram.tsx
+    (WindEnvelopeReading — "no verified facade-specific exposure claim
+    exists for either project"). The source reference's chip values
+    ("Prevailing winds approach from the SW.", "SW and W façades receive
+    the greatest exposure.") are exactly the kind of specific,
+    project-unverified claim that component's own code comment already
+    calls out as fabricated and explicitly refuses to show — per CLAUDE.md
+    rule 4, not carried over. Kept the source's 3 real category labels
+    (Primary Wind Exposure / Exposed Faces / Envelope Response — no merge
+    needed, already matches the 3-slot contract) with "NOT ESTABLISHED"
+    values, the same honest not-yet-available language already used
+    elsewhere in this package (frequency-status-value in
+    06-prevailing-sector-panel.svg). These groups stay hidden in
+    production regardless of this content.
+  -->
   <g id="wind-envelope-chips" transform="translate(55 610)">
-    <g id="wind-chip-1"><rect width="170" height="44" rx="4" fill="#f7fbfd" stroke="#d4e4ec"/><text id="wind-chip-1-label" class="label" x="12" y="18" font-size="9">CLASSIFICATION</text><text id="wind-chip-1-value" class="data" x="12" y="35" font-size="12">OPTIONAL</text></g>
-    <g id="wind-chip-2" transform="translate(190 0)"><rect width="170" height="44" rx="4" fill="#f7fbfd" stroke="#d4e4ec"/><text id="wind-chip-2-label" class="label" x="12" y="18" font-size="9">CLASSIFICATION</text><text id="wind-chip-2-value" class="data" x="12" y="35" font-size="12">OPTIONAL</text></g>
-    <g id="wind-chip-3" transform="translate(380 0)"><rect width="170" height="44" rx="4" fill="#f7fbfd" stroke="#d4e4ec"/><text id="wind-chip-3-label" class="label" x="12" y="18" font-size="9">CLASSIFICATION</text><text id="wind-chip-3-value" class="data" x="12" y="35" font-size="12">OPTIONAL</text></g>
+    <g id="wind-chip-1"><rect width="170" height="44" rx="4" fill="#f7fbfd" stroke="#d4e4ec"/><text id="wind-chip-1-label" class="label" x="12" y="18" font-size="9">PRIMARY WIND EXPOSURE</text><text id="wind-chip-1-value" class="data" x="12" y="35" font-size="12">NOT ESTABLISHED</text></g>
+    <g id="wind-chip-2" transform="translate(190 0)"><rect width="170" height="44" rx="4" fill="#f7fbfd" stroke="#d4e4ec"/><text id="wind-chip-2-label" class="label" x="12" y="18" font-size="9">EXPOSED FACES</text><text id="wind-chip-2-value" class="data" x="12" y="35" font-size="12">NOT ESTABLISHED</text></g>
+    <g id="wind-chip-3" transform="translate(380 0)"><rect width="170" height="44" rx="4" fill="#f7fbfd" stroke="#d4e4ec"/><text id="wind-chip-3-label" class="label" x="12" y="18" font-size="9">ENVELOPE RESPONSE</text><text id="wind-chip-3-value" class="data" x="12" y="35" font-size="12">NOT ESTABLISHED</text></g>
   </g>
 </g>
 </svg>

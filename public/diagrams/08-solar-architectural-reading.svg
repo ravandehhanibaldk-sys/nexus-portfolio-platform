@@ -18,6 +18,7 @@
   .mass-top { fill:#fbfaf7; stroke:#8d9399; }
   .shadow { fill:#aeb2b4; opacity:.28; }
   .north { stroke:#28343f; fill:none; }
+  .sun-time-label { font-family:Inter, Arial, sans-serif; fill:#8a7358; letter-spacing:.6px; }
 </style>
 
 
@@ -27,7 +28,49 @@
   <g id="solar-reading-illustration">
     <path id="solar-reading-sun-path" class="solar" stroke-width="2" stroke-dasharray="6 7" d="M330 410 C300 170 640 80 930 360"/>
     <circle id="solar-reading-sun-1" cx="330" cy="410" r="7" class="solar-fill"/><circle id="solar-reading-sun-2" cx="620" cy="120" r="7" class="solar-fill"/><circle id="solar-reading-sun-3" cx="930" cy="360" r="7" class="solar-fill"/>
-    {massing("building-mass", "twin", x=545, y=470)}
+    <text x="330" y="436" text-anchor="middle" class="sun-time-label" font-size="11">SUNRISE</text>
+    <text x="620" y="98" text-anchor="middle" class="sun-time-label" font-size="11">SOLAR NOON</text>
+    <text x="930" y="386" text-anchor="middle" class="sun-time-label" font-size="11">SUNSET</text>
+    <!--
+      building-mass — real vector geometry adapted from the project's own
+      Environmental-Diagrams-Final/08-solar_architectural_reading_variant_A.html
+      (found via machine-wide search per Hanibal's direction), not the
+      broken `{massing(...)}` template placeholder this file previously
+      shipped with. Coordinates are the source's own 620x430 axonometric
+      drawing, wrapped in a single translate/scale transform computed from
+      its bounding box (92,124)-(525,392) to sit centered under the sun
+      path without touching the chip row below (y>=610) — no path data
+      redrawn, only repositioned as one rigid group, same rule already
+      applied to path-selected/noon-marker elsewhere in this package.
+    -->
+    <g id="building-mass" transform="translate(251.6 222.1) scale(0.951)">
+      <g fill="#f8f6f0" stroke="#9e9a91" stroke-width="1.3" stroke-linejoin="round">
+        <polygon points="92,250 285,150 525,205 327,322"/>
+        <polygon points="92,250 92,314 327,392 327,322"/>
+        <polygon points="327,322 525,205 525,267 327,392"/>
+        <polygon points="150,226 286,155 455,193 319,270"/>
+        <polygon points="150,226 150,279 319,333 319,270"/>
+        <polygon points="319,270 455,193 455,245 319,333"/>
+        <polygon points="255,175 352,124 450,147 352,198"/>
+        <polygon points="255,175 255,214 352,242 352,198"/>
+        <polygon points="352,198 450,147 450,187 352,242"/>
+      </g>
+      <g fill="none" stroke="#b3aea4" stroke-width="1">
+        <path d="M120 273 L310 333 M143 259 L320 316 M170 245 L328 296"/>
+        <path d="M350 334 L505 247 M350 349 L505 262"/>
+        <path d="M181 226 L181 279 M210 211 L210 289 M242 194 L242 300"/>
+        <path d="M365 219 L365 326 M397 201 L397 308 M428 184 L428 290"/>
+        <path d="M272 177 L272 215 M300 163 L300 228 M329 150 L329 236"/>
+      </g>
+      <g fill="none" stroke="#8d887f" stroke-width="1.1">
+        <path d="M205 230 L319 260 L414 211"/>
+        <path d="M205 243 L319 273 L414 224"/>
+      </g>
+      <g fill="#ffffff" stroke="#9e9a91" stroke-width="1">
+        <polygon points="165,240 210,218 210,250 165,267"/>
+        <polygon points="372,221 414,200 414,231 372,248"/>
+      </g>
+    </g>
   </g>
   <g id="solar-reading-text" transform="translate(55 155)">
     <text class="label" font-size="11">INTERPRETIVE READING</text>
@@ -36,10 +79,29 @@
       <tspan x="0" dy="25">data-derived solar interpretation.</tspan>
     </text>
   </g>
+  <!--
+    Three chip slots (contract: solar-diagram.tsx unconditionally hides all
+    three via wireHidden — "no supported classification data exists for
+    either project", Section 25). The source reference had FOUR chips
+    (Solar Exposure / Daylight Potential / Western Exposure / Orientation
+    Optimal) with specific fabricated values ("Moderate"/"High"/"Low"/
+    "Yes") that are not derived from either project's real data — per
+    CLAUDE.md rule 4, those values are never carried over. Merged to 3
+    labels here (Western Exposure + Orientation Optimal combined into one
+    "Orientation" slot, since both are really one judgment — how well the
+    building's siting handles western exposure — not two independent
+    classifications) so the slot structure matches the wiring contract.
+    Values use "NOT ESTABLISHED", the same honest not-yet-available
+    language already used elsewhere in this package (see
+    frequency-status-value in 06-prevailing-sector-panel.svg) rather than
+    inventing a plausible-looking value. These groups remain hidden in
+    production regardless of this content — this only matters if real
+    per-project classification data is ever added later.
+  -->
   <g id="solar-reading-chips" transform="translate(55 610)">
-    <g id="solar-chip-1"><rect width="170" height="44" rx="4" fill="#fbfaf7" stroke="#e3d7c4"/><text id="solar-chip-1-label" class="label" x="12" y="18" font-size="9">CLASSIFICATION</text><text id="solar-chip-1-value" class="data" x="12" y="35" font-size="12">OPTIONAL</text></g>
-    <g id="solar-chip-2" transform="translate(190 0)"><rect width="170" height="44" rx="4" fill="#fbfaf7" stroke="#e3d7c4"/><text id="solar-chip-2-label" class="label" x="12" y="18" font-size="9">CLASSIFICATION</text><text id="solar-chip-2-value" class="data" x="12" y="35" font-size="12">OPTIONAL</text></g>
-    <g id="solar-chip-3" transform="translate(380 0)"><rect width="170" height="44" rx="4" fill="#fbfaf7" stroke="#e3d7c4"/><text id="solar-chip-3-label" class="label" x="12" y="18" font-size="9">CLASSIFICATION</text><text id="solar-chip-3-value" class="data" x="12" y="35" font-size="12">OPTIONAL</text></g>
+    <g id="solar-chip-1"><rect width="170" height="44" rx="4" fill="#fbfaf7" stroke="#e3d7c4"/><text id="solar-chip-1-label" class="label" x="12" y="18" font-size="9">SOLAR EXPOSURE</text><text id="solar-chip-1-value" class="data" x="12" y="35" font-size="12">NOT ESTABLISHED</text></g>
+    <g id="solar-chip-2" transform="translate(190 0)"><rect width="170" height="44" rx="4" fill="#fbfaf7" stroke="#e3d7c4"/><text id="solar-chip-2-label" class="label" x="12" y="18" font-size="9">DAYLIGHT POTENTIAL</text><text id="solar-chip-2-value" class="data" x="12" y="35" font-size="12">NOT ESTABLISHED</text></g>
+    <g id="solar-chip-3" transform="translate(380 0)"><rect width="170" height="44" rx="4" fill="#fbfaf7" stroke="#e3d7c4"/><text id="solar-chip-3-label" class="label" x="12" y="18" font-size="9">ORIENTATION</text><text id="solar-chip-3-value" class="data" x="12" y="35" font-size="12">NOT ESTABLISHED</text></g>
   </g>
 </g>
 </svg>
