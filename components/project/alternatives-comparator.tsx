@@ -4,7 +4,8 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { Frame } from "./frame";
 import { cn } from "@/lib/utils";
-import type { Project } from "@/lib/content-schema";
+import { t, type Project } from "@/lib/content-schema";
+import type { Locale } from "@/lib/locale";
 
 /**
  * Component 19.4 — Design Alternatives Comparator.
@@ -16,7 +17,7 @@ import type { Project } from "@/lib/content-schema";
  * diagrams visible per tier; tablet: stacks in pairs; mobile: single column.
  * Motion governed by Section 15 Motion tokens — short, quiet, purpose-driven.
  */
-export function AlternativesComparator({ project }: { project: Project }) {
+export function AlternativesComparator({ project, locale = "en" }: { project: Project; locale?: Locale }) {
   const { alternatives, question, text } = project.beats.designAlternatives;
   const [activeId, setActiveId] = useState(alternatives[0]?.id ?? "");
   const active = alternatives.find((a) => a.id === activeId) ?? alternatives[0];
@@ -27,10 +28,10 @@ export function AlternativesComparator({ project }: { project: Project }) {
         05 — Design Process
       </p>
       <h2 className="font-display text-h1 text-ink mb-6 leading-tight">
-        {question}
+        {t(question, locale)}
       </h2>
       <p className="prose-narrative text-body font-body text-ink/85 leading-relaxed mb-12">
-        {text}
+        {t(text, locale)}
       </p>
 
       <div
@@ -52,9 +53,9 @@ export function AlternativesComparator({ project }: { project: Project }) {
                 : "border-transparent text-neutral hover:text-ink"
             )}
           >
-            {alt.label}
+            {t(alt.label, locale)}
             <span className="block text-meta text-neutral mt-0.5">
-              {alt.tier}
+              {t(alt.tier, locale)}
               {alt.isFinal ? " · Selected" : ""}
             </span>
           </button>

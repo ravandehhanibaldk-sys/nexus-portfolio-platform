@@ -1,16 +1,6 @@
-import type { Metadata } from "next";
-import villaRedSun from "@/content/projects/villa-red-sun";
-import { ProjectPage } from "@/components/project/project-page";
+import { redirect } from "next/navigation";
 
-export const metadata: Metadata = {
-  title: `${villaRedSun.name} — Hanibal Ravandeh`,
-  description: villaRedSun.thesisSentence,
-};
-
-export default function VillaRedSunPage() {
-  return (
-    <>
-      <ProjectPage project={villaRedSun} />
-    </>
-  );
+/** Workstream 3: canonical route is now /en/projects/villa-red-sun (or /da/...). */
+export default function VillaRedSunRedirect() {
+  redirect("/en/projects/villa-red-sun");
 }

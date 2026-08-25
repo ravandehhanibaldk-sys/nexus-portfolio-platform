@@ -2,8 +2,10 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import { useReducedMotion } from "framer-motion";
 import { imagePath, videoPath } from "@/lib/utils";
-import type { Project } from "@/lib/content-schema";
+import { t, type Project } from "@/lib/content-schema";
+import type { Locale } from "@/lib/locale";
 
 /**
  * Component 19.1 — Hero. Governs the 5-second checkpoint (Section 08):
@@ -11,16 +13,20 @@ import type { Project } from "@/lib/content-schema";
  * chrome. The thesis sentence (Section 11.1) is rendered here, first.
  *
  * Each project may supply a `heroVideo` (autoplay/muted/loop/playsInline,
- * cover-fit) for a richer opening moment. If it's absent, or fails to load
- * at runtime, the Hero falls back to the same static exterior image used
- * elsewhere — the reader never sees a broken or empty Hero.
+ * cover-fit) for a richer opening moment. If it's absent, fails to load at
+ * runtime, or the user's system requests reduced motion, the Hero falls
+ * back to the same static exterior image used elsewhere — the reader never
+ * sees a broken or empty Hero, and never an autoplaying video against their
+ * stated preference (same guard pattern as Climate Interface's autoplay).
  */
-export function Hero({ project }: { project: Project }) {
+export function Hero({ project, locale = "en" }: { project: Project; locale?: Locale }) {
   const [videoFailed, setVideoFailed] = useState(false);
+  const prefersReducedMotion = useReducedMotion() === true;
   const heroAsset = project.beats.finalArchitecture.assets.find(
     (a) => a.category === "exterior"
   );
-  const showVideo = Boolean(project.heroVideo) && !videoFailed;
+  const showVideo = Boolean(project.heroVideo) && !videoFailed && !prefersReducedMotion;
+  const heroAlt = heroAsset ? t(heroAsset.alt, locale) : "";
 
   return (
     <section className="relative w-full h-[100svh] bg-paper-dark text-ink-dark">
@@ -41,7 +47,7 @@ export function Hero({ project }: { project: Project }) {
       ) : heroAsset ? (
         <Image
           src={imagePath(project.id, heroAsset.src)}
-          alt={heroAsset.alt}
+          alt={heroAlt}
           fill
           priority
           sizes="100vw"
@@ -51,13 +57,13 @@ export function Hero({ project }: { project: Project }) {
       <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/10 to-transparent" />
       <div className="absolute bottom-0 left-0 right-0 p-8 md:p-16">
         <p className="text-meta uppercase tracking-[0.2em] text-white/70 font-body mb-4">
-          {project.typology}
+          {t(project.typology, locale)}
         </p>
         <h1 className="font-display text-h1 md:text-display leading-[1.05] text-white max-w-4xl">
           {project.name}
         </h1>
         <p className="mt-6 text-body md:text-h2 leading-snug text-white/90 font-body max-w-3xl prose-narrative">
-          {project.thesisSentence}
+          {t(project.thesisSentence, locale)}
         </p>
       </div>
     </section>

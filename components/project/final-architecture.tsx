@@ -3,7 +3,9 @@
 import { motion } from "framer-motion";
 import { Frame } from "./frame";
 import { SectionLocator } from "./section-locator";
-import type { Project } from "@/lib/content-schema";
+import { t, type Project } from "@/lib/content-schema";
+import type { Locale } from "@/lib/locale";
+import type { Dictionary } from "@/dictionaries/en";
 
 const EASE = [0.2, 0, 0, 1] as const;
 
@@ -22,7 +24,15 @@ const EASE = [0.2, 0, 0, 1] as const;
  * not in `beat.assets` — they belong here, documenting what was built, not
  * in the Comparator (Section 05), which is proposal/level analysis.
  */
-export function FinalArchitecture({ project }: { project: Project }) {
+export function FinalArchitecture({
+  project,
+  locale = "en",
+  dict,
+}: {
+  project: Project;
+  locale?: Locale;
+  dict?: Dictionary;
+}) {
   const beat = project.beats.finalArchitecture;
   const exteriors = beat.assets.filter((a) => a.category === "exterior");
   const interiors = beat.assets.filter((a) => a.category === "interior");
@@ -35,21 +45,21 @@ export function FinalArchitecture({ project }: { project: Project }) {
   return (
     <section className="max-w-6xl mx-auto px-6 py-24 md:py-32">
       <p className="text-meta font-body text-accent tracking-[0.15em] uppercase mb-4">
-        07 — Final Architecture
+        {dict?.sections.finalArchitecture ?? "07 — Final Architecture"}
       </p>
       <h2 className="font-display text-h1 text-ink mb-6 leading-tight">
-        {beat.question}
+        {t(beat.question, locale)}
       </h2>
       <p className="prose-narrative text-body font-body text-ink/85 leading-relaxed mb-12">
-        {beat.text}
+        {t(beat.text, locale)}
       </p>
 
       {beat.sectionLocator ? (
-        <SectionLocator projectId={project.id} data={beat.sectionLocator} />
+        <SectionLocator projectId={project.id} data={beat.sectionLocator} locale={locale} dict={dict} />
       ) : null}
 
       <p className="text-meta font-body text-neutral tracking-[0.15em] uppercase mb-6">
-        Exterior &amp; Interior Architecture
+        {dict?.sections.exteriorInteriorArchitecture ?? "Exterior & Interior Architecture"}
       </p>
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
         {[...exteriors, ...interiors].map((asset, i) => (
@@ -66,6 +76,8 @@ export function FinalArchitecture({ project }: { project: Project }) {
               sizes="(min-width: 640px) 50vw, 100vw"
               gallery={gallery}
               index={indexOf(asset.src)}
+              locale={locale}
+              dict={dict}
             />
           </motion.div>
         ))}
@@ -81,6 +93,8 @@ export function FinalArchitecture({ project }: { project: Project }) {
               sizes="(min-width: 640px) 50vw, 100vw"
               gallery={gallery}
               index={indexOf(asset.src)}
+              locale={locale}
+              dict={dict}
             />
           ))}
         </div>

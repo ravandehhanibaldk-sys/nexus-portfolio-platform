@@ -2,7 +2,9 @@
 
 import Image from "next/image";
 import { imagePath } from "@/lib/utils";
-import type { ProjectAsset } from "@/lib/content-schema";
+import { t, type ProjectAsset } from "@/lib/content-schema";
+import type { Locale } from "@/lib/locale";
+import type { Dictionary } from "@/dictionaries/en";
 import { useLightbox } from "./lightbox";
 
 /**
@@ -25,6 +27,8 @@ export function Frame({
   sizes = "100vw",
   gallery,
   index = 0,
+  locale = "en",
+  dict,
 }: {
   projectId: string;
   asset: ProjectAsset;
@@ -33,29 +37,34 @@ export function Frame({
   /** Sibling images this Frame belongs to, for lightbox prev/next. Defaults to just this asset. */
   gallery?: ProjectAsset[];
   index?: number;
+  locale?: Locale;
+  dict?: Dictionary;
 }) {
   const { open } = useLightbox();
+  const alt = t(asset.alt, locale);
+  const caption = asset.caption ? t(asset.caption, locale) : null;
+  const viewLarger = dict?.common.viewLarger ?? "View larger";
 
   return (
     <figure className="w-full">
       <button
         type="button"
-        onClick={() => open(projectId, gallery ?? [asset], gallery ? index : 0)}
-        aria-label={`View larger: ${asset.alt}`}
+        onClick={() => open(projectId, gallery ?? [asset], gallery ? index : 0, locale)}
+        aria-label={`${viewLarger}: ${alt}`}
         className="group relative block w-full aspect-[16/9] bg-neutral/10 overflow-hidden cursor-zoom-in focus-visible:outline focus-visible:outline-2 focus-visible:outline-accent focus-visible:outline-offset-2"
       >
         <Image
           src={imagePath(projectId, asset.src)}
-          alt={asset.alt}
+          alt={alt}
           fill
           sizes={sizes}
           priority={priority}
           className="object-cover transition-transform duration-[var(--duration-base)] ease-[var(--ease-editorial)] group-hover:scale-[1.02]"
         />
       </button>
-      {asset.caption ? (
+      {caption ? (
         <figcaption className="mt-2 text-meta text-neutral font-body">
-          {asset.caption}
+          {caption}
         </figcaption>
       ) : null}
     </figure>

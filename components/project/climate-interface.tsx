@@ -3,6 +3,10 @@
 import { useEffect, useRef, useState, type CSSProperties } from "react";
 import { useReducedMotion } from "framer-motion";
 import type { ClimateInstrument } from "@/lib/content-schema";
+import type { Locale } from "@/lib/locale";
+import type { Dictionary } from "@/dictionaries/en";
+import en from "@/dictionaries/en";
+import { formatDict } from "@/lib/i18n-format";
 import styles from "./climate-interface.module.css";
 
 /**
@@ -33,7 +37,18 @@ const STREAM_PATHS = [
   "M8 42 H78",
 ];
 
-export function ClimateInterface({ data, projectId }: { data: ClimateInstrument; projectId: string }) {
+export function ClimateInterface({
+  data,
+  projectId,
+  locale = "en",
+  dict = en,
+}: {
+  data: ClimateInstrument;
+  projectId: string;
+  locale?: Locale;
+  dict?: Dictionary;
+}) {
+  void locale;
   const prefersReducedMotion = useReducedMotion() === true;
   const [current, setCurrent] = useState(0);
   const [displayedSeason, setDisplayedSeason] = useState(data.months[0]!.season);
@@ -103,13 +118,16 @@ export function ClimateInterface({ data, projectId }: { data: ClimateInstrument;
   const heroSrc = `/images/${projectId}/climate/${data.images[displayedSeason]}`;
   const panelStyle = { "--sun": data.accentColor } as CSSProperties;
 
+  const seasonLabel = (s: string) => dict.climate.seasons[s as keyof Dictionary["climate"]["seasons"]] ?? s.toUpperCase();
+  const seasonLower = (s: string) => dict.seasonsLower[s as keyof Dictionary["seasonsLower"]] ?? s;
+
   return (
-    <div className={styles.climatePanel} style={panelStyle} aria-label={`${data.title} climate interface`}>
-      <figure className={styles.hero} aria-label={`${data.title} seasonal image`}>
+    <div className={styles.climatePanel} style={panelStyle} aria-label={formatDict(dict.climate.aria.interfaceLabel, { title: data.title })}>
+      <figure className={styles.hero} aria-label={formatDict(dict.climate.aria.seasonalImage, { title: data.title })}>
         {/* eslint-disable-next-line @next/next/no-img-element -- faithful port: manual crossfade timing controls a plain <img>, matching the approved deliverable exactly. */}
         <img
           src={heroSrc}
-          alt={`${data.title} in ${displayedSeason}`}
+          alt={formatDict(dict.climate.aria.imageInSeason, { title: data.title, season: seasonLower(displayedSeason) })}
           className={isFading ? styles.isFading : undefined}
           style={{ objectPosition: data.heroObjectPosition }}
         />
@@ -122,12 +140,12 @@ export function ClimateInterface({ data, projectId }: { data: ClimateInstrument;
           <span>—</span>
         </h1>
         <p className={styles.profile}>
-          {data.locationLabel} · {item.season.toUpperCase()} PROFILE
+          {data.locationLabel} · {seasonLabel(item.season)} {dict.climate.profileSuffix}
         </p>
       </header>
 
-      <section className={styles.solar} aria-label="Solar position">
-        <svg viewBox="0 0 480 210" role="img" aria-label="Solar altitude path" className={styles.solarSvg}>
+      <section className={styles.solar} aria-label={dict.climate.aria.solarPosition}>
+        <svg viewBox="0 0 480 210" role="img" aria-label={dict.climate.aria.solarAltitudePath} className={styles.solarSvg}>
           <path ref={solarPathRef} className={styles.solarTrack} d="M 28 180 Q 225 10 454 48" pathLength={100} />
           <path className={styles.solarGuide} d="M 28 180 Q 225 10 454 48" pathLength={100} />
           <circle className={styles.sunHalo} r={34} cx={sunPoint?.x ?? 28} cy={sunPoint?.y ?? 180} />
@@ -135,14 +153,14 @@ export function ClimateInterface({ data, projectId }: { data: ClimateInstrument;
           <circle className={styles.sunDot} r={7} cx={sunPoint?.x ?? 28} cy={sunPoint?.y ?? 180} />
         </svg>
         <div className={styles.solarReading}>
-          <span className={styles.dataLabel}>SOLAR ALTITUDE</span>
+          <span className={styles.dataLabel}>{dict.climate.solarAltitude}</span>
           <strong>{item.solar.altitudeDeg.toFixed(1)}°</strong>
-          <span>AT {item.solar.time}</span>
+          <span>{dict.climate.at} {item.solar.time}</span>
         </div>
       </section>
 
-      <section className={styles.wind} data-season={item.season} aria-label="Wind">
-        <span className={styles.dataLabel}>PREVAILING WIND</span>
+      <section className={styles.wind} data-season={item.season} aria-label={dict.climate.aria.wind}>
+        <span className={styles.dataLabel}>{dict.climate.prevailingWind}</span>
         <div className={styles.windReading}>
           <strong>{item.wind.directionLabel}</strong>
           <span>{item.wind.speedLabel}</span>
@@ -154,59 +172,59 @@ export function ClimateInterface({ data, projectId }: { data: ClimateInstrument;
         </svg>
       </section>
 
-      <section className={`${styles.temperature} ${styles.metric}`} aria-label="Temperature">
+      <section className={`${styles.temperature} ${styles.metric}`} aria-label={dict.climate.aria.temperature}>
         <span className={`${styles.weatherIcon} ${styles.sunIcon}`} aria-hidden="true" />
         <div>
-          <span className={styles.dataLabel}>TEMPERATURE</span>
+          <span className={styles.dataLabel}>{dict.climate.temperature}</span>
           <strong>
             {item.temperature.value.toFixed(1)} °{item.temperature.unit}
           </strong>
-          <span>MONTHLY MEAN</span>
+          <span>{dict.climate.monthlyMean}</span>
         </div>
       </section>
 
       {item.humidity ? (
-        <section className={`${styles.humidity} ${styles.metric}`} aria-label="Relative humidity">
+        <section className={`${styles.humidity} ${styles.metric}`} aria-label={dict.climate.aria.relativeHumidity}>
           <span className={`${styles.weatherIcon} ${styles.humidityIcon}`} aria-hidden="true" />
           <div>
-            <span className={styles.dataLabel}>RELATIVE HUMIDITY</span>
+            <span className={styles.dataLabel}>{dict.climate.relativeHumidity}</span>
             <strong>{item.humidity.value}%</strong>
-            <span>REGIONAL REFERENCE</span>
+            <span>{dict.climate.regionalReference}</span>
           </div>
         </section>
       ) : null}
 
-      <section className={`${styles.rainfall} ${styles.metric}`} aria-label="Rainfall">
+      <section className={`${styles.rainfall} ${styles.metric}`} aria-label={dict.climate.aria.rainfall}>
         <span className={`${styles.weatherIcon} ${styles.dropIcon}`} aria-hidden="true" />
         <div>
-          <span className={styles.dataLabel}>RAINFALL</span>
+          <span className={styles.dataLabel}>{dict.climate.rainfall}</span>
           <strong>
             {item.rainfall.value} {item.rainfall.unit.toUpperCase()}
           </strong>
-          <span>MONTH TOTAL</span>
+          <span>{dict.climate.monthTotal}</span>
         </div>
       </section>
 
-      <nav className={styles.timeline} aria-label="Month selector">
+      <nav className={styles.timeline} aria-label={dict.climate.aria.monthSelector}>
         <div className={styles.controls}>
-          <button type="button" className={styles.control} aria-label="Previous month" onClick={() => goTo(current - 1)}>
+          <button type="button" className={styles.control} aria-label={dict.climate.aria.previousMonth} onClick={() => goTo(current - 1)}>
             ←
           </button>
           <button
             type="button"
             className={styles.control}
-            aria-label={playing ? "Pause monthly sequence" : "Play monthly sequence"}
+            aria-label={playing ? dict.climate.aria.pauseSequence : dict.climate.aria.playSequence}
             aria-pressed={playing}
             disabled={prefersReducedMotion}
             onClick={() => setPlaying((p) => !p)}
           >
             {playing ? "Ⅱ" : "▶"}
           </button>
-          <button type="button" className={styles.control} aria-label="Next month" onClick={() => goTo(current + 1)}>
+          <button type="button" className={styles.control} aria-label={dict.climate.aria.nextMonth} onClick={() => goTo(current + 1)}>
             →
           </button>
         </div>
-        <div className={styles.monthList} role="tablist" aria-label="Months">
+        <div className={styles.monthList} role="tablist" aria-label={dict.climate.aria.months}>
           {data.months.map((m, i) => (
             <button
               key={m.month}
@@ -234,7 +252,7 @@ export function ClimateInterface({ data, projectId }: { data: ClimateInstrument;
                 }
               }}
             >
-              {m.month}
+              {dict.climate.monthAbbrev[m.month] ?? m.month}
             </button>
           ))}
         </div>

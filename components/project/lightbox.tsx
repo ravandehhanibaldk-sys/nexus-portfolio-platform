@@ -12,7 +12,9 @@ import {
 import Image from "next/image";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
 import { imagePath } from "@/lib/utils";
-import type { ProjectAsset } from "@/lib/content-schema";
+import { t, type ProjectAsset } from "@/lib/content-schema";
+import type { Locale } from "@/lib/locale";
+import type { Dictionary } from "@/dictionaries/en";
 
 /**
  * Sitewide image lightbox. `LightboxProvider` wraps a project page once;
@@ -27,10 +29,11 @@ type LightboxState = {
   projectId: string;
   images: ProjectAsset[];
   index: number;
+  locale: Locale;
 } | null;
 
 type LightboxContextValue = {
-  open: (projectId: string, images: ProjectAsset[], index: number) => void;
+  open: (projectId: string, images: ProjectAsset[], index: number, locale?: Locale) => void;
 };
 
 const LightboxContext = createContext<LightboxContextValue | null>(null);
@@ -43,13 +46,13 @@ export function useLightbox() {
   return ctx;
 }
 
-export function LightboxProvider({ children }: { children: React.ReactNode }) {
+export function LightboxProvider({ children, dict }: { children: React.ReactNode; dict?: Dictionary }) {
   const [state, setState] = useState<LightboxState>(null);
   const triggerRef = useRef<HTMLElement | null>(null);
 
-  const open = useCallback((projectId: string, images: ProjectAsset[], index: number) => {
+  const open = useCallback((projectId: string, images: ProjectAsset[], index: number, locale: Locale = "en") => {
     triggerRef.current = document.activeElement as HTMLElement | null;
-    setState({ projectId, images, index });
+    setState({ projectId, images, index, locale });
   }, []);
 
   const close = useCallback(() => {
@@ -76,6 +79,8 @@ export function LightboxProvider({ children }: { children: React.ReactNode }) {
           projectId={state.projectId}
           images={state.images}
           index={state.index}
+          locale={state.locale}
+          dict={dict}
           onClose={close}
           onStep={step}
         />
@@ -88,12 +93,16 @@ function LightboxModal({
   projectId,
   images,
   index,
+  locale,
+  dict,
   onClose,
   onStep,
 }: {
   projectId: string;
   images: ProjectAsset[];
   index: number;
+  locale: Locale;
+  dict?: Dictionary;
   onClose: () => void;
   onStep: (delta: number) => void;
 }) {
@@ -101,6 +110,9 @@ function LightboxModal({
   const touchStartX = useRef<number | null>(null);
   const asset = images[index];
   const hasMultiple = images.length > 1;
+  const closeLabel = dict?.common.close ?? "Close";
+  const previousLabel = dict?.common.previousImage ?? "Previous image";
+  const nextLabel = dict?.common.nextImage ?? "Next image";
 
   useEffect(() => {
     dialogRef.current?.focus();
@@ -135,12 +147,15 @@ function LightboxModal({
 
   if (!asset) return null;
 
+  const alt = t(asset.alt, locale);
+  const caption = asset.caption ? t(asset.caption, locale) : null;
+
   return (
     <div
       ref={dialogRef}
       role="dialog"
       aria-modal="true"
-      aria-label={asset.caption ?? asset.alt}
+      aria-label={caption ?? alt}
       tabIndex={-1}
       className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-black/90 backdrop-blur-sm p-4 outline-none"
       onClick={(e) => {
@@ -152,7 +167,7 @@ function LightboxModal({
       <button
         type="button"
         onClick={onClose}
-        aria-label="Close"
+        aria-label={closeLabel}
         className="absolute top-4 right-4 md:top-6 md:right-6 text-white/80 hover:text-white transition-colors duration-[var(--duration-base)] p-2"
       >
         <X size={28} strokeWidth={1.5} />
@@ -163,7 +178,7 @@ function LightboxModal({
           <button
             type="button"
             onClick={() => onStep(-1)}
-            aria-label="Previous image"
+            aria-label={previousLabel}
             className="absolute left-2 md:left-6 top-1/2 -translate-y-1/2 text-white/70 hover:text-white transition-colors duration-[var(--duration-base)] p-2"
           >
             <ChevronLeft size={36} strokeWidth={1.5} />
@@ -171,7 +186,7 @@ function LightboxModal({
           <button
             type="button"
             onClick={() => onStep(1)}
-            aria-label="Next image"
+            aria-label={nextLabel}
             className="absolute right-2 md:right-6 top-1/2 -translate-y-1/2 text-white/70 hover:text-white transition-colors duration-[var(--duration-base)] p-2"
           >
             <ChevronRight size={36} strokeWidth={1.5} />
@@ -183,7 +198,7 @@ function LightboxModal({
         <Image
           key={asset.src}
           src={imagePath(projectId, asset.src)}
-          alt={asset.alt}
+          alt={alt}
           fill
           sizes="100vw"
           quality={95}
@@ -192,9 +207,9 @@ function LightboxModal({
         />
       </div>
 
-      {asset.caption ? (
+      {caption ? (
         <p className="mt-4 text-caption font-body text-white/80 text-center max-w-2xl px-4">
-          {asset.caption}
+          {caption}
         </p>
       ) : null}
 

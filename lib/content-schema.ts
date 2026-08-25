@@ -1,4 +1,5 @@
 import { z } from "zod";
+import type { Locale } from "@/lib/locale";
 
 /**
  * Project Template Specification — NPP Master Design Specification v3.0, Section 21.
@@ -9,11 +10,27 @@ import { z } from "zod";
  * only its values change.
  */
 
+/**
+ * Workstream 3 — user-visible narrative/copy fields carry both locales
+ * side by side on the SAME field (not a duplicated parallel content file —
+ * "no duplicated project data" per the execution pack), resolved at render
+ * time via `t()`. Fields that are data/identifiers/proper nouns (ids,
+ * filenames, project `name`, climateInstrument's own data) are NOT
+ * localized — see Workstream 3 report for the exact field-by-field scope.
+ */
+const localizedStringSchema = z.object({ en: z.string(), da: z.string() });
+export type LocalizedString = z.infer<typeof localizedStringSchema>;
+
+/** Resolves a localized-string field for the given locale. */
+export function t(value: LocalizedString, locale: Locale): string {
+  return value[locale];
+}
+
 const assetSchema = z.object({
   /** Filename inside /public/images/<project-id>/ */
   src: z.string(),
   /** Section 11.3 — every image must have a stated reason for inclusion. */
-  alt: z.string().min(1, "Every asset requires alt text (Section 11.3, Section 20.2.5)"),
+  alt: localizedStringSchema,
   /** Section 19 — which component this asset renders through. */
   category: z.enum([
     "exterior",
@@ -30,15 +47,15 @@ const assetSchema = z.object({
     "section",
   ]),
   /** Optional caption — Section 19.7: a diagram without a caption is decoration, not information. */
-  caption: z.string().optional(),
+  caption: localizedStringSchema.optional(),
 });
 
 const alternativeSchema = z.object({
   /** e.g. "B-2", "C-1", "D" */
   id: z.string(),
-  label: z.string(),
+  label: localizedStringSchema,
   /** Section 12 — cost/quality tier this proposal belongs to. */
-  tier: z.string(),
+  tier: localizedStringSchema,
   isFinal: z.boolean().default(false),
   assets: z.array(assetSchema),
 });
@@ -51,7 +68,7 @@ const alternativeSchema = z.object({
  */
 const sectionLocatorLevelSchema = z.object({
   id: z.string(),
-  label: z.string(),
+  label: localizedStringSchema,
   plan: assetSchema,
 });
 
@@ -123,6 +140,22 @@ const climateInstrumentSchema = z.object({
   locationLabel: z.string(),
   /** Hex accent color for this project's instrument panel. */
   accentColor: z.string(),
+  /**
+   * Internal-use-only site coordinates + UTC offsets, for the deterministic
+   * solar calculation (lib/solar.ts) that drives the Solar Diagram. Never
+   * rendered in the public UI (Workstream 2 location-privacy rule) — used
+   * only for computation.
+   */
+  coordinates: z
+    .object({
+      lat: z.number(),
+      lon: z.number(),
+      /** Standard-time UTC offset in hours, e.g. 1 for CET, 2 for EET. */
+      utcOffsetStandard: z.number(),
+      /** Daylight-saving UTC offset in hours, e.g. 2 for CEST, 3 for EEST. */
+      utcOffsetDST: z.number(),
+    })
+    .optional(),
   /** CSS object-position for the hero photo, e.g. "52% 48%". */
   heroObjectPosition: z.string(),
   /** Filenames inside /public/images/<project-id>/climate/ */
@@ -139,8 +172,8 @@ const climateInstrumentSchema = z.object({
 /** Section 12 — the eight-beat Storytelling Framework. */
 const beatSchema = z.object({
   /** Section 11.2 — the one question this beat/page answers. */
-  question: z.string(),
-  text: z.string(),
+  question: localizedStringSchema,
+  text: localizedStringSchema,
   assets: z.array(assetSchema).default([]),
   /** Section 21.3 — Not-Applicable Handling. */
   notApplicable: z.boolean().default(false),
@@ -148,18 +181,19 @@ const beatSchema = z.object({
 
 export const projectSchema = z.object({
   id: z.string(),
+  /** Proper noun / anonymized project code-name — not localized. */
   name: z.string(),
-  typology: z.string(),
+  typology: localizedStringSchema,
   location: z.string(),
   year: z.string(),
   status: z.string(),
   scale: z.string().optional(),
 
   /** Section 1.2 / 11.1 — required, exactly one sentence. */
-  thesisSentence: z.string().min(1),
+  thesisSentence: localizedStringSchema,
 
   /** Section 22.1 — required, what this project proves that no other project proves. */
-  differentiator: z.string().min(1),
+  differentiator: localizedStringSchema,
 
   /**
    * Filename inside /public/videos/<project-id>/. Optional — Hero (19.1)
@@ -187,7 +221,8 @@ export const projectSchema = z.object({
   }),
 
   credits: z.object({
-    role: z.string(),
+    role: localizedStringSchema,
+    /** Software names — proper nouns, not localized. */
     tools: z.array(z.string()),
   }),
 });
