@@ -63,9 +63,31 @@ export function AboutPage({
             </div>
 
             {section.cycle ? (
-              <p className="mt-8 text-meta font-body text-neutral tracking-[0.1em] uppercase leading-loose">
-                {section.cycle[locale]}
-              </p>
+              <div className="mt-8 flex flex-wrap items-baseline gap-x-3 gap-y-2">
+                {section.cycle[locale].split(" → ").flatMap((word, wi, words) => {
+                  const isInput = wi < 4;
+                  const nodes = [
+                    <span
+                      key={`w-${wi}`}
+                      className={
+                        isInput
+                          ? "text-meta font-body text-neutral tracking-[0.1em] uppercase"
+                          : "text-caption font-body text-ink tracking-[0.1em] uppercase"
+                      }
+                    >
+                      {word}
+                    </span>,
+                  ];
+                  if (wi < words.length - 1) {
+                    nodes.push(
+                      <span key={`a-${wi}`} className="text-meta font-body text-neutral/40" aria-hidden="true">
+                        →
+                      </span>
+                    );
+                  }
+                  return nodes;
+                })}
+              </div>
             ) : null}
 
             {section.pullQuote ? (

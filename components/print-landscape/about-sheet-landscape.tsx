@@ -44,12 +44,34 @@ export function AboutSheetLandscape({ index }: { index: number }) {
               </p>
             ))}
             <div className="mt-auto pt-4 border-t border-divider">
-              <p className="text-meta font-body text-neutral tracking-[0.08em] mb-2">
+              <p className="text-meta font-body text-neutral tracking-[0.08em] mb-2.5">
                 {cycle.paragraphs[0]!.en}
               </p>
-              <p className="font-display text-[15px] text-accent tracking-[0.03em] leading-relaxed">
-                {cycle.cycle!.en}
-              </p>
+              <div className="flex flex-wrap items-baseline gap-x-2.5 gap-y-1.5">
+                {cycle.cycle!.en.split(" → ").flatMap((word, wi, words) => {
+                  const isInput = wi < 4;
+                  const nodes = [
+                    <span
+                      key={`w-${wi}`}
+                      className={
+                        isInput
+                          ? "text-[10.5px] font-body text-neutral tracking-[0.08em] uppercase"
+                          : "text-[12.5px] font-body text-ink tracking-[0.08em] uppercase"
+                      }
+                    >
+                      {word}
+                    </span>,
+                  ];
+                  if (wi < words.length - 1) {
+                    nodes.push(
+                      <span key={`a-${wi}`} className="text-[10.5px] font-body text-neutral/40">
+                        →
+                      </span>
+                    );
+                  }
+                  return nodes;
+                })}
+              </div>
             </div>
           </div>
         </div>
