@@ -130,11 +130,15 @@ document. Current state:
   Verified via real rendered PDF pixels, not just DOM.
 - About page cycle redesign applied to the PDF About sheet too, verified
   via real rendered PDF page.
-- Site Analysis graphics redraw and print typography scale — status
-  tracked in `PORTFOLIO_OPEN_ISSUES.md` (N3/N4), being worked this
-  session; check that document and this session's final report for the
-  actual outcome, since N3 in particular has real feasibility limits
-  (asset production, not a layout change).
+- Print typography scale (N4) — resolved, see `PORTFOLIO_OPEN_ISSUES.md`.
+- Site Analysis graphics redraw (N3) — investigated in depth, confirmed
+  not producible in an AI coding session (the existing illustrated
+  plates are full painterly 3D renders from Hanibal's own 3ds Max/V-Ray/
+  Corona pipeline, with no reproducible script anywhere in this repo).
+  Full production brief prepared: `SITE-ANALYSIS-ILLUSTRATION-BRIEF.md`
+  (repo root) — exact geometric references, style spec, and integration
+  instructions for Hanibal's own workflow. Current photographic version
+  stays in place, confirmed accurate, until that's produced.
 
 ## 5. Git State
 
@@ -150,10 +154,12 @@ Hanibal reviews and decides.
 
 ## 6. Current Next Priority
 
-**FACT, as of this rewrite.** With B1, M1, M2, M3, and M4 all resolved,
-the remaining open work is N3 (PDF Site Analysis illustration redraw)
-and N4 (PDF print typography scale) — see `PORTFOLIO_OPEN_ISSUES.md` for
-current status of both. Once those are settled, the portfolio is at a
-fully finalized, ready-for-Hanibal's-review state across both the
-website and the PDF, per his standing instruction to push everything
-through without pausing for interim check-ins.
+**FACT, as of this rewrite.** B1, M1, M2, M3, M4, and N4 are all
+resolved. The portfolio (website + PDF) is in a fully finalized,
+ready-for-Hanibal's-review state on everything an AI coding session can
+responsibly close out. The one remaining item, N3 (PDF Site Analysis
+illustration), is not a next priority for further AI work — it's
+handed off to Hanibal's own 3D visualization workflow, per
+`SITE-ANALYSIS-ILLUSTRATION-BRIEF.md`. Current photographic Site
+Analysis assets stay in place and remain accurate until that's
+produced.
