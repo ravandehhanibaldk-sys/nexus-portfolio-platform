@@ -30,11 +30,11 @@ export function NarrativeSheetLandscape({
 
   const Beat = ({ n, label, question, text }: { n: string; label: string; question: string; text: string }) => (
     <div className="pt-2.5 pb-3.5 border-t border-divider first:border-t-0 first:pt-0" data-el={`beat-${n}`}>
-      <p className="text-[10px] font-body text-accent tracking-[0.1em] uppercase mb-1">
+      <p className="pt-micro font-body text-accent tracking-[0.1em] uppercase mb-1">
         {n} — {label}
       </p>
-      <p className="font-body text-[11px] text-neutral italic mb-1">{question}</p>
-      <p className="font-body text-[11.5px] text-ink/85 leading-snug">{text}</p>
+      <p className="pt-micro font-body text-neutral italic mb-1">{question}</p>
+      <p className="pt-meta font-body text-ink/85 leading-snug">{text}</p>
     </div>
   );
 

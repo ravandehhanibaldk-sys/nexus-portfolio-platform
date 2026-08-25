@@ -31,12 +31,12 @@ export function ReflectionSheetLandscape({
         <p className="text-meta font-body text-accent tracking-[0.15em] uppercase mb-4">
           Reflection
         </p>
-        <h2 className="font-display text-[30px] leading-tight mb-6 max-w-[180mm]">
+        <h2 className="pt-display-sm font-display leading-tight mb-6 max-w-[180mm]">
           {beat.question.en}
         </h2>
         <div className="columns-2 gap-[14mm] flex-1">
           {paragraphs.map((p, i) => (
-            <p key={i} className="font-body text-[12px] leading-relaxed text-ink-dark/85 mb-3 break-inside-avoid-column">
+            <p key={i} className="pt-meta font-body leading-relaxed text-ink-dark/85 mb-3 break-inside-avoid-column">
               {p}
             </p>
           ))}

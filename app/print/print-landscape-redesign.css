@@ -36,6 +36,32 @@
   transition-duration: 0.001ms !important;
 }
 
+/*
+ * PDF print typography scale — N4. The landscape print sheets had grown
+ * 13 distinct ad hoc `text-[Npx]` values (9, 10, 10.5, 11, 11.5, 12,
+ * 12.5, 17, 18, 19, 26, 30, 40) across components/print-landscape/ and
+ * plans-grid-sheet.tsx, each picked per-sheet rather than from a shared
+ * system — unlike the website, which has one (globals.css's
+ * --text-meta/caption/body/h1/h2/display). This consolidates the print
+ * sizes into 6 named, documented steps, snapping near-duplicate values
+ * together (e.g. 9/10/10.5 -> one micro step; 11/11.5/12/12.5 -> one
+ * meta step; 17/18/19 -> one subhead step) where the difference was
+ * clearly accidental rather than a deliberate distinction, while keeping
+ * 26/30/40 as three genuinely different hierarchy levels (sheet
+ * headline / closing-statement headline / cover hero name) rather than
+ * forcing them together. These intentionally do not reuse the website's
+ * own --text-* tokens: print sizing is tuned for a fixed 297x210mm page
+ * rendered via Playwright screenshot, not a responsive viewport, and the
+ * two systems have different real constraints — this is its own scale,
+ * not a duplicate of the web one.
+ */
+.pt-micro      { font-size: 10.5px; }  /* footers, fine print, small meta/icon labels */
+.pt-meta       { font-size: 12.5px; }  /* body copy AND meta/label text (differentiated by tracking/case/color, not size) */
+.pt-subhead    { font-size: 18px;   }  /* secondary headings, pull-quotes, subtitles */
+.pt-headline   { font-size: 26px;   }  /* primary sheet headline (project title style) */
+.pt-display-sm { font-size: 30px;   }  /* closing/reflection-style headline */
+.pt-display    { font-size: 40px;   }  /* cover hero name — largest step */
+
 @media print {
   @page {
     size: 297mm 210mm;

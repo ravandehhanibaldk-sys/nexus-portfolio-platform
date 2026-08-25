@@ -14,17 +14,17 @@ export function CoverSheetLandscape({ index }: { index: number }) {
         />
         <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/15 to-black/5" />
         <div className="absolute inset-0 flex flex-col justify-between p-[16mm]">
-          <p className="text-[10.5px] font-body text-white/70 tracking-[0.22em] uppercase">
+          <p className="pt-micro font-body text-white/70 tracking-[0.22em] uppercase">
             Architectural Portfolio
           </p>
           <div>
-            <h1 className="font-display text-[40px] leading-[1.05] text-white mb-2.5">
+            <h1 className="pt-display font-display leading-[1.05] text-white mb-2.5">
               Hanibal Ravandeh
             </h1>
-            <p className="font-body text-[18px] text-white/90 mb-5">
+            <p className="pt-subhead font-body text-white/90 mb-5">
               Senior Architectural Visualizer &amp; BIM Specialist
             </p>
-            <p className="text-[11.5px] font-body text-white/75 tracking-[0.02em]">
+            <p className="pt-micro font-body text-white/75 tracking-[0.02em]">
               {CONTACT}
             </p>
           </div>

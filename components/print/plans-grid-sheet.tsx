@@ -70,10 +70,10 @@ function PlanCell({
           className="max-h-full max-w-full object-contain"
         />
       </div>
-      <p className="shrink-0 text-[10px] font-body text-accent tracking-[0.08em] uppercase mt-1.5">
+      <p className="pt-micro shrink-0 font-body text-accent tracking-[0.08em] uppercase mt-1.5">
         {level.label.en}
       </p>
-      <p className="shrink-0 text-[9px] font-body text-neutral mt-0.5">{level.plan.caption?.en}</p>
+      <p className="pt-micro shrink-0 font-body text-neutral mt-0.5">{level.plan.caption?.en}</p>
     </div>
   );
 }
