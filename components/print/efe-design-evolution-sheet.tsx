@@ -17,21 +17,24 @@ export function EfeDesignEvolutionSheet({ index }: { index: number }) {
         <p className="text-meta font-body text-neutral tracking-[0.15em] uppercase mb-5">
           Design Thinking — Design Development
         </p>
-        {/* item 16 — the 8-panel composite's own background is pure
-            white; sitting directly on the sheet's cream page background
-            left a visible mismatched edge. Wrapped in an explicit white
-            card (matching padding on all sides) so the image's white
-            blends seamlessly into the card instead of clashing with
-            cream — reads as a deliberate framed plate, not a color
-            mismatch. */}
+        {/* Item 16 (1st round) then item 4 (2nd round) — the 8-panel
+            composite's own background was pure white; sitting directly
+            on the sheet's cream page left a visible mismatched edge. The
+            1st-round fix (a white card with a border) stopped the color
+            clash but was itself then visibly a box/frame around the
+            image — the 2nd round's exact objection. Real fix: the print
+            JPEG's own background is recolored to the page's exact cream
+            (scripts/prepare-print-assets.mjs's BACKGROUND_RECOLOR_FILES
+            special case — the illustration's background is uniform
+            near-white, safely swappable without touching any real
+            content), so the image now sits directly on the page with no
+            card, no border, no visible edge at all. */}
         <div className="flex-1 flex items-center">
-          <div className="w-full bg-white border border-divider p-[6mm]">
-            <img
-              src={printImagePath("villa-efe", asset.src)}
-              alt={asset.alt.en}
-              className="w-full aspect-[16/9] object-contain"
-            />
-          </div>
+          <img
+            src={printImagePath("villa-efe", asset.src)}
+            alt={asset.alt.en}
+            className="w-full aspect-[16/9] object-contain"
+          />
         </div>
         <p className="text-caption font-body text-neutral mt-3">{asset.caption?.en}</p>
         <SheetFooter left="Villa Efe" right="Design Thinking" index={index} />

@@ -15,6 +15,38 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, "..");
 const SRC_DIRS = ["villa-red-sun", "villa-efe"];
 
+// Item 4 (2nd external-review round) — PDF page 12 (Design Development)
+// wraps this one image in a white card because its own background is a
+// pure white composite/illustration plate, not a photograph — sitting
+// directly on the sheet's cream page background left a visible
+// mismatched edge. The white card technically fixed the color mismatch,
+// but is itself now visibly a box/frame around the image — exactly what
+// was originally objected to. Since the background is a uniform, near-
+// pure-white illustration backdrop (not photographic content that
+// happens to be light), it can be safely recolored to the page's exact
+// cream (#faf9f6 / --color-paper) without touching any real artwork —
+// verified visually against a full-resolution preview, zero content loss
+// (see git history for this file). Only listed here, not applied
+// globally: every other project image is a photograph, where this kind
+// of background swap would be wrong (and, per CLAUDE.md rule 4, would
+// risk altering real content).
+const CREAM = [250, 249, 246]; // #faf9f6, matches app/globals.css's --color-paper exactly
+const BACKGROUND_RECOLOR_FILES = new Set(["villa-efe-architectural-design-evolution_result.png"]);
+const RECOLOR_THRESHOLD = 248; // pixel counts as "background" only if R,G,B are ALL >= this
+
+async function recolorNearWhiteBackground(srcPath) {
+  const { data, info } = await sharp(srcPath).raw().toBuffer({ resolveWithObject: true });
+  const { width, height, channels } = info;
+  for (let i = 0; i < data.length; i += channels) {
+    if (data[i] >= RECOLOR_THRESHOLD && data[i + 1] >= RECOLOR_THRESHOLD && data[i + 2] >= RECOLOR_THRESHOLD) {
+      data[i] = CREAM[0];
+      data[i + 1] = CREAM[1];
+      data[i + 2] = CREAM[2];
+    }
+  }
+  return sharp(data, { raw: { width, height, channels } });
+}
+
 async function run() {
   for (const project of SRC_DIRS) {
     const srcDir = join(ROOT, "public", "images", project);
@@ -27,9 +59,11 @@ async function run() {
       const srcPath = join(srcDir, file);
       const outPath = join(outDir, basename(file, extname(file)) + ".jpg");
       const before = statSync(srcPath).size;
-      await sharp(srcPath).resize({ width: 1600, withoutEnlargement: true }).jpeg({ quality: 82 }).toFile(outPath);
+      const pipeline = BACKGROUND_RECOLOR_FILES.has(file) ? await recolorNearWhiteBackground(srcPath) : sharp(srcPath);
+      await pipeline.resize({ width: 1600, withoutEnlargement: true }).jpeg({ quality: 82 }).toFile(outPath);
       const after = statSync(outPath).size;
-      console.log(`  ${file}: ${(before / 1e6).toFixed(1)}MB -> ${(after / 1e6).toFixed(2)}MB`);
+      const tag = BACKGROUND_RECOLOR_FILES.has(file) ? " [background recolored to cream]" : "";
+      console.log(`  ${file}: ${(before / 1e6).toFixed(1)}MB -> ${(after / 1e6).toFixed(2)}MB${tag}`);
     }
   }
 }
