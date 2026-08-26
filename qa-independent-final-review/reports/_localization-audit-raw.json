@@ -1,0 +1,73 @@
+{
+ "summary": [
+  {
+   "page": "home",
+   "enBlocks": 10,
+   "daBlocks": 10,
+   "identicalCount": 0,
+   "suspectWordCount": 0
+  },
+  {
+   "page": "about",
+   "enBlocks": 42,
+   "daBlocks": 42,
+   "identicalCount": 0,
+   "suspectWordCount": 0
+  },
+  {
+   "page": "villa-red-sun",
+   "enBlocks": 110,
+   "daBlocks": 110,
+   "identicalCount": 0,
+   "suspectWordCount": 0
+  },
+  {
+   "page": "villa-efe",
+   "enBlocks": 142,
+   "daBlocks": 142,
+   "identicalCount": 3,
+   "suspectWordCount": 2
+  }
+ ],
+ "findings": [
+  {
+   "page": "villa-efe",
+   "type": "identical-en-da",
+   "text": "Location Plan — Waterfront Site"
+  },
+  {
+   "page": "villa-efe",
+   "type": "identical-en-da",
+   "text": "Coded site-context diagram: real property boundary, adjacent buildings, roads, green areas, and compass orientation, matching the Environmental Diagrams instrument-panel visual language."
+  },
+  {
+   "page": "villa-efe",
+   "type": "identical-en-da",
+   "text": "REGIONAL REFERENCE"
+  },
+  {
+   "page": "villa-efe",
+   "type": "suspect-word",
+   "text": "Location Plan — Waterfront Site",
+   "words": [
+    "waterfront",
+    "site"
+   ]
+  },
+  {
+   "page": "villa-efe",
+   "type": "suspect-word",
+   "text": "Coded site-context diagram: real property boundary, adjacent buildings, roads, green areas, and compass orientation, matching the Environmental Diagrams instrument-panel visual language.",
+   "words": [
+    "site",
+    "adjacent",
+    "buildings",
+    "and",
+    "the",
+    "environmental",
+    "diagrams",
+    "instrument"
+   ]
+  }
+ ]
+}
