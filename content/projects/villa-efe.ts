@@ -80,7 +80,7 @@ const villaEfe: ProjectInput = {
    * dictionary, in components/project/climate-interface.tsx.
    */
   climateInstrument: {
-    eyebrow: "B / 03 — SITE CLIMATE INSTRUMENT",
+    eyebrow: "B / 03",
     title: "VILLA EFE",
     locationLabel: "GIRNE / KYRENIA",
     accentColor: "#e0ae58",

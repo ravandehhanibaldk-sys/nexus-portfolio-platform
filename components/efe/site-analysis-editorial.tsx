@@ -50,7 +50,7 @@ export function SiteAnalysisEditorial({
               overlay — see components/project/site-diagram.tsx. lead's own
               alt/caption text is real project copy, kept for the diagram's
               aria-label and caption; only the visual changed. */}
-          <SiteDiagram label={t(lead.alt, locale)} />
+          <SiteDiagram label={t(lead.alt, locale)} dict={dict} />
         </motion.div>
       ) : null}
       {lead?.caption ? (

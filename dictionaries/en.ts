@@ -57,6 +57,11 @@ const en = {
     rainfall: "RAINFALL",
     monthTotal: "MONTH TOTAL",
     profileSuffix: "PROFILE",
+    /** Item 3 (2nd review round) — used to be baked into climateInstrument.eyebrow
+     * content data (a plain, non-localized string), so it stayed English on the
+     * Danish page. Composed with the project's own code (e.g. "A / 03") at
+     * render time instead. */
+    siteClimateInstrumentLabel: "SITE CLIMATE INSTRUMENT",
     monthSeasonSelectorHeading: "Month / Season Selector",
     /** Item 5 — 04's own static subtitle chrome (`text.label`, no id). */
     monthSeasonSelectorSubtitle: "Semantic visual states · Default / Hover / Selected",
@@ -97,6 +102,18 @@ const en = {
     /** Item 5 — 08's `text.sun-time-label` trio and `text.label` "INTERPRETIVE READING" caption (both no id). */
     solarNoonLabel: "Solar noon",
     interpretiveReadingLabel: "Interpretive reading",
+    /** Item 3 (2nd review round) — 01's "LEGEND" (`text.heading`, 2nd match, no id). */
+    legendHeading: "Legend",
+    /** Item 3 (2nd review round) — 01's own `#legend` group content
+     * (`text.label`, indices 1-5 — index 0 is the subtitle already
+     * covered above). Earlier documented as "fixed reference layer, left
+     * exactly as delivered" — that scope call is superseded by this
+     * round's explicit "no mixed-language UI anywhere" instruction. */
+    legendReferencePath: "Reference Path",
+    legendSelectedPath: "Selected Path",
+    legendNoonMarker: "Noon Marker",
+    legendBuilding: "Building",
+    legendShadowIndicative: "Shadow (Indicative)",
     metaTrueNorth: "true north",
     metaCoordinateDerived: "coordinate-derived",
     daylight: "daylight",
@@ -162,6 +179,26 @@ const en = {
     speedProvenanceAnnualAverage: "Official annual average",
     directionDisclosure: "Qualitative directional interpretation",
     sourceDataDisclosure: "Seasonal, not monthly",
+  },
+  /** Item 1 (2nd review round) — public/diagrams/10-site-location-efe.svg,
+   * the new coded Site/Location diagram built in the previous round. Never
+   * covered by the earlier Environmental Diagrams sweep since it didn't
+   * exist yet when that sweep ran. All strings below have an id in the
+   * SVG (see components/project/site-diagram.tsx), wired via plain
+   * wireText, uppercased at the call site to match the file's own
+   * all-caps convention (this file, unlike 01-09, uses caps on every
+   * text class, not just `.label`). */
+  siteLocation: {
+    heading: "Location Plan",
+    coastRoad: "Coast Road",
+    secondaryAccessRoad: "Secondary Access Road",
+    adjacentBuildings: "Adjacent Buildings",
+    adjacentPropertyLimits: "Adjacent Property Limits",
+    projectSite: "Project Site",
+    siteConditionLabel: "Site Condition",
+    siteConditionValue: "Waterfront",
+    accessLabel: "Access",
+    accessValue: "2 Roads",
   },
   seasonsLower: { winter: "winter", spring: "spring", summer: "summer", autumn: "autumn" },
 };

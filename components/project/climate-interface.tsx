@@ -134,7 +134,7 @@ export function ClimateInterface({
       </figure>
 
       <header className={styles.masthead}>
-        <p className={styles.eyebrow}>{data.eyebrow}</p>
+        <p className={styles.eyebrow}>{data.eyebrow} — {dict.climate.siteClimateInstrumentLabel}</p>
         <h1>
           {data.title}
           <span>—</span>

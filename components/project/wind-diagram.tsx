@@ -193,7 +193,14 @@ export function PrevailingSector({ data, selectedIndex, dict = en }: WindProps) 
     const c = sectorRef.current;
     wireText(c, "primary-direction-value", primaryText);
     wireText(c, "secondary-direction-value", hasSecondary ? secondaryText : "—");
-    wireText(c, "season-state-value", month.season.toUpperCase());
+    // Item 3 (2nd review round) — this previously wired the raw content
+    // value (month.season, always English: "winter"/"spring"/etc.)
+    // uppercased directly, bypassing the dictionary entirely — genuinely
+    // untranslated on Danish pages regardless of any other fix, unlike
+    // ClimateInterface's own season display (climate-interface.tsx's
+    // `seasonLabel()`), which already went through dict.climate.seasons
+    // correctly. Matched to that same pattern here.
+    wireText(c, "season-state-value", dict.climate.seasons[month.season]);
     wireText(c, "frequency-status-value", dict.wind.frequencyNotEstablished.toUpperCase());
     wireText(c, "wind-speed-value", month.wind.speedLabel);
     wireText(c, "wind-speed-qualifier", speedQualifierText ? `· ${speedQualifierText}` : "");

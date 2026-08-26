@@ -145,7 +145,13 @@ const climateMonthSchema = z.object({
 });
 
 const climateInstrumentSchema = z.object({
-  /** e.g. "A / 03 — SITE CLIMATE INSTRUMENT" */
+  /** e.g. "A / 03" — a project code, not localized (proper-noun-like,
+   * same convention as `name`/`id`). The fixed "— SITE CLIMATE INSTRUMENT"
+   * suffix used to be baked into this same string (item 3, 2nd review
+   * round: that made it permanently English on the Danish page, since
+   * this field predates localizedStringSchema and isn't one). Composed
+   * with `dict.climate.siteClimateInstrumentLabel` at render time
+   * instead (components/project/climate-interface.tsx). */
   eyebrow: z.string(),
   /** e.g. "VILLA RED SUN" */
   title: z.string(),

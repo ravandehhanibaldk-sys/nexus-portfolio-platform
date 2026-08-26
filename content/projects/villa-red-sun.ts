@@ -74,7 +74,7 @@ const villaRedSun: ProjectInput = {
    * dictionary, in components/project/climate-interface.tsx.
    */
   climateInstrument: {
-    eyebrow: "A / 03 — SITE CLIMATE INSTRUMENT",
+    eyebrow: "A / 03",
     title: "VILLA RED SUN",
     locationLabel: "SOLRØD / DENMARK",
     accentColor: "#e2734e",

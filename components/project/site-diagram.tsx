@@ -1,7 +1,9 @@
 "use client";
 
-import { useRef } from "react";
-import { useInlineSvgLoader } from "@/lib/svg-wiring";
+import { useEffect, useRef } from "react";
+import { useInlineSvgLoader, wireHeading, wireText } from "@/lib/svg-wiring";
+import en from "@/dictionaries/en";
+import type { Dictionary } from "@/dictionaries/en";
 
 /**
  * Coded Site/Location diagram (item 9) — matches solar-diagram.tsx /
@@ -34,9 +36,42 @@ import { useInlineSvgLoader } from "@/lib/svg-wiring";
  * clipped by the box instead of being scaled into it); inline injection
  * with native SVG viewBox scaling does not have that failure mode.
  */
-export function SiteDiagram({ label, fit = "auto" }: { label: string; fit?: "auto" | "contain" }) {
+export function SiteDiagram({
+  label,
+  fit = "auto",
+  dict = en,
+}: {
+  label: string;
+  fit?: "auto" | "contain";
+  dict?: Dictionary;
+}) {
   const ref = useRef<HTMLDivElement>(null);
-  useInlineSvgLoader(ref, "/diagrams/10-site-location-efe.svg");
+  const loaded = useInlineSvgLoader(ref, "/diagrams/10-site-location-efe.svg");
+
+  // Item 1 (2nd review round) — this diagram shipped in the previous
+  // round with zero wiring at all: every visible string was hardcoded
+  // English, regardless of locale. Every slot below has a stable id in
+  // the source SVG (added when this file was authored — it's not one of
+  // the protected 01-09 asset-package files, so ids were free to add
+  // directly rather than needing wireNth's positional-targeting
+  // workaround). Values are uppercased at the call site to match this
+  // file's own all-caps convention on every text class (unlike 01-09,
+  // where only `.label` is caps).
+  useEffect(() => {
+    if (!loaded) return;
+    const c = ref.current;
+    wireHeading(c, dict.siteLocation.heading);
+    wireText(c, "coast-road-label", dict.siteLocation.coastRoad.toUpperCase());
+    wireText(c, "secondary-road-label", dict.siteLocation.secondaryAccessRoad.toUpperCase());
+    wireText(c, "adjacent-buildings-label", dict.siteLocation.adjacentBuildings.toUpperCase());
+    wireText(c, "adjacent-property-limits-label", dict.siteLocation.adjacentPropertyLimits.toUpperCase());
+    wireText(c, "project-site-label", dict.siteLocation.projectSite.toUpperCase());
+    wireText(c, "site-chip-1-label", dict.siteLocation.siteConditionLabel.toUpperCase());
+    wireText(c, "site-chip-1-value", dict.siteLocation.siteConditionValue.toUpperCase());
+    wireText(c, "site-chip-2-label", dict.siteLocation.accessLabel.toUpperCase());
+    wireText(c, "site-chip-2-value", dict.siteLocation.accessValue.toUpperCase());
+  }, [loaded, dict]);
+
   const svgBox =
     fit === "contain"
       ? "h-full [&_svg]:w-full [&_svg]:h-full [&_svg]:max-w-full"

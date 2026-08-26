@@ -139,6 +139,22 @@ export function SolarPath({ data, selectedIndex, locale = "en", dict = en }: Sol
     // ("SINGLE"/"TWIN"), not just by locale, so the twin/single branch
     // already computed above (`isTwin`) picks the matching dict string.
     wireNth(pathRef.current, "text.label", 0, (isTwin ? dict.solar.subtitleTwin : dict.solar.subtitleSingle).toUpperCase());
+    // Item 3 (2nd review round) — the file's own "LEGEND" heading
+    // (inside its #legend group) is a SECOND `text.heading`-class
+    // element, never reached by wireHeading's single querySelector
+    // (first-match-only) call above. `#cardinal-labels`'s N/E/S/W group
+    // also carries class="heading" but on the <g>, not on its child
+    // <text> nodes, so it's not part of this same text.heading count —
+    // confirmed by direct grep of both variants: exactly two text.heading
+    // matches exist (title, then LEGEND), same order in single and twin.
+    wireNth(pathRef.current, "text.heading", 1, dict.solar.legendHeading);
+    // Item 3 (2nd review round) — the legend's own 5 field labels,
+    // `text.label` indices 1-5 (index 0 is the subtitle wired above).
+    wireNth(pathRef.current, "text.label", 1, dict.solar.legendReferencePath.toUpperCase());
+    wireNth(pathRef.current, "text.label", 2, dict.solar.legendSelectedPath.toUpperCase());
+    wireNth(pathRef.current, "text.label", 3, dict.solar.legendNoonMarker.toUpperCase());
+    wireNth(pathRef.current, "text.label", 4, dict.solar.legendBuilding.toUpperCase());
+    wireNth(pathRef.current, "text.label", 5, dict.solar.legendShadowIndicative.toUpperCase());
   }, [pathLoaded, dict, isTwin]);
 
   if (!month || !coords) return null;
