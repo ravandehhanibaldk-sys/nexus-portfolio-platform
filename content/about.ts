@@ -21,12 +21,11 @@ import { z } from "zod";
  * DANISH: full AI-drafted translation, preserving the English meaning and
  * register (no absolute claims — "always"/"every project"/"never" — beyond
  * what the English source itself states; the central thesis stays framed as
- * a personal working principle, not a universal claim). [DANISH COPY REVIEW
- * PENDING] — not yet native-speaker/professional-reviewed; see Workstream 3
- * final report. Displayed via a single visible notice on the Danish page
- * rather than repeated per paragraph, per the approved i18n architecture
- * (the same `{en, da}` localized-string pattern used across the rest of the
- * site) — content-schema.ts's `t()` resolves these the same way.
+ * a personal working principle, not a universal claim). Reviewed and
+ * corrected for natural Danish phrasing/grammar in a later pass (see
+ * ARCHITECTURE_DECISIONS.md) — the internal QA notice that previously
+ * flagged this text as machine-translated/pending-review has been removed
+ * from production output now that the review has happened.
  */
 const localizedString = z.object({ en: z.string(), da: z.string() });
 export type LocalizedString = z.infer<typeof localizedString>;
@@ -42,7 +41,6 @@ export const aboutSchema = z.object({
   metaTitle: localizedString,
   metaDescription: localizedString,
   pageHeading: localizedString,
-  danishReviewNotice: localizedString,
   shortTeaser: localizedString,
   sections: z.array(aboutSection),
 });
@@ -56,10 +54,6 @@ const about: AboutContent = {
     da: "Jeg arbejder i spændingsfeltet mellem idé og evidens.",
   },
   pageHeading: { en: "About", da: "Om" },
-  danishReviewNotice: {
-    en: "",
-    da: "Denne danske tekst er maskinoversat og afventer stadig gennemsyn af en professionel/dansk modersmålsbruger, før den kan betragtes som endelig.",
-  },
   shortTeaser: {
     en: "I work between ideas and evidence.\n\nI study the site, test serious alternatives, and use visualization and BIM to make architectural decisions visible.\n\nI trust the first idea enough to fight for it — but not enough to stop testing it.",
     da: "Jeg arbejder i spændingsfeltet mellem idé og evidens.\n\nJeg undersøger grunden, afprøver seriøse alternativer og bruger visualisering og BIM til at gøre arkitektoniske beslutninger synlige.\n\nJeg har tillid nok til den første idé til at kæmpe for den — men ikke nok til at holde op med at afprøve den.",
@@ -80,7 +74,7 @@ const about: AboutContent = {
       ],
     },
     {
-      heading: { en: "Idea ↔ Site", da: "Idé ↔ Grund" },
+      heading: { en: "Idea ↔ Site", da: "Idé ↔ grund" },
       paragraphs: [
         {
           en: "I don't see an architectural idea and its site as separate steps.",
@@ -101,7 +95,7 @@ const about: AboutContent = {
       },
     },
     {
-      heading: { en: "From Idea to Evidence", da: "Fra Idé til Evidens" },
+      heading: { en: "From Idea to Evidence", da: "Fra idé til evidens" },
       paragraphs: [
         { en: "A project often moves through a cycle:", da: "Et projekt bevæger sig ofte gennem en cyklus:" },
       ],
@@ -123,7 +117,7 @@ const about: AboutContent = {
       ],
     },
     {
-      heading: { en: "How I Work", da: "Sådan Arbejder Jeg" },
+      heading: { en: "How I Work", da: "Sådan arbejder jeg" },
       paragraphs: [
         {
           en: "I use visualization and BIM not simply as production tools, but as ways of making architectural decisions visible.",
@@ -148,7 +142,7 @@ const about: AboutContent = {
       ],
     },
     {
-      heading: { en: "Beyond the Image", da: "Ud over Billedet" },
+      heading: { en: "Beyond the Image", da: "Ud over billedet" },
       paragraphs: [
         {
           en: "I am interested in the point where visual communication becomes architectural evidence.",
@@ -160,7 +154,7 @@ const about: AboutContent = {
         },
         {
           en: "That is where visualization, BIM, site understanding, and design thinking meet.",
-          da: "Det er der, hvor visualisering, BIM, stedforståelse og designtænkning mødes.",
+          da: "Det er der, hvor visualisering, BIM, stedsforståelse og designtænkning mødes.",
         },
       ],
     },

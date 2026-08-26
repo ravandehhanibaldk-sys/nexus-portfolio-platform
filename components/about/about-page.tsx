@@ -22,7 +22,6 @@ export function AboutPage({
   dict: Dictionary;
 }) {
   const otherLocale: Locale = locale === "en" ? "da" : "en";
-  const notice = content.danishReviewNotice[locale];
 
   return (
     <main className="min-h-svh bg-paper">
@@ -39,12 +38,6 @@ export function AboutPage({
         <p className="text-meta font-body text-accent tracking-[0.15em] uppercase mb-4">
           {content.pageHeading[locale]}
         </p>
-
-        {notice ? (
-          <p className="text-caption font-body text-neutral border border-divider bg-paper px-4 py-3 mb-12 leading-relaxed">
-            {notice}
-          </p>
-        ) : null}
 
         {content.sections.map((section, i) => (
           <div key={i} className={i === 0 ? "mb-16" : "mb-16 pt-16 border-t border-divider"}>
@@ -99,6 +92,15 @@ export function AboutPage({
             ) : null}
           </div>
         ))}
+
+        <div className="mt-16 pt-16 border-t border-divider flex flex-wrap gap-x-6 gap-y-2 text-meta font-body text-neutral tracking-[0.05em]">
+          <a href="mailto:ravandeh.hanibal.dk@gmail.com" className="hover:text-ink transition-colors duration-[var(--duration-base)]">
+            ravandeh.hanibal.dk@gmail.com
+          </a>
+          <a href="https://linkedin.com/in/hanibal-ravandeh" target="_blank" rel="noopener noreferrer" className="hover:text-ink transition-colors duration-[var(--duration-base)]">
+            linkedin.com/in/hanibal-ravandeh
+          </a>
+        </div>
       </div>
     </main>
   );
