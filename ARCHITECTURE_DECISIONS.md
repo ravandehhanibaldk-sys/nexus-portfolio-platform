@@ -4,6 +4,16 @@ Maintained per NPP Master Design Specification v3.0, Section 30. One entry per a
 
 ---
 
+## ADR-010 — Reflection Reverts to Light Background; Distinction Now Typographic-Only (Supersedes ADR-006)
+
+- **Date:** 2026-08-25
+- **Status:** Accepted (reverses ADR-006's color-block reasoning; the Hero/Reflection dark-bookend pairing is retired)
+- **Purpose:** `components/project/reflection.tsx` (website) and `components/print-landscape/reflection-sheet-landscape.tsx` (PDF) both moved from `bg-paper-dark`/`--color-paper-dark` to the standard light paper tokens, on explicit direction from Hanibal's external-review pass.
+- **Why selected:** ADR-006 argued the dark block was a deliberate "open dark, close dark" structural device echoing the Hero. In practice, arriving at a full-bleed `#101010` background eight beats into an otherwise entirely light, paper-toned reading flow read as jarring — closer to an unstyled/error state than a considered close, and on the PDF side it additionally forced a bespoke footer treatment (`SheetFooter`'s divider/neutral tokens are tuned for light paper and go nearly invisible on `#101010`), which is why the PDF sheet had no folio number at all before item 17. Hanibal's direction was explicit: keep the "project has concluded" signal, but carry it through typography alone (italic, weight, letter-spacing, rule, accent) rather than a color change. Implementation: an italic `font-display` heading on the website (the only italic heading in the beat sequence) with a 2px `border-accent` top rule; an italic uppercase metadata line on the PDF sheet. Both now sit on the same light tokens as every other beat, and the PDF sheet gained a standard `SheetFooter` with the item-17 folio number for the first time as a direct consequence.
+- **Alternatives considered:** Keeping the dark block but re-deriving footer tokens specifically for `--color-paper-dark` — rejected; treats the symptom (illegible footer) without addressing the actual complaint (the color-block itself reads wrong this late in the flow), and keeps two independent token sets alive for one component.
+- **Consequences / tradeoffs:** The Hero (19.1) remains the sole documented dark-background exception (Spec Section 18) — ADR-006's carve-out for Reflection is fully retired, not narrowed. Any future request to add a dark section needs its own justification from first principles, same as before ADR-006 existed.
+- **Potential future risks:** None identified. If a future beat wants strong visual distinction again, prefer typography/rule devices (this ADR's approach) over a color-block, given the readability complaint this reversal was based on.
+
 ## ADR-009 — PDF Track: Landscape Redesign Adopted, Replaces Draft 02
 
 - **Date:** 2026-08-22
@@ -36,7 +46,8 @@ Maintained per NPP Master Design Specification v3.0, Section 30. One entry per a
 ## ADR-006 — Dark Background Extended to Reflection as a Deliberate Bookend
 
 - **Date:** 2026-08-01
-- **Status:** Accepted (clarifies Section 18's exception wording)
+- **Status:** Superseded by ADR-010 (2026-08-25) — Reflection reverted to light background; kept below for historical record
+- **Original status:** Accepted (clarifies Section 18's exception wording)
 - **Purpose:** `components/project/reflection.tsx` uses `bg-paper-dark`/`text-ink-dark`, the same dark tokens as the Hero (Component 19.1).
 - **Why selected:** Spec Section 18 names Hero (19.1) as the documented dark-background exception; it does not explicitly name Reflection. Found during Phase 08 AI Review (Section 27.2). On inspection this is not scope creep: Component 19.9's own brief says Reflection must be "visually distinct from Narrative Text Block... so the reader feels the project has concluded" — a dark bookend that echoes the Hero the reader saw at the very start is a direct, intentional implementation of that brief, and reads as a considered structural device (open dark, close dark, everything in between on paper) rather than an arbitrary deviation.
 - **Alternatives considered:** Reverting Reflection to the paper/ink light tokens used by Narrative Text Block — would satisfy Section 18's literal wording but weakens the "project has concluded" signal the component is specifically supposed to give.
