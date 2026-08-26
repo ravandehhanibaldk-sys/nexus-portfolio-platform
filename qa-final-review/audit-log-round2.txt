@@ -1,0 +1,179 @@
+======================================================================
+STATIC PASS — raw text inventory per SVG file
+======================================================================
+
+01-solar-path-single.svg (12 text nodes):
+  .heading -> "Solar Path Diagram"
+  .label -> "DATA-DRIVEN ARTWORK · SINGLE MASSING"
+  (no id/class) -> "N"
+  (no id/class) -> "E"
+  (no id/class) -> "S"
+  (no id/class) -> "W"
+  .heading -> "LEGEND"
+  .label -> "REFERENCE PATH"
+  .label -> "SELECTED PATH"
+  .label -> "NOON MARKER"
+  .label -> "BUILDING"
+  .label -> "SHADOW (INDICATIVE)"
+
+01-solar-path-twin.svg (12 text nodes):
+  .heading -> "Solar Path Diagram"
+  .label -> "DATA-DRIVEN ARTWORK · TWIN MASSING"
+  (no id/class) -> "N"
+  (no id/class) -> "E"
+  (no id/class) -> "S"
+  (no id/class) -> "W"
+  .heading -> "LEGEND"
+  .label -> "REFERENCE PATH"
+  .label -> "SELECTED PATH"
+  .label -> "NOON MARKER"
+  .label -> "BUILDING"
+  .label -> "SHADOW (INDICATIVE)"
+
+02-wind-flow-single.svg (4 text nodes):
+  .heading -> "Architectural Wind Flow"
+  .label -> "QUALITATIVE STREAMLINE SYSTEM · SINGLE MASSING"
+  .label -> "PRIMARY"
+  .label -> "SECONDARY"
+
+02-wind-flow-twin.svg (4 text nodes):
+  .heading -> "Architectural Wind Flow"
+  .label -> "QUALITATIVE STREAMLINE SYSTEM · TWIN MASSING"
+  .label -> "PRIMARY"
+  .label -> "SECONDARY"
+
+03-wind-exposure-single.svg (4 text nodes):
+  .heading -> "Wind Exposure"
+  .label -> "DIRECTIONAL EXPOSURE · SINGLE MASSING"
+  .heading -> "N"
+  .label -> "CONTEXT LAYER IS REMOVABLE / SCHEMATIC"
+
+03-wind-exposure-twin.svg (4 text nodes):
+  .heading -> "Wind Exposure"
+  .label -> "DIRECTIONAL EXPOSURE · TWIN MASSING"
+  .heading -> "N"
+  .label -> "CONTEXT LAYER IS REMOVABLE / SCHEMATIC"
+
+04-month-season-selector.svg (17 text nodes):
+  .heading -> "Month / Season Selector"
+  .label -> "SEMANTIC VISUAL STATES · DEFAULT / HOVER / SELECTED"
+  #month-jan-label -> "JAN"
+  #month-feb-label -> "FEB"
+  #month-mar-label -> "MAR"
+  #month-apr-label -> "APR"
+  #month-may-label -> "MAY"
+  #month-jun-label -> "JUN"
+  #month-jul-label -> "JUL"
+  #month-aug-label -> "AUG"
+  #month-sep-label -> "SEP"
+  #month-oct-label -> "OCT"
+  #month-nov-label -> "NOV"
+  #month-dec-label -> "DEC"
+  .label -> "DEFAULT"
+  .label -> "HOVER"
+  .label -> "SELECTED"
+
+05-solar-metric-strip.svg (8 text nodes):
+  .label -> "DAYLIGHT"
+  #daylight-value -> "—"
+  .label -> "NOON ALTITUDE"
+  #noon-altitude-value -> "—"
+  .label -> "SUNRISE"
+  #sunrise-value -> "00:00"
+  .label -> "SUNSET"
+  #sunset-value -> "00:00"
+
+06-prevailing-sector-panel.svg (17 text nodes):
+  .heading -> "PREVAILING SECTOR"
+  .label -> "PRIMARY → SECONDARY"
+  .label -> "PRIMARY DIRECTION"
+  #primary-direction-value -> "—"
+  .label -> "SECONDARY DIRECTION"
+  #secondary-direction-value -> "—"
+  .label -> "SEASON / STATE"
+  #season-state-value -> "—"
+  .label -> "FREQUENCY STATUS"
+  #frequency-status-value -> "NOT ESTABLISHED"
+  .label -> "WIND SPEED"
+  #wind-speed-value -> "—"
+  #wind-speed-qualifier -> "OPTIONAL QUALIFIER"
+  .heading -> "N"
+  .heading -> "E"
+  .heading -> "S"
+  .heading -> "W"
+
+07-environmental-data-disclosure.svg (11 text nodes):
+  .heading -> "ENVIRONMENTAL DATA DISCLOSURE"
+  .body -> "Important information about this data"
+  .label -> "FREQUENCY"
+  #frequency-disclosure-value -> "—"
+  .label -> "WIND SPEED"
+  #wind-speed-disclosure-value -> "—"
+  .label -> "DIRECTION"
+  #direction-disclosure-value -> "—"
+  .label -> "SOURCE DATA"
+  #source-data-disclosure-value -> "—"
+  #disclosure-limitation-note -> "LIMITATIONS NOTE — REPLACE WITH PROJECT-SPECIFIC HONEST CAVEAT."
+
+08-solar-architectural-reading.svg (13 text nodes):
+  .heading -> "Solar Architectural Reading"
+  .sun-time-label -> "SUNRISE"
+  .sun-time-label -> "SOLAR NOON"
+  .sun-time-label -> "SUNSET"
+  .label -> "INTERPRETIVE READING"
+  (no id/class) -> "Replace this paragraph with the"
+  (no id/class) -> "data-derived solar interpretation."
+  #solar-chip-1-label -> "SOLAR EXPOSURE"
+  #solar-chip-1-value -> "NOT ESTABLISHED"
+  #solar-chip-2-label -> "DAYLIGHT POTENTIAL"
+  #solar-chip-2-value -> "NOT ESTABLISHED"
+  #solar-chip-3-label -> "ORIENTATION"
+  #solar-chip-3-value -> "NOT ESTABLISHED"
+
+09-wind-envelope-reading.svg (10 text nodes):
+  .heading -> "Wind Envelope Reading"
+  .label -> "INTERPRETIVE READING"
+  (no id/class) -> "Replace this paragraph with the"
+  (no id/class) -> "data-derived wind-envelope interpretation."
+  #wind-chip-1-label -> "PRIMARY WIND EXPOSURE"
+  #wind-chip-1-value -> "NOT ESTABLISHED"
+  #wind-chip-2-label -> "EXPOSED FACES"
+  #wind-chip-2-value -> "NOT ESTABLISHED"
+  #wind-chip-3-label -> "ENVELOPE RESPONSE"
+  #wind-chip-3-value -> "NOT ESTABLISHED"
+
+10-site-location-efe.svg (11 text nodes):
+  .heading -> "Location Plan"
+  #coast-road-label -> "COAST ROAD"
+  #secondary-road-label -> "SECONDARY ACCESS ROAD"
+  #adjacent-buildings-label -> "ADJACENT BUILDINGS"
+  #adjacent-property-limits-label -> "ADJACENT PROPERTY LIMITS"
+  #project-site-label -> "PROJECT SITE"
+  .callout -> "N"
+  #site-chip-1-label -> "SITE CONDITION"
+  #site-chip-1-value -> "WATERFRONT"
+  #site-chip-2-label -> "ACCESS"
+  #site-chip-2-value -> "2 ROADS"
+
+======================================================================
+LIVE PASS — visible text on real Danish/English pages, all 12 months
+======================================================================
+
+--- villa-red-sun ---
+EN unique visible strings: 146
+DA unique visible strings: 148
+
+[OK] No un-allowlisted strings identical between EN and DA.
+[OK] No suspect English words found inside DA-page visible text.
+
+--- villa-efe ---
+EN unique visible strings: 142
+DA unique visible strings: 145
+
+[OK] No un-allowlisted strings identical between EN and DA.
+[OK] No suspect English words found inside DA-page visible text.
+
+======================================================================
+TOTAL FINDINGS: 0
+======================================================================
+Clean — no findings.
