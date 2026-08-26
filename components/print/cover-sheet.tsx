@@ -1,7 +1,7 @@
 import { printImagePath } from "@/lib/utils";
 import { Sheet } from "./sheet";
 
-const CONTACT = "Hanibal Ravandeh · Rødovre, Denmark · ravandeh.hanibal.dk@gmail.com · +45 52 70 95 99 · linkedin.com/in/hanibal-ravandeh";
+const CONTACT = "Hanibal Ravandeh · Rødovre, Denmark · ravandeh.hanibal.dk@gmail.com · +45 52 70 95 99 · linkedin.com/in/hanibal-ravandeh · behance.net/hanibalravandeh";
 
 /**
  * Restrained cover — first exterior render of the opening project (Villa
@@ -28,7 +28,7 @@ export function CoverSheet({ index }: { index: number }) {
               Hanibal Ravandeh
             </h1>
             <p className="font-body text-h2 text-white/90 mb-8">
-              Senior Architectural Visualizer &amp; BIM Specialist
+              Architectural Designer | Residential Renovation, Extension &amp; New-Build Design
             </p>
             <p className="text-caption font-body text-white/75 tracking-[0.02em]">
               {CONTACT}

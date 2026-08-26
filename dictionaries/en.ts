@@ -90,26 +90,6 @@ const en = {
       pauseSequence: "Pause monthly sequence",
     },
   },
-  /** Item 1 (2nd review round) — public/diagrams/10-site-location-efe.svg,
-   * the new coded Site/Location diagram built in the previous round. Never
-   * covered by the earlier Environmental Diagrams sweep since it didn't
-   * exist yet when that sweep ran. All strings below have an id in the
-   * SVG (see components/project/site-diagram.tsx), wired via plain
-   * wireText, uppercased at the call site to match the file's own
-   * all-caps convention (this file, unlike 01-09, uses caps on every
-   * text class, not just `.label`). */
-  siteLocation: {
-    heading: "Location Plan",
-    coastRoad: "Coast Road",
-    secondaryAccessRoad: "Secondary Access Road",
-    adjacentBuildings: "Adjacent Buildings",
-    adjacentPropertyLimits: "Adjacent Property Limits",
-    projectSite: "Project Site",
-    siteConditionLabel: "Site Condition",
-    siteConditionValue: "Waterfront",
-    accessLabel: "Access",
-    accessValue: "2 Roads",
-  },
   seasonsLower: { winter: "winter", spring: "spring", summer: "summer", autumn: "autumn" },
 };
 

@@ -18,10 +18,8 @@ import { ReflectionSheetLandscape } from "@/components/print-landscape/reflectio
 export default function TestFullLandscapeRedesignPage() {
   const rsAssets = villaRedSun.beats.finalArchitecture.assets;
   const rsPlan = villaRedSun.beats.finalArchitecture.sectionLocator!.levels[0]!.plan;
-  const rsSiteImg = villaRedSun.beats.site.assets[0]!;
 
   const efAssets = villaEfe.beats.finalArchitecture.assets;
-  const efSiteImg = villaEfe.beats.site.assets[0]!;
 
   const find = (assets: typeof rsAssets, src: string) => assets.find((a) => a.src === src)!;
 
@@ -40,9 +38,6 @@ export default function TestFullLandscapeRedesignPage() {
         index={3}
         project={villaRedSun}
         pageLabel="Villa Red Sun"
-        siteImageSrc={rsSiteImg.src}
-        siteImageAlt={rsSiteImg.alt.en}
-        siteImageCaption={rsSiteImg.caption?.en}
       />
       <RedSunComparisonSheetLandscape index={4} />
       <PlansSectionsSheet
@@ -83,9 +78,6 @@ export default function TestFullLandscapeRedesignPage() {
         index={10}
         project={villaEfe}
         pageLabel="Villa Efe"
-        siteDiagramSrc="/diagrams/10-site-location-efe.svg"
-        siteImageAlt={efSiteImg.alt.en}
-        siteImageCaption={efSiteImg.caption?.en}
       />
       <EfeDesignEvolutionSheet index={11} />
       <EfeLevelsSheet index={12} />

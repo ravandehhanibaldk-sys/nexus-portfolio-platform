@@ -1,29 +1,14 @@
-import { printImagePath } from "@/lib/utils";
 import type { Project } from "@/lib/content-schema";
 import { Sheet, SheetPad, SheetFooter } from "@/components/print/sheet";
-import { SiteDiagram } from "@/components/project/site-diagram";
 
 export function NarrativeSheetLandscape({
   index,
   project,
   pageLabel,
-  siteImageSrc,
-  siteImageAlt,
-  siteImageCaption,
-  /** Item 9 — coded Site/Location diagram (public/diagrams/*.svg), used
-   * in place of siteImageSrc where available (Villa Efe only for now —
-   * see components/project/site-diagram.tsx's doc comment). Rendered as
-   * a plain <img> since it's a static public SVG, not a printImagePath
-   * raster asset. */
-  siteDiagramSrc,
 }: {
   index: number;
   project: Project;
   pageLabel: string;
-  siteImageSrc?: string;
-  siteImageAlt?: string;
-  siteImageCaption?: string;
-  siteDiagramSrc?: string;
 }) {
   const { beats } = project;
   const left = [
@@ -59,38 +44,20 @@ export function NarrativeSheetLandscape({
             ))}
             <div className="border-t border-divider" data-el="col-left-close" />
           </div>
-          <div className="flex flex-col" data-el="col-right">
+          <div className="flex flex-col justify-between" data-el="col-right">
             {right.map((b) => (
               <Beat key={b.n} {...b} />
             ))}
-            {siteDiagramSrc ? (
-              <div className="mt-2.5 pt-3 pb-[3mm] border-t border-divider flex-1 min-h-0 flex flex-col" data-el="site-image-block">
-                {/* Inline-injected (not <img src>) — see site-diagram.tsx's
-                    doc comment: object-fit:contain does not correctly
-                    scale-down an SVG-sourced <img> here, so this reuses
-                    the same working inline-injection approach the website
-                    already uses, with fit="contain" for this height-
-                    constrained slot. */}
-                <div className="flex-1 basis-0 min-h-0 mb-1.5" data-el="site-diagram">
-                  <SiteDiagram label={siteImageAlt ?? ""} fit="contain" />
-                </div>
-                {siteImageCaption ? (
-                  <p className="text-meta font-body text-neutral shrink-0" data-el="site-image-caption">{siteImageCaption}</p>
-                ) : null}
-              </div>
-            ) : siteImageSrc ? (
-              <div className="mt-2.5 pt-3 pb-[3mm] border-t border-divider flex-1 min-h-0 flex flex-col" data-el="site-image-block">
-                <img
-                  src={printImagePath(project.id, siteImageSrc)}
-                  alt={siteImageAlt ?? ""}
-                  className="w-full flex-1 basis-0 min-h-0 object-cover mb-1.5"
-                  data-el="site-image"
-                />
-                {siteImageCaption ? (
-                  <p className="text-meta font-body text-neutral shrink-0" data-el="site-image-caption">{siteImageCaption}</p>
-                ) : null}
-              </div>
-            ) : null}
+            {/* Hanibal's final content decision: the site image/diagram that
+                used to sit below these two beats (Red Sun's photographic
+                "Site analysis — two buildings, one plot" / Efe's coded
+                "Location plan — waterfront site" SVG) is removed outright,
+                no replacement artwork. justify-between (mirroring col-left's
+                own layout, which has always spread 3 beats + a closing
+                divider across the full column height) keeps this shorter,
+                2-beat column filling the same vertical space cleanly
+                instead of leaving a gap under Final Decision. */}
+            <div className="border-t border-divider" data-el="col-right-close" />
           </div>
         </div>
         <SheetFooter left="Hanibal Ravandeh" right={pageLabel} index={index} />

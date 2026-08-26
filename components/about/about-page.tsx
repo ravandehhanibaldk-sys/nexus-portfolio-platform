@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowLeft } from "lucide-react";
 import type { AboutContent } from "@/content/about";
 import type { Locale } from "@/lib/locale";
@@ -47,12 +48,25 @@ export function AboutPage({
               </h2>
             ) : null}
 
-            <div className="flex flex-col gap-5">
-              {section.paragraphs.map((p, pi) => (
-                <p key={pi} className="prose-narrative text-body font-body text-ink/85 leading-relaxed">
-                  {p[locale]}
-                </p>
-              ))}
+            <div className={i === 0 ? "flex flex-col sm:flex-row gap-6 sm:gap-10" : ""}>
+              {i === 0 ? (
+                <div className="shrink-0 relative w-32 sm:w-40 aspect-[4/5] border border-divider bg-paper overflow-hidden">
+                  <Image
+                    src="/images/about/hanibal-ravandeh.jpg"
+                    alt={locale === "en" ? "Portrait of Hanibal Ravandeh" : "Portræt af Hanibal Ravandeh"}
+                    fill
+                    sizes="(min-width: 640px) 160px, 128px"
+                    className="object-cover"
+                  />
+                </div>
+              ) : null}
+              <div className="flex flex-col gap-5">
+                {section.paragraphs.map((p, pi) => (
+                  <p key={pi} className="prose-narrative text-body font-body text-ink/85 leading-relaxed">
+                    {p[locale]}
+                  </p>
+                ))}
+              </div>
             </div>
 
             {section.cycle ? (
@@ -99,6 +113,9 @@ export function AboutPage({
           </a>
           <a href="https://linkedin.com/in/hanibal-ravandeh" target="_blank" rel="noopener noreferrer" className="hover:text-ink transition-colors duration-[var(--duration-base)]">
             linkedin.com/in/hanibal-ravandeh
+          </a>
+          <a href="https://behance.net/hanibalravandeh" target="_blank" rel="noopener noreferrer" className="hover:text-ink transition-colors duration-[var(--duration-base)]">
+            behance.net/hanibalravandeh
           </a>
         </div>
       </div>

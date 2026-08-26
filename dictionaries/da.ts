@@ -82,18 +82,6 @@ const da: Dictionary = {
       pauseSequence: "Sæt månedlig sekvens på pause",
     },
   },
-  siteLocation: {
-    heading: "Lokaliseringsplan",
-    coastRoad: "Kystvej",
-    secondaryAccessRoad: "Sekundær adgangsvej",
-    adjacentBuildings: "Tilstødende bygninger",
-    adjacentPropertyLimits: "Tilstødende grundgrænser",
-    projectSite: "Projektgrund",
-    siteConditionLabel: "Grundforhold",
-    siteConditionValue: "Vandkant",
-    accessLabel: "Adgang",
-    accessValue: "2 veje",
-  },
   seasonsLower: { winter: "vinter", spring: "forår", summer: "sommer", autumn: "efterår" },
 };
 

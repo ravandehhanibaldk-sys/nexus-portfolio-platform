@@ -1,7 +1,7 @@
 import { printImagePath } from "@/lib/utils";
 import { Sheet } from "@/components/print/sheet";
 
-const CONTACT = "Hanibal Ravandeh · Rødovre, Denmark · ravandeh.hanibal.dk@gmail.com · +45 52 70 95 99 · linkedin.com/in/hanibal-ravandeh";
+const CONTACT = "Hanibal Ravandeh · Rødovre, Denmark · ravandeh.hanibal.dk@gmail.com · +45 52 70 95 99 · linkedin.com/in/hanibal-ravandeh · behance.net/hanibalravandeh";
 
 export function CoverSheetLandscape({ index }: { index: number }) {
   return (
@@ -22,7 +22,7 @@ export function CoverSheetLandscape({ index }: { index: number }) {
               Hanibal Ravandeh
             </h1>
             <p className="pt-subhead font-body text-white/90 mb-5">
-              Senior Architectural Visualizer &amp; BIM Specialist
+              Architectural Designer | Residential Renovation, Extension &amp; New-Build Design
             </p>
             <p className="pt-micro font-body text-white/75 tracking-[0.02em]">
               {CONTACT}

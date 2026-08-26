@@ -63,8 +63,8 @@ const about: AboutContent = {
       paragraphs: [
         { en: "I work between ideas and evidence.", da: "Jeg arbejder i spændingsfeltet mellem idé og evidens." },
         {
-          en: "I am a Senior Architectural Visualizer and BIM Specialist with more than 13 years of experience working across architectural visualization, BIM, and design development.",
-          da: "Jeg er Senior Architectural Visualizer og BIM-specialist med mere end 13 års erfaring inden for arkitektonisk visualisering, BIM og designudvikling.",
+          en: "I am an Architectural Designer, focused on residential renovation, extension, and new-build design, with more than 13 years of experience working across architectural visualization, BIM, and design development.",
+          da: "Jeg er Architectural Designer med fokus på boligrenovering, tilbygning og nybyggeri, med mere end 13 års erfaring inden for arkitektonisk visualisering, BIM og designudvikling.",
         },
         { en: "My approach begins before the model.", da: "Min tilgang begynder før modellen." },
         {
@@ -124,8 +124,8 @@ const about: AboutContent = {
           da: "Jeg bruger visualisering og BIM ikke blot som produktionsværktøjer, men som måder at gøre arkitektoniske beslutninger synlige på.",
         },
         {
-          en: "My technical practice includes 3ds Max, V-Ray, Corona Renderer, AutoCAD, Revit, and Unreal Engine 5.",
-          da: "Min tekniske praksis omfatter 3ds Max, V-Ray, Corona Renderer, AutoCAD, Revit og Unreal Engine 5.",
+          en: "My technical practice includes 3ds Max, V-Ray, Corona Renderer, AutoCAD, Revit, and Unreal Engine.",
+          da: "Min tekniske praksis omfatter 3ds Max, V-Ray, Corona Renderer, AutoCAD, Revit og Unreal Engine.",
         },
         {
           en: "I also deliberately spent 15 months working hands-on within a Danish construction-site environment, using that experience to understand building culture and construction from closer to the physical reality of a project.",

@@ -2,9 +2,7 @@
 
 import { motion, useReducedMotion } from "framer-motion";
 import { Frame } from "@/components/project/frame";
-import { SiteDiagram } from "@/components/project/site-diagram";
 import { ClimateInterface } from "@/components/project/climate-interface";
-import { t } from "@/lib/content-schema";
 import type { Project } from "@/lib/content-schema";
 import type { Locale } from "@/lib/locale";
 import type { Dictionary } from "@/dictionaries/en";
@@ -32,29 +30,17 @@ export function SiteAnalysisEditorial({
 }) {
   const beat = project.beats.site;
   const reduced = useReducedMotion();
-  const [lead, ...rest] = beat.assets;
+  // Hanibal's final content decision: the lead item (beats.site.assets[0],
+  // "Location plan — waterfront site" / the coded Site/Location diagram
+  // that used to render here via SiteDiagram) is removed outright, no
+  // replacement artwork. The underlying content entry and its PNG file
+  // are left untouched (same discipline as Villa Red Sun's own site-
+  // analysis-editorial.tsx); only the render path was changed to skip it.
+  const [, ...rest] = beat.assets;
 
   return (
     <>
     <section className="max-w-6xl mx-auto px-6 pb-24 md:pb-32">
-      {lead ? (
-        <motion.div
-          className="mb-6 border border-divider bg-paper aspect-[16/9]"
-          initial={reduced ? undefined : { opacity: 0, y: 20 }}
-          whileInView={reduced ? undefined : { opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.6, ease: EASE }}
-        >
-          {/* Coded Site/Location diagram (item 9) replaces the photographic
-              overlay — see components/project/site-diagram.tsx. lead's own
-              alt/caption text is real project copy, kept for the diagram's
-              aria-label and caption; only the visual changed. */}
-          <SiteDiagram label={t(lead.alt, locale)} dict={dict} />
-        </motion.div>
-      ) : null}
-      {lead?.caption ? (
-        <p className="mb-6 -mt-2 text-meta font-body text-neutral">{t(lead.caption, locale)}</p>
-      ) : null}
       {rest.length ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {rest.map((asset, i) => (
@@ -69,8 +55,8 @@ export function SiteAnalysisEditorial({
                 projectId={project.id}
                 asset={asset}
                 sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-                gallery={beat.assets}
-                index={i + 1}
+                gallery={rest}
+                index={i}
                 locale={locale}
                 dict={dict}
               />
