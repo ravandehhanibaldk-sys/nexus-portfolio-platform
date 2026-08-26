@@ -12,14 +12,16 @@ import { projectSchema, type ProjectInput } from "@/lib/content-schema";
  *
  * IMPORTANT — see PROGRESS.md: the Reflection beat `text.en` below is
  * now final, written by Hanibal in his own voice (Spec Section 12),
- * inserted verbatim, unedited. `text.da` is still the placeholder —
- * a Danish translation of the final Reflection has not been produced.
+ * inserted verbatim, unedited. `text.da` is his own English text
+ * translated to Danish (authorized directly by Hanibal — see
+ * docs/handoff/PORTFOLIO_OPEN_ISSUES.md B1).
  *
  * Workstream 3 (bilingual/i18n): every user-visible string field below is
  * `{en, da}`. English wording is unchanged from the pre-i18n version
  * (Phase B: prove the architecture doesn't alter content). Danish is an
- * AI-drafted translation — [DANISH COPY REVIEW PENDING], see Workstream 3
- * final report; not yet native-reviewed. `id`, `name` (anonymized project
+ * AI-drafted translation, reviewed and corrected for natural Danish
+ * phrasing/grammar in a later pass (see ARCHITECTURE_DECISIONS.md).
+ * `id`, `name` (anonymized project
  * code-name), asset `src`/`category`, and all `climateInstrument` data
  * (protected Climate Interface content) are intentionally NOT localized.
  *
@@ -33,8 +35,8 @@ const villaRedSun: ProjectInput = {
   id: "villa-red-sun",
   name: "Villa Red Sun",
   typology: {
-    en: "Residential — Villa Renovation (merging two existing buildings)",
-    da: "Bolig — villarenovering (sammenlægning af to eksisterende bygninger)",
+    en: "Residential — Villa Renovation",
+    da: "Bolig — villarenovering",
   },
   location: "Undisclosed",
   year: "2026",
@@ -85,18 +87,18 @@ const villaRedSun: ProjectInput = {
       autumn: "autumn.png",
     },
     months: [
-      { month: "JAN", season: "winter", temperature: { value: 0.8, unit: "C", source: "dmi-solrod-2006-2015" }, rainfall: { value: 53, unit: "mm", source: "dmi-solrod-2006-2015" }, wind: { directionLabel: "W / SW → E / NE", speedLabel: "6.50 M/S · MODEL" }, solar: { altitudeDeg: 11.1, time: "12:09", source: "derived" } },
-      { month: "FEB", season: "winter", temperature: { value: 0.7, unit: "C", source: "dmi-solrod-2006-2015" }, rainfall: { value: 36, unit: "mm", source: "dmi-solrod-2006-2015" }, wind: { directionLabel: "W / SW → E / NE", speedLabel: "6.50 M/S · MODEL" }, solar: { altitudeDeg: 20.4, time: "12:22", source: "derived" } },
-      { month: "MAR", season: "spring", temperature: { value: 3.2, unit: "C", source: "dmi-solrod-2006-2015" }, rainfall: { value: 30, unit: "mm", source: "dmi-solrod-2006-2015" }, wind: { directionLabel: "W / SW → E / NE", speedLabel: "5.66 M/S · MODEL" }, solar: { altitudeDeg: 29.8, time: "12:34", source: "derived" } },
-      { month: "APR", season: "spring", temperature: { value: 7.5, unit: "C", source: "dmi-solrod-2006-2015" }, rainfall: { value: 28, unit: "mm", source: "dmi-solrod-2006-2015" }, wind: { directionLabel: "VARIABLE → E", speedLabel: "5.66 M/S · MODEL" }, solar: { altitudeDeg: 39.2, time: "12:47", source: "derived" } },
-      { month: "MAY", season: "spring", temperature: { value: 11.5, unit: "C", source: "dmi-solrod-2006-2015" }, rainfall: { value: 58, unit: "mm", source: "dmi-solrod-2006-2015" }, wind: { directionLabel: "W / SW → E / NE", speedLabel: "5.66 M/S · MODEL" }, solar: { altitudeDeg: 48.6, time: "12:59", source: "derived" } },
-      { month: "JUN", season: "summer", temperature: { value: 14.7, unit: "C", source: "dmi-solrod-2006-2015" }, rainfall: { value: 70, unit: "mm", source: "dmi-solrod-2006-2015" }, wind: { directionLabel: "W / SW → E / NE", speedLabel: "4.87 M/S · MODEL" }, solar: { altitudeDeg: 57.9, time: "13:12", source: "solar-calculation-table" } },
-      { month: "JUL", season: "summer", temperature: { value: 17.8, unit: "C", source: "dmi-solrod-2006-2015" }, rainfall: { value: 65, unit: "mm", source: "dmi-solrod-2006-2015" }, wind: { directionLabel: "W / SW → E / NE", speedLabel: "4.87 M/S · MODEL" }, solar: { altitudeDeg: 57.9, time: "13:12", source: "derived" } },
-      { month: "AUG", season: "summer", temperature: { value: 17.0, unit: "C", source: "dmi-solrod-2006-2015" }, rainfall: { value: 88, unit: "mm", source: "dmi-solrod-2006-2015" }, wind: { directionLabel: "W / SW → E / NE", speedLabel: "4.87 M/S · MODEL" }, solar: { altitudeDeg: 48.6, time: "12:59", source: "derived" } },
-      { month: "SEP", season: "autumn", temperature: { value: 13.7, unit: "C", source: "dmi-solrod-2006-2015" }, rainfall: { value: 49, unit: "mm", source: "dmi-solrod-2006-2015" }, wind: { directionLabel: "W / SW → E / NE", speedLabel: "5.66 M/S · MODEL" }, solar: { altitudeDeg: 39.2, time: "12:47", source: "derived" } },
-      { month: "OCT", season: "autumn", temperature: { value: 9.6, unit: "C", source: "dmi-solrod-2006-2015" }, rainfall: { value: 64, unit: "mm", source: "dmi-solrod-2006-2015" }, wind: { directionLabel: "W / SW → E / NE", speedLabel: "5.66 M/S · MODEL" }, solar: { altitudeDeg: 29.8, time: "12:34", source: "derived" } },
-      { month: "NOV", season: "autumn", temperature: { value: 6.0, unit: "C", source: "dmi-solrod-2006-2015" }, rainfall: { value: 69, unit: "mm", source: "dmi-solrod-2006-2015" }, wind: { directionLabel: "W / SW → E / NE", speedLabel: "5.66 M/S · MODEL" }, solar: { altitudeDeg: 20.4, time: "12:22", source: "derived" } },
-      { month: "DEC", season: "winter", temperature: { value: 2.7, unit: "C", source: "dmi-solrod-2006-2015" }, rainfall: { value: 63, unit: "mm", source: "dmi-solrod-2006-2015" }, wind: { directionLabel: "W / SW → E / NE", speedLabel: "6.50 M/S · MODEL" }, solar: { altitudeDeg: 11.1, time: "12:09", source: "solar-calculation-table" } },
+      { month: "JAN", season: "winter", temperature: { value: 0.8, unit: "C", source: "dmi-solrod-2006-2015" }, rainfall: { value: 53, unit: "mm", source: "dmi-solrod-2006-2015" }, wind: { directionLabel: "W / SW → E / NE", speedLabel: "6.50 M/S", speedQualifier: "model" }, solar: { altitudeDeg: 11.1, time: "12:09", source: "derived" } },
+      { month: "FEB", season: "winter", temperature: { value: 0.7, unit: "C", source: "dmi-solrod-2006-2015" }, rainfall: { value: 36, unit: "mm", source: "dmi-solrod-2006-2015" }, wind: { directionLabel: "W / SW → E / NE", speedLabel: "6.50 M/S", speedQualifier: "model" }, solar: { altitudeDeg: 20.4, time: "12:22", source: "derived" } },
+      { month: "MAR", season: "spring", temperature: { value: 3.2, unit: "C", source: "dmi-solrod-2006-2015" }, rainfall: { value: 30, unit: "mm", source: "dmi-solrod-2006-2015" }, wind: { directionLabel: "W / SW → E / NE", speedLabel: "5.66 M/S", speedQualifier: "model" }, solar: { altitudeDeg: 29.8, time: "12:34", source: "derived" } },
+      { month: "APR", season: "spring", temperature: { value: 7.5, unit: "C", source: "dmi-solrod-2006-2015" }, rainfall: { value: 28, unit: "mm", source: "dmi-solrod-2006-2015" }, wind: { directionLabel: "VARIABLE → E", speedLabel: "5.66 M/S", speedQualifier: "model" }, solar: { altitudeDeg: 39.2, time: "12:47", source: "derived" } },
+      { month: "MAY", season: "spring", temperature: { value: 11.5, unit: "C", source: "dmi-solrod-2006-2015" }, rainfall: { value: 58, unit: "mm", source: "dmi-solrod-2006-2015" }, wind: { directionLabel: "W / SW → E / NE", speedLabel: "5.66 M/S", speedQualifier: "model" }, solar: { altitudeDeg: 48.6, time: "12:59", source: "derived" } },
+      { month: "JUN", season: "summer", temperature: { value: 14.7, unit: "C", source: "dmi-solrod-2006-2015" }, rainfall: { value: 70, unit: "mm", source: "dmi-solrod-2006-2015" }, wind: { directionLabel: "W / SW → E / NE", speedLabel: "4.87 M/S", speedQualifier: "model" }, solar: { altitudeDeg: 57.9, time: "13:12", source: "solar-calculation-table" } },
+      { month: "JUL", season: "summer", temperature: { value: 17.8, unit: "C", source: "dmi-solrod-2006-2015" }, rainfall: { value: 65, unit: "mm", source: "dmi-solrod-2006-2015" }, wind: { directionLabel: "W / SW → E / NE", speedLabel: "4.87 M/S", speedQualifier: "model" }, solar: { altitudeDeg: 57.9, time: "13:12", source: "derived" } },
+      { month: "AUG", season: "summer", temperature: { value: 17.0, unit: "C", source: "dmi-solrod-2006-2015" }, rainfall: { value: 88, unit: "mm", source: "dmi-solrod-2006-2015" }, wind: { directionLabel: "W / SW → E / NE", speedLabel: "4.87 M/S", speedQualifier: "model" }, solar: { altitudeDeg: 48.6, time: "12:59", source: "derived" } },
+      { month: "SEP", season: "autumn", temperature: { value: 13.7, unit: "C", source: "dmi-solrod-2006-2015" }, rainfall: { value: 49, unit: "mm", source: "dmi-solrod-2006-2015" }, wind: { directionLabel: "W / SW → E / NE", speedLabel: "5.66 M/S", speedQualifier: "model" }, solar: { altitudeDeg: 39.2, time: "12:47", source: "derived" } },
+      { month: "OCT", season: "autumn", temperature: { value: 9.6, unit: "C", source: "dmi-solrod-2006-2015" }, rainfall: { value: 64, unit: "mm", source: "dmi-solrod-2006-2015" }, wind: { directionLabel: "W / SW → E / NE", speedLabel: "5.66 M/S", speedQualifier: "model" }, solar: { altitudeDeg: 29.8, time: "12:34", source: "derived" } },
+      { month: "NOV", season: "autumn", temperature: { value: 6.0, unit: "C", source: "dmi-solrod-2006-2015" }, rainfall: { value: 69, unit: "mm", source: "dmi-solrod-2006-2015" }, wind: { directionLabel: "W / SW → E / NE", speedLabel: "5.66 M/S", speedQualifier: "model" }, solar: { altitudeDeg: 20.4, time: "12:22", source: "derived" } },
+      { month: "DEC", season: "winter", temperature: { value: 2.7, unit: "C", source: "dmi-solrod-2006-2015" }, rainfall: { value: 63, unit: "mm", source: "dmi-solrod-2006-2015" }, wind: { directionLabel: "W / SW → E / NE", speedLabel: "6.50 M/S", speedQualifier: "model" }, solar: { altitudeDeg: 11.1, time: "12:09", source: "solar-calculation-table" } },
     ],
   },
 
@@ -107,8 +109,8 @@ const villaRedSun: ProjectInput = {
         da: "Hvad havde kunden reelt brug for, og hvorfor var det svært?",
       },
       text: {
-        en: "The client owned two separate residential buildings on the same property and wanted a single, functional home. Two family members held opposing priorities: the mother wanted to minimize demolition, construction work, and overall cost; the father wanted the best possible architecture, without financial limitations.",
-        da: "Kunden ejede to separate boligbygninger på samme grund og ønskede ét samlet, funktionelt hjem. To familiemedlemmer havde modstridende prioriteter: moren ønskede at minimere nedrivning, byggearbejde og samlede omkostninger, mens faren ønskede den bedst mulige arkitektur uden økonomiske begrænsninger.",
+        en: "The client owned two separate residential buildings on the same property and wanted a single, functional home. The wife and husband held opposing priorities: the wife wanted to minimize demolition, construction work, and overall cost; the husband wanted the best possible architecture, without financial limitations.",
+        da: "Kunden ejede to separate boligbygninger på samme grund og ønskede ét samlet, funktionelt hjem. Hustruen og manden havde modstridende prioriteter: hustruen ønskede at minimere nedrivning, byggearbejde og samlede omkostninger, mens manden ønskede den bedst mulige arkitektur uden økonomiske begrænsninger.",
       },
       assets: [],
     },
@@ -188,7 +190,7 @@ const villaRedSun: ProjectInput = {
         {
           id: "B-2",
           label: { en: "Proposal B-2", da: "Forslag B-2" },
-          tier: { en: "Medium cost", da: "Mellem omkostning" },
+          tier: { en: "Medium cost", da: "Mellem omkostningsniveau" },
           isFinal: false,
           assets: [
             { src: "MasterPlan-Idea-B-2-Top_result.png", alt: { en: "Master plan, proposal B-2.", da: "Masterplan, forslag B-2." }, category: "master-plan", caption: { en: "Master plan — Proposal B-2.", da: "Masterplan — forslag B-2." } },
@@ -213,8 +215,8 @@ const villaRedSun: ProjectInput = {
         },
         {
           id: "D",
-          label: { en: "Proposal D — Final", da: "Forslag D — Endelig" },
-          tier: { en: "Highest quality, highest cost — complete architectural revision", da: "Højeste kvalitet, højeste omkostning — komplet arkitektonisk revision" },
+          label: { en: "Proposal D — Final", da: "Forslag D — Endeligt" },
+          tier: { en: "Highest quality, highest cost — complete architectural revision", da: "Højeste kvalitet, højeste omkostningsniveau — komplet arkitektonisk revision" },
           isFinal: true,
           assets: [
             { src: "MasterPlan-Idea-D-Top_result.png", alt: { en: "Master plan, final proposal D.", da: "Masterplan, endeligt forslag D." }, category: "master-plan", caption: { en: "Master plan — Proposal D, final.", da: "Masterplan — forslag D, endelig." } },
@@ -250,7 +252,7 @@ const villaRedSun: ProjectInput = {
         levels: [
           {
             id: "d",
-            label: { en: "Proposal D — Final", da: "Forslag D — Endelig" },
+            label: { en: "Proposal D — Final", da: "Forslag D — Endeligt" },
             plan: { src: "A-16-illustration-section-plan-idea-d-top-villa-red-sun_result.png", alt: { en: "Illustrated plan, final proposal D, with section cut-lines.", da: "Illustreret plantegning, endeligt forslag D, med snitlinjer." }, category: "plan", caption: { en: "Illustrated floor plan — final proposal.", da: "Illustreret plantegning — endeligt forslag." } },
           },
         ],
@@ -281,7 +283,7 @@ Both owners were concerned that relocating the bathrooms and kitchen would push 
 Beyond the cost-versus-quality tension between the two owners, a practical problem came from the units’ separate renovation histories. Doors and windows throughout the house were in different states, different sizes and different materials, each renovated independently on different budgets at different times. A limited intervention that simply removed one wall would have produced a larger space and satisfied some of the cost concerns, but the result would have been an awkward, tunnel-like unit — a real liability at resale. Weighed against the legal complexity of merging two separate deeds into one, only a proper and complete renovation — Proposal D — actually resolved what both units had accumulated over the years rather than compromising around it.
 
 Looking back, I would not change how I ran the comparison process. I spent a great deal of time on it and brought the clients real documentation, especially the foundation evidence, rather than asking them to simply trust a costlier option. I still believe the principle: “I trust the first idea enough to fight for it — but not enough to stop testing it.” Of the two houses in this portfolio, it is Villa Red Sun where that sentence applies most clearly. The idea survived because it was tested against real client resistance and real evidence, not because it went unquestioned.`,
-        da: `Villa Red Sun startede som en sammenlægning af to tidligere separate boligenheder til ét sammenhængende hus. Fra begyndelsen var den egentlige udfordring ikke den fysiske sammenføjning af bygningerne, men det faktum, at de to personer, jeg designede til, ønskede grundlæggende forskellige ting. Hustruen ønskede, at renoveringen skulle holdes så billig og logisk som muligt. Manden ønskede en komplet, ideel løsning, så de tekniske problemer, de på daværende tidspunkt levede med, aldrig ville vende tilbage. Et lille, men sigende detalje afslørede husets historie tidligt: en af enhederne i venstre side var allerede blevet delvist renoveret på et andet tidspunkt, og dens parketgulv lå en halv centimeter højere end det andet — et fysisk spor af to hjem, der aldrig for alvor havde været ét.
+        da: `Villa Red Sun startede som en sammenlægning af to tidligere separate boligenheder til ét sammenhængende hus. Fra begyndelsen var den egentlige udfordring ikke den fysiske sammenføjning af bygningerne, men det faktum, at de to personer, jeg designede til, ønskede grundlæggende forskellige ting. Hustruen ønskede, at renoveringen skulle holdes så billig og logisk som muligt. Manden ønskede en komplet, ideel løsning, så de tekniske problemer, de på daværende tidspunkt levede med, aldrig ville vende tilbage. En lille, men sigende detalje afslørede husets historie tidligt: en af enhederne i venstre side var allerede blevet delvist renoveret på et andet tidspunkt, og dens parketgulv lå en halv centimeter højere end det andet — et fysisk spor af to hjem, der aldrig for alvor havde været ét.
 
 Begge ejere var bekymrede for, at flytning af badeværelser og køkken ville øge de samlede omkostninger betydeligt på grund af det involverede VVS-arbejde. I de tidlige forslag (gruppe A til C) var strategien derfor at lade de to nyligt renoverede badeværelser i husets centrale kerne forblive så urørte som muligt. Efter at have gennemgået byggedokumenterne kunne jeg vise dem, at fundamentet var af en særlig type med et hulrum nedenunder, hvilket betød, at rørene kunne flyttes uden de høje omkostninger, alle havde forventet. Jeg lovede, at badeværelserne i det nye design ville forblive så tæt som muligt på hovedkloakledningen, så omkostningerne kunne holdes under kontrol. Taget var en separat fast begrænsning — at fjerne eller ændre det blev anset for uoverkommeligt dyrt — så vi bevarede det. For at forbinde de to enheder nedenunder uden at skabe en trang, tunnellignende korridor designede jeg en række broer og stålsøjler, der kunne bære tagets last, samtidig med at der blev åbnet et langt bredere, ubrudt spænd ved forbindelsespunktet.
 
