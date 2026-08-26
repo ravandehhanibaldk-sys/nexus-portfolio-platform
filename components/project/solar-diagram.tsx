@@ -3,7 +3,7 @@
 import { useEffect, useRef } from "react";
 import { getSolarGeometry, formatClock } from "@/lib/solar";
 import { insightTextForMonth } from "@/lib/environmental-reading";
-import { useInlineSvgLoader, wireText, wireHidden, wireWrappedText, fillMassingPlaceholder } from "@/lib/svg-wiring";
+import { useInlineSvgLoader, wireText, wireHidden, wireWrappedText, wireHeading, wireNth, fillMassingPlaceholder } from "@/lib/svg-wiring";
 import type { ClimateInstrument } from "@/lib/content-schema";
 import type { Locale } from "@/lib/locale";
 import type { Dictionary } from "@/dictionaries/en";
@@ -129,12 +129,24 @@ export function SolarPath({ data, selectedIndex, locale = "en", dict = en }: Sol
     if (shadow) shadow.setAttribute("d", shadowD);
   }, [pathLoaded, geo]);
 
+  // Heading translation (item 5) — see wireHeading's doc comment. Kept in
+  // its own effect, independent of the geo-driven one above, so it fires
+  // as soon as the SVG loads rather than waiting on solar geometry.
+  useEffect(() => {
+    if (!pathLoaded) return;
+    wireHeading(pathRef.current, dict.solar.pathDiagramHeading);
+    // Item 5 — the delivered subtitle text differs by massing variant
+    // ("SINGLE"/"TWIN"), not just by locale, so the twin/single branch
+    // already computed above (`isTwin`) picks the matching dict string.
+    wireNth(pathRef.current, "text.label", 0, (isTwin ? dict.solar.subtitleTwin : dict.solar.subtitleSingle).toUpperCase());
+  }, [pathLoaded, dict, isTwin]);
+
   if (!month || !coords) return null;
   const svgBox = "[&_svg]:w-full [&_svg]:h-auto [&_svg]:max-w-[92%] [&_svg]:mx-auto";
   return <div ref={pathRef} className={`${svgBox} pt-1`} role="img" aria-label={dict.solar.panelLabel} />;
 }
 
-export function SolarMetrics({ data, selectedIndex }: SolarProps) {
+export function SolarMetrics({ data, selectedIndex, dict = en }: SolarProps) {
   const month = data.months[selectedIndex];
   const coords = data.coordinates;
   const metricRef = useRef<HTMLDivElement>(null);
@@ -150,6 +162,19 @@ export function SolarMetrics({ data, selectedIndex }: SolarProps) {
     wireText(c, "sunrise-value", formatClock(geo.sunriseMinutes));
     wireText(c, "sunset-value", formatClock(geo.sunsetMinutes));
   }, [metricLoaded, geo]);
+
+  // Item 5 — the four field labels ("DAYLIGHT"/"NOON ALTITUDE"/"SUNRISE"/
+  // "SUNSET") are static chrome with no id, scoped one per named group.
+  // dict.solar.daylight/noonAltitude/sunrise/sunset already existed
+  // (unused until now) for exactly this slot.
+  useEffect(() => {
+    if (!metricLoaded) return;
+    const c = metricRef.current;
+    wireNth(c, "#daylight-metric text.label", 0, dict.solar.daylight.toUpperCase());
+    wireNth(c, "#noon-altitude-metric text.label", 0, dict.solar.noonAltitude.toUpperCase());
+    wireNth(c, "#sunrise-metric text.label", 0, dict.solar.sunrise.toUpperCase());
+    wireNth(c, "#sunset-metric text.label", 0, dict.solar.sunset.toUpperCase());
+  }, [metricLoaded, dict]);
 
   if (!month || !coords) return null;
   const svgBox = "[&_svg]:w-full [&_svg]:h-auto [&_svg]:max-w-[92%] [&_svg]:mx-auto";
@@ -182,6 +207,13 @@ export function SolarReading({ data, selectedIndex, dict = en }: SolarProps) {
     wireHidden(c, "solar-chip-1", true);
     wireHidden(c, "solar-chip-2", true);
     wireHidden(c, "solar-chip-3", true);
+    wireHeading(c, dict.solar.architecturalReadingHeading);
+    // Item 5 — "INTERPRETIVE READING" caption and the SUNRISE/SOLAR NOON/
+    // SUNSET timeline labels are static chrome with no id.
+    wireNth(c, "text.label", 0, dict.solar.interpretiveReadingLabel.toUpperCase());
+    wireNth(c, "text.sun-time-label", 0, dict.solar.sunrise.toUpperCase());
+    wireNth(c, "text.sun-time-label", 1, dict.solar.solarNoonLabel.toUpperCase());
+    wireNth(c, "text.sun-time-label", 2, dict.solar.sunset.toUpperCase());
   }, [readingLoaded, geo, month, dict]);
 
   // ENVIRONMENTAL-DIAGRAMS-RENDERING-COMPLETION-V1.md, Priority 1 (Case D):

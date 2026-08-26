@@ -62,6 +62,22 @@ export function wireText(container: HTMLElement | null, id: string, value: strin
   if (el) el.textContent = value;
 }
 
+/**
+ * Localizes a diagram's main title. None of the delivered public/diagrams/
+ * SVGs carry an `id` on their heading `<text>` — they were designed as a
+ * fixed English reference layer, per Section 14 (headings excluded from the
+ * documented replaceable-slot list). Rather than editing the source files
+ * (CLAUDE.md rule 3) to add an id just for this, the heading is targeted by
+ * its existing `.heading` class — reliably the first such element in every
+ * delivered file (confirmed: 01/03/06's secondary `.heading`-class compass
+ * labels all appear later in document order than the main title). Same
+ * "wiring only, never redraw" discipline as every other slot in this file.
+ */
+export function wireHeading(container: HTMLElement | null, value: string) {
+  const el = container?.querySelector<SVGTextElement>("text.heading") ?? null;
+  if (el) el.textContent = value;
+}
+
 /** Show/hide a documented optional element/group — used whenever the real
  * project data does not support a given slot (per the brief's Section 8:
  * "hide the corresponding optional element/group — do not invent a
@@ -69,6 +85,22 @@ export function wireText(container: HTMLElement | null, id: string, value: strin
 export function wireHidden(container: HTMLElement | null, id: string, hidden: boolean) {
   const el = find(container, id);
   if (el) el.style.display = hidden ? "none" : "";
+}
+
+/**
+ * Item 5 (Danish-page audit) — targets the Nth element matching `selector`
+ * in document order (0-based). Same "target by stable structural position,
+ * never edit the source" discipline as `wireHeading`'s `.heading` lookup,
+ * generalized for the static English chrome (panel subtitles, legend
+ * words, grouped field labels) that ships with a shared class or no id at
+ * all — e.g. every delivered panel's `text.label` subtitle is reliably the
+ * first `.label`-class element in the file, and a scoped selector like
+ * `"#daylight-metric text.label"` isolates one group's own field label
+ * without touching its sibling groups' identically-classed labels.
+ */
+export function wireNth(container: HTMLElement | null, selector: string, index: number, value: string) {
+  const el = container?.querySelectorAll<SVGTextElement>(selector)[index] ?? null;
+  if (el) el.textContent = value;
 }
 
 export function wireAttr(container: HTMLElement | null, id: string, attr: string, value: string) {

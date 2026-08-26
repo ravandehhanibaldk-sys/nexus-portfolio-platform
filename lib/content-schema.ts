@@ -113,8 +113,21 @@ const climateMonthSchema = z.object({
   wind: z.object({
     /** Pre-formatted display string, e.g. "W / SW → E / NE". */
     directionLabel: z.string(),
-    /** Pre-formatted display string, e.g. "6.50 M/S · MODEL". */
+    /** Pre-formatted display string, value + unit only, e.g. "6.50 M/S" —
+     * no embedded provenance qualifier text (see speedQualifier below):
+     * that's resolved through the dictionary at render time so it
+     * localizes correctly instead of being baked into a shared,
+     * non-localized string (item 20 / mixed-language fix). */
     speedLabel: z.string(),
+    /** Item 20 — this value's provenance, rendered via
+     * dict.wind.qualifierModel / qualifierAnnualAverage wherever
+     * speedLabel is shown. "model": derived/estimated (no exact-site
+     * measurement available). "annual-average": a real official
+     * annual-mean statistic reused as a flat monthly value (not modeled —
+     * genuinely different provenance from "model", and must say so
+     * explicitly rather than showing no qualifier at all, which read as
+     * an unexplained inconsistency next to a project that does show one). */
+    speedQualifier: z.enum(["model", "annual-average"]).optional(),
   }),
   humidity: z
     .object({

@@ -2,7 +2,8 @@
 
 import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
-import { useInlineSvgLoader } from "@/lib/svg-wiring";
+import { useInlineSvgLoader, wireHeading, wireNth, wireText } from "@/lib/svg-wiring";
+import en from "@/dictionaries/en";
 import { SolarPath, SolarMetrics, SolarReading } from "./solar-diagram";
 import { WindFlow, WindExposure, PrevailingSector, EnvironmentalDisclosure, WindEnvelopeReading } from "./wind-diagram";
 import type { ClimateInstrument } from "@/lib/content-schema";
@@ -113,6 +114,28 @@ export function EnvironmentalDiagrams({
     const svg = selectorRef.current?.querySelector("svg");
     svg?.setAttribute("viewBox", "0 0 1200 285");
   }, [selectorLoaded]);
+
+  // Heading translation (item 5) — see wireHeading's doc comment in
+  // lib/svg-wiring.ts. `dict` has no default param on this component
+  // (unlike solar-diagram.tsx/wind-diagram.tsx), so fall back to `en`
+  // explicitly rather than risk an unguarded dict?.climate access.
+  useEffect(() => {
+    if (!selectorLoaded) return;
+    const d = dict ?? en;
+    wireHeading(selectorRef.current, d.climate.monthSeasonSelectorHeading);
+    // Item 5 — 04's own subtitle ("SEMANTIC VISUAL STATES · ...", `text.
+    // label`, no id) and its 12 month labels (these already carry ids,
+    // `month-{id}-label`, so wired directly via wireText rather than
+    // wireNth). The month-state-guide legend (DEFAULT/HOVER/SELECTED) is
+    // deliberately left untranslated — it sits outside the `0 0 1200 285`
+    // viewBox crop applied below and is never actually visible.
+    wireNth(selectorRef.current, "text.label", 0, d.climate.monthSeasonSelectorSubtitle.toUpperCase());
+    const MONTH_ABBR_EN = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
+    MONTH_IDS.forEach((id, i) => {
+      const enKey = MONTH_ABBR_EN[i]!;
+      wireText(selectorRef.current, `month-${id}-label`, d.climate.monthAbbrev[enKey] ?? enKey);
+    });
+  }, [selectorLoaded, dict]);
 
   // Visual selected-state + roving tabindex — re-runs whenever `selected`
   // changes, independent of the listener-attachment effect above.

@@ -1,13 +1,9 @@
 import type { Dictionary } from "./en";
 
 /**
- * Danish dictionary — Workstream 3 Phase C. AI-drafted translation.
- *
- * [DANISH COPY REVIEW PENDING] — technically complete and wired into the
- * i18n architecture, but has NOT yet received the native-speaker /
- * professional linguistic review required by the Master Addendum's Danish
- * Language Quality Gate before it can be treated as production-approved.
- * Do not remove this notice without that review actually happening.
+ * Danish dictionary — Workstream 3 Phase C, reviewed and corrected for
+ * natural Danish phrasing/grammar in a later pass (see
+ * ARCHITECTURE_DECISIONS.md).
  */
 const da: Dictionary = {
   common: {
@@ -62,6 +58,8 @@ const da: Dictionary = {
     rainfall: "NEDBØR",
     monthTotal: "MÅNEDLIG TOTAL",
     profileSuffix: "PROFIL",
+    monthSeasonSelectorHeading: "Måned / Sæsonvælger",
+    monthSeasonSelectorSubtitle: "Semantiske tilstande · Standard / Hover / Valgt",
     seasons: { winter: "VINTER", spring: "FORÅR", summer: "SOMMER", autumn: "EFTERÅR" },
     monthAbbrev: {
       JAN: "JAN", FEB: "FEB", MAR: "MAR", APR: "APR", MAY: "MAJ", JUN: "JUN",
@@ -88,6 +86,12 @@ const da: Dictionary = {
   solar: {
     panelLabel: "Solbane",
     panelTitle: "Højde / Azimut",
+    pathDiagramHeading: "Solbanediagram",
+    architecturalReadingHeading: "Arkitektonisk sollæsning",
+    subtitleSingle: "Datadrevet grafik · Enkelt volumen",
+    subtitleTwin: "Datadrevet grafik · Dobbelt volumen",
+    solarNoonLabel: "Middagssol",
+    interpretiveReadingLabel: "Fortolkende aflæsning",
     metaTrueNorth: "sand nord",
     metaCoordinateDerived: "koordinatberegnet",
     daylight: "dagslys",
@@ -107,6 +111,29 @@ const da: Dictionary = {
   wind: {
     panelLabel: "Vindeksponering",
     panelTitle: "Retning / Sæsonbetonet vægtning",
+    flowHeading: "Arkitektonisk vindstrømning",
+    exposureHeading: "Vindeksponering",
+    envelopeReadingHeading: "Klimaskærmens vindaflæsning",
+    prevailingSectorHeading: "FREMHERSKENDE SEKTOR",
+    environmentalDataDisclosureHeading: "MILJØDATA — FORBEHOLD",
+    subtitleSingle: "Kvalitativt strømningssystem · Enkelt volumen",
+    subtitleTwin: "Kvalitativt strømningssystem · Dobbelt volumen",
+    exposureSubtitleSingle: "Retningsbestemt eksponering · Enkelt volumen",
+    exposureSubtitleTwin: "Retningsbestemt eksponering · Dobbelt volumen",
+    contextLayerNote: "Kontekstlag er valgfrit / skematisk",
+    legendPrimary: "Primær",
+    legendSecondary: "Sekundær",
+    prevailingSectorSubtitle: "Primær → Sekundær",
+    primaryDirectionLabel: "Primær retning",
+    secondaryDirectionLabel: "Sekundær retning",
+    seasonStateLabel: "Sæson / Tilstand",
+    frequencyStatusLabel: "Hyppighedsstatus",
+    windSpeedLabel: "Vindhastighed",
+    disclosureSubtitle: "Vigtig information om disse data",
+    frequencyFieldLabel: "Hyppighed",
+    directionFieldLabel: "Retning",
+    sourceDataFieldLabel: "Kildedata",
+    interpretiveReadingLabel: "Fortolkende aflæsning",
     metaDirection: "16-retnings",
     metaSource: "godkendte rapportbetegnelser",
     axisLabel: "SÆSONBETONET RETNINGSVÆGTNING · IKKE MÅNEDLIG HYPPIGHED",
@@ -117,6 +144,12 @@ const da: Dictionary = {
       "Den tilgængelige rapport fastlægger ikke en verificeret månedlig retningsfordeling for denne grund. Diagrammet illustrerer udelukkende den godkendte sæsonmæssige eksponering — det angiver ikke en præcis måling.",
     envelopeReading: "Klimaskærmens aflæsning.",
     reportedSpeed: "Registreret hastighed:",
+    qualifierModel: "MODEL",
+    qualifierAnnualAverage: "ÅRSGENNEMSNIT",
+    speedProvenanceModel: "Modelleret vindhastighed",
+    speedProvenanceAnnualAverage: "Officielt årsgennemsnit",
+    directionDisclosure: "Kvalitativ retningsfortolkning",
+    sourceDataDisclosure: "Sæsonbaseret, ikke månedlig",
   },
   seasonsLower: { winter: "vinter", spring: "forår", summer: "sommer", autumn: "efterår" },
 };
