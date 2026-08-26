@@ -83,7 +83,7 @@ export default function TestFullLandscapeRedesignPage() {
         index={10}
         project={villaEfe}
         pageLabel="Villa Efe"
-        siteImageSrc={efSiteImg.src}
+        siteDiagramSrc="/diagrams/10-site-location-efe.svg"
         siteImageAlt={efSiteImg.alt.en}
         siteImageCaption={efSiteImg.caption?.en}
       />

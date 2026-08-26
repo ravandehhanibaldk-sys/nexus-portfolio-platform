@@ -1,6 +1,7 @@
 import { printImagePath } from "@/lib/utils";
 import type { Project } from "@/lib/content-schema";
 import { Sheet, SheetPad, SheetFooter } from "@/components/print/sheet";
+import { SiteDiagram } from "@/components/project/site-diagram";
 
 export function NarrativeSheetLandscape({
   index,
@@ -9,6 +10,12 @@ export function NarrativeSheetLandscape({
   siteImageSrc,
   siteImageAlt,
   siteImageCaption,
+  /** Item 9 — coded Site/Location diagram (public/diagrams/*.svg), used
+   * in place of siteImageSrc where available (Villa Efe only for now —
+   * see components/project/site-diagram.tsx's doc comment). Rendered as
+   * a plain <img> since it's a static public SVG, not a printImagePath
+   * raster asset. */
+  siteDiagramSrc,
 }: {
   index: number;
   project: Project;
@@ -16,6 +23,7 @@ export function NarrativeSheetLandscape({
   siteImageSrc?: string;
   siteImageAlt?: string;
   siteImageCaption?: string;
+  siteDiagramSrc?: string;
 }) {
   const { beats } = project;
   const left = [
@@ -55,7 +63,22 @@ export function NarrativeSheetLandscape({
             {right.map((b) => (
               <Beat key={b.n} {...b} />
             ))}
-            {siteImageSrc ? (
+            {siteDiagramSrc ? (
+              <div className="mt-2.5 pt-3 pb-[3mm] border-t border-divider flex-1 min-h-0 flex flex-col" data-el="site-image-block">
+                {/* Inline-injected (not <img src>) — see site-diagram.tsx's
+                    doc comment: object-fit:contain does not correctly
+                    scale-down an SVG-sourced <img> here, so this reuses
+                    the same working inline-injection approach the website
+                    already uses, with fit="contain" for this height-
+                    constrained slot. */}
+                <div className="flex-1 basis-0 min-h-0 mb-1.5" data-el="site-diagram">
+                  <SiteDiagram label={siteImageAlt ?? ""} fit="contain" />
+                </div>
+                {siteImageCaption ? (
+                  <p className="text-meta font-body text-neutral shrink-0" data-el="site-image-caption">{siteImageCaption}</p>
+                ) : null}
+              </div>
+            ) : siteImageSrc ? (
               <div className="mt-2.5 pt-3 pb-[3mm] border-t border-divider flex-1 min-h-0 flex flex-col" data-el="site-image-block">
                 <img
                   src={printImagePath(project.id, siteImageSrc)}
@@ -70,7 +93,7 @@ export function NarrativeSheetLandscape({
             ) : null}
           </div>
         </div>
-        <SheetFooter left="Hanibal Ravandeh" right={pageLabel} />
+        <SheetFooter left="Hanibal Ravandeh" right={pageLabel} index={index} />
       </SheetPad>
     </Sheet>
   );
