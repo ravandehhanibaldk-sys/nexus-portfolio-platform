@@ -1,20 +1,21 @@
 # Final Review Package — Manifest
 
-Produced 2026-08-26, regenerated after a 2nd external-review round. The
-1st round's own regeneration (also 2026-08-26) claimed a full fix but a
-second independent review found 5 concrete remaining issues; this
-package reflects the fixes for all 5, verified this time primarily by a
-scripted, exhaustive audit (`scripts/audit-diagram-translations.mjs`)
-rather than manual spot-checks — see the consolidated report for the
-audit's full findings list and what it caught that manual review missed
-twice. Lint, full production build, and a real-browser check across both
-locales and both projects all passed clean before this export.
+Produced 2026-08-26. This round removed the interactive Environmental
+Diagrams system (Month/Season Selector + 9 instrument-panel cards) from
+both project pages entirely, replacing it with a single static
+Environmental Analysis image per project — the same image already used
+by the PDF's own Environmental Analysis pages (7 and 16), swapped to
+corrected source files with fixed solar-arc geometry (sunrise/sunset
+were reversed in the previous version) and no location-identifying text.
+Lint, full production build, and a real-browser check (desktop and
+mobile viewport) across both locales and both projects all passed clean
+before this export.
 
 ## PDF
 
 | File | Shows |
 |---|---|
-| `pdf-export/PORTFOLIO-FINAL-FOR-REVIEW.pdf` | The complete 18-page portfolio PDF, freshly re-exported. Page 12 (Design Development)'s 8-panel composite no longer sits in a visible white card — its own background is now recolored to the page's exact cream so it reads as printed directly on the page, no frame. Every other fix from the 1st round (cover, page 3 title, circulation swap, plans grid, sections, folio numbers, Reflection pages) is unchanged and still verified. |
+| `pdf-export/PORTFOLIO-FINAL-FOR-REVIEW.pdf` | The complete 18-page portfolio PDF. Pages 7 and 16 (Environmental Analysis, Villa Red Sun / Villa Efe) now use the corrected `-new_result` source images — solar arc geometry fixed, all data confirmed matching (Red Sun: 8.0h daylight, 14.4° noon altitude, 08:23/16:20 sunrise/sunset, wind W/SW→E/NE 6.50 m/s MODEL; Efe: 10.1h daylight, 34.6° noon altitude, 06:53/17:02 sunrise/sunset, wind W/NW→E/SE, 3.0 m/s explicitly labeled ANNUAL AVERAGE). No other PDF page changed — the PDF's Environmental Analysis pages were already static-image-based and had zero code dependency on the interactive website system, confirmed by direct search before this pass. |
 
 ## Website screenshots — `website-screenshots/`
 
@@ -25,34 +26,32 @@ captures at 1440px width, English and Danish, four pages each.
 |---|---|
 | `01-home-en.png` | Home / Selected Work index — English. |
 | `01-home-da.png` | Home / Selected Work index — Danish. |
-| `02-about-en.png` | About page — English. |
-| `02-about-da.png` | About page — Danish. |
-| `03-villa-red-sun-en.png` | Villa Red Sun — English. |
-| `03-villa-red-sun-da.png` | Villa Red Sun — Danish. The Environmental Diagrams instrument panel is now fully translated: the "LEGEND" heading and its 5 field labels (Reference Path, Selected Path, Noon Marker, Building, Shadow (Indicative)) — previously left as a "fixed reference layer" by an earlier decision, now translated per this round's explicit ask — plus the season value ("VINTER" not "WINTER") and the "KLIMAINSTRUMENT FOR GRUNDEN" eyebrow (previously hardcoded English content data, now dictionary-driven). |
-| `04-villa-efe-en.png` | Villa Efe — English. |
-| `04-villa-efe-da.png` | Villa Efe — Danish. The new Location Plan diagram (built in the 1st round) is now fully wired to the dictionary — every label (Kystvej, Sekundær adgangsvej, Tilstødende bygninger, Tilstødende grundgrænser, Projektgrund, Grundforhold, Vandkant, Adgang, 2 veje) was hardcoded English until this round; it was never covered by the original Environmental Diagrams sweep since it didn't exist yet when that sweep ran. |
-
-## Scripted audit
-
-`scripts/audit-diagram-translations.mjs` — a permanent, repeatable check
-added this round (not a one-off). It statically inventories every text
-node in all 10 diagram SVGs, then drives a real browser through both
-projects' EN/DA pages across all 12 months, flagging any visible string
-that's identical between locales (an untranslated leak) or contains a
-curated list of English words specific to this corpus. Run it with `node
-scripts/audit-diagram-translations.mjs` — exit code 0 and "Clean — no
-findings" means nothing is currently leaking; a non-zero exit and a JSON
-findings list means something is. Current state: clean, both projects.
+| `02-about-en.png` | About page — English. Unaffected by this round's change. |
+| `02-about-da.png` | About page — Danish. Unaffected by this round's change. |
+| `03-villa-red-sun-en.png` | Villa Red Sun — English. The interactive Environmental Diagrams block (Month/Season Selector, Solar Path/Metrics/Reading, Wind Flow/Exposure/Envelope Reading/Disclosure, Prevailing Sector) is gone entirely — replaced by one static "Environmental Analysis" image, same corrected source as the PDF. Climate Interface (the separate temperature/rainfall/humidity/seasonal-photo carousel) is untouched, still directly below it. |
+| `03-villa-red-sun-da.png` | Villa Red Sun — Danish. Same swap; the new eyebrow label reads "MILJØANALYSE". |
+| `04-villa-efe-en.png` | Villa Efe — English. Same swap as Red Sun. |
+| `04-villa-efe-da.png` | Villa Efe — Danish. Same swap; "MILJØANALYSE" eyebrow. |
 
 ## Notes for whoever reviews this (including ChatGPT)
 
-- The PDF's Environmental Analysis pages use a separate, pre-produced
-  static image per project — unrelated to the "Environmental Diagrams"
-  section visible in the website screenshots above.
-- Villa Red Sun's Site Analysis (PDF page 4) is still the photographic-
-  overlay version by design — untouched this round per explicit
-  instruction. See `docs/handoff/GENERATED-IMAGE-DISCREPANCIES.md` for
-  what's needed to unblock it; this stays on Hanibal's plate, not code.
+- The Environmental Analysis image (both website and PDF) is
+  intentionally locale-agnostic — it carries no location-identifying
+  text (verified directly against the source files before adoption: no
+  city, country, region, coordinates, named sea, or meteorological-
+  station name — compass letters and the generic term "meteorological
+  station" are present and expected). The same file renders on both
+  `/en` and `/da`; only the surrounding eyebrow label and image `alt`
+  text are localized.
+- Villa Red Sun's Site Analysis (PDF page 4) remains the photographic-
+  overlay version, unchanged and untouched this round, per standing
+  instruction — see `docs/handoff/GENERATED-IMAGE-DISCREPANCIES.md`.
+- `components/project/environmental-diagrams.tsx`, `solar-diagram.tsx`,
+  `wind-diagram.tsx`, `environmental-massing.tsx`, and `lib/solar.ts` /
+  `lib/wind.ts` / `lib/environmental-reading.ts` have been deleted —
+  confirmed via search to have no other importers before removal. The
+  underlying `public/diagrams/01-09*.svg` reference artwork these files
+  wired remains in place, unused, in case it's wanted again later.
 - Nothing in this folder has been pushed anywhere or shared externally —
   it's a local packaging pass, ready for Hanibal to hand off however he
   chooses.
