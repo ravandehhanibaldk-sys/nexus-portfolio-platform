@@ -4,7 +4,6 @@ import { motion, useReducedMotion } from "framer-motion";
 import { Frame } from "@/components/project/frame";
 import { SiteDiagram } from "@/components/project/site-diagram";
 import { ClimateInterface } from "@/components/project/climate-interface";
-import { EnvironmentalDiagrams } from "@/components/project/environmental-diagrams";
 import { t } from "@/lib/content-schema";
 import type { Project } from "@/lib/content-schema";
 import type { Locale } from "@/lib/locale";
@@ -79,9 +78,25 @@ export function SiteAnalysisEditorial({
           ))}
         </div>
       ) : null}
+      {/* Previous interactive Month/Season Selector + 9-card instrument-
+          panel system (EnvironmentalDiagrams, solar-diagram.tsx,
+          wind-diagram.tsx — all removed) replaced with a single static
+          Environmental Analysis image, per Hanibal's repeated request.
+          Same asset already used by the PDF's EnvironmentalSheet;
+          locale-agnostic (verified no location-identifying text before
+          adoption), so only the eyebrow label and `alt` are localized. */}
       {project.climateInstrument ? (
         <div className="mt-16">
-          <EnvironmentalDiagrams data={project.climateInstrument} locale={locale} dict={dict} />
+          <p className="text-meta font-body text-neutral tracking-[0.15em] uppercase mb-3">
+            {dict?.sections.environmentalAnalysis ?? "Environmental Analysis"}
+          </p>
+          <Frame
+            projectId={project.id}
+            asset={project.climateInstrument.environmentalAnalysis}
+            gallery={[project.climateInstrument.environmentalAnalysis]}
+            locale={locale}
+            dict={dict}
+          />
         </div>
       ) : null}
     </section>

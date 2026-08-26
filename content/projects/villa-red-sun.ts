@@ -100,6 +100,14 @@ const villaRedSun: ProjectInput = {
       { month: "NOV", season: "autumn", temperature: { value: 6.0, unit: "C", source: "dmi-solrod-2006-2015" }, rainfall: { value: 69, unit: "mm", source: "dmi-solrod-2006-2015" }, wind: { directionLabel: "W / SW → E / NE", speedLabel: "5.66 M/S", speedQualifier: "model" }, solar: { altitudeDeg: 20.4, time: "12:22", source: "derived" } },
       { month: "DEC", season: "winter", temperature: { value: 2.7, unit: "C", source: "dmi-solrod-2006-2015" }, rainfall: { value: 63, unit: "mm", source: "dmi-solrod-2006-2015" }, wind: { directionLabel: "W / SW → E / NE", speedLabel: "6.50 M/S", speedQualifier: "model" }, solar: { altitudeDeg: 11.1, time: "12:09", source: "solar-calculation-table" } },
     ],
+    environmentalAnalysis: {
+      src: "villa-red-sun-environmental_result.png",
+      alt: {
+        en: "Environmental analysis — solar path, daylight metrics, and prevailing wind, January.",
+        da: "Miljøanalyse — solbane, dagslysmålinger og fremherskende vind, januar.",
+      },
+      category: "site-analysis",
+    },
   },
 
   beats: {

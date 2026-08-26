@@ -186,6 +186,19 @@ const climateInstrumentSchema = z.object({
   }),
   /** Exactly 12 entries, JAN through DEC in order. */
   months: z.array(climateMonthSchema).length(12),
+  /**
+   * Single static Environmental Analysis composite (solar path, daylight
+   * metrics, wind rose, and data disclosure in one produced image) — same
+   * asset already used by the PDF's EnvironmentalSheet
+   * (components/print/environmental-sheet.tsx). Replaces the previous
+   * interactive Month/Season Selector + 9-card instrument-panel system
+   * (components/project/environmental-diagrams.tsx, solar-diagram.tsx,
+   * wind-diagram.tsx — removed) on the website per Hanibal's repeated
+   * request. Locale-agnostic (no location-identifying text in the image
+   * itself — verified directly against the source file before adoption),
+   * so `alt` is the only per-locale field needed.
+   */
+  environmentalAnalysis: assetSchema,
 });
 
 /** Section 12 — the eight-beat Storytelling Framework. */

@@ -106,6 +106,14 @@ const villaEfe: ProjectInput = {
       { month: "NOV", season: "autumn", temperature: { value: 18.5, unit: "C", source: "regional-climatology — converted from source-reported °F to °C for portfolio-wide unit consistency. Original source value: 65.3°F." }, rainfall: { value: 68, unit: "mm", source: "regional-climatology" }, wind: { directionLabel: "W → E", speedLabel: "3.0 M/S", speedQualifier: "annual-average" }, humidity: { value: 54, unit: "%", source: "regional-reference-athalassa" }, solar: { altitudeDeg: 40.6, time: "11:58", source: "derived" } },
       { month: "DEC", season: "winter", temperature: { value: 14.5, unit: "C", source: "regional-climatology — converted from source-reported °F to °C for portfolio-wide unit consistency. Original source value: 58.1°F." }, rainfall: { value: 133, unit: "mm", source: "regional-climatology" }, wind: { directionLabel: "W / NW → E / SE", speedLabel: "3.0 M/S", speedQualifier: "annual-average" }, humidity: { value: 66, unit: "%", source: "regional-reference-athalassa" }, solar: { altitudeDeg: 31.2, time: "11:45", source: "solar-calculation-table" } },
     ],
+    environmentalAnalysis: {
+      src: "villa-efe-environmental_result.png",
+      alt: {
+        en: "Environmental analysis — solar path, daylight metrics, and prevailing wind, January.",
+        da: "Miljøanalyse — solbane, dagslysmålinger og fremherskende vind, januar.",
+      },
+      category: "site-analysis",
+    },
   },
 
   beats: {
