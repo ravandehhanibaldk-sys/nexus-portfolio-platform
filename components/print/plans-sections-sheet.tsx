@@ -105,7 +105,7 @@ export function PlansSectionsSheet({
             </div>
           </div>
         </div>
-        <SheetFooter left={pageLabel} right="Final Architecture" />
+        <SheetFooter left={pageLabel} right="Final Architecture" index={index} />
       </div>
     </Sheet>
   );

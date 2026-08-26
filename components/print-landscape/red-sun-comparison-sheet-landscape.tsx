@@ -30,7 +30,12 @@ export function RedSunComparisonSheetLandscape({ index }: { index: number }) {
     tier: a.tier.en,
     isFinal: a.isFinal,
     masterPlan: a.assets.find((x) => x.category === "master-plan")!,
-    plan: a.assets.find((x) => x.category === "plan")!,
+    // item 14 — the Floor Plan row was too visually similar to Master
+    // Plan (same drawing minus people/shadows) to add real comparative
+    // value. Swapped for the Circulation diagram, already part of this
+    // asset set (content/projects/villa-red-sun.ts, category
+    // "circulation-diagram") — real, distinct content, not new data.
+    circulation: a.assets.find((x) => x.category === "circulation-diagram")!,
   }));
 
   return (
@@ -56,15 +61,15 @@ export function RedSunComparisonSheetLandscape({ index }: { index: number }) {
               />
               <p className="text-meta font-body text-neutral mb-3">Master Plan</p>
               <img
-                src={printImagePath("villa-red-sun", c.plan.src)}
-                alt={c.plan.alt.en}
+                src={printImagePath("villa-red-sun", c.circulation.src)}
+                alt={c.circulation.alt.en}
                 className="w-full aspect-[16/9] object-cover mb-1.5"
               />
-              <p className="text-meta font-body text-neutral">Floor Plan</p>
+              <p className="text-meta font-body text-neutral">Circulation</p>
             </div>
           ))}
         </div>
-        <SheetFooter left="Villa Red Sun" right="Design Process" />
+        <SheetFooter left="Villa Red Sun" right="Design Process" index={index} />
       </div>
     </Sheet>
   );

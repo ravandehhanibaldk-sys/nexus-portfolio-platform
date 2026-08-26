@@ -43,7 +43,7 @@ export function EfeLevelsSheet({ index }: { index: number }) {
             );
           })}
         </div>
-        <SheetFooter left="Villa Efe" right="Design Thinking" />
+        <SheetFooter left="Villa Efe" right="Design Thinking" index={index} />
       </div>
     </Sheet>
   );

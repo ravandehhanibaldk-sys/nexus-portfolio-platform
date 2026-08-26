@@ -36,7 +36,7 @@ export function ProjectOpeningSheetLandscape({
           <p className="mb-0.5">{project.credits.role.en}</p>
           <p>{project.credits.tools.join(" / ")}</p>
         </div>
-        <SheetFooter left="Hanibal Ravandeh" right={pageLabel} />
+        <SheetFooter left="Hanibal Ravandeh" right={pageLabel} index={index} />
       </div>
     </Sheet>
   );

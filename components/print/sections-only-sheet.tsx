@@ -41,8 +41,16 @@ export function SectionsOnlySheet({
         <p className="text-meta font-body text-neutral tracking-[0.15em] uppercase">
           Final Architecture — Sections
         </p>
-        <div className="flex-1 min-h-0 flex flex-col items-center justify-center">
-          <div className="w-full grid grid-cols-2 gap-[10mm]">
+        {/* item 13 — moved up (justify-start + a deliberate fixed gap
+            below the title, instead of vertically centered with a large
+            top gap) and enlarged in place: the image row bleeds out to
+            the sheet's full 297mm page width via a negative margin that
+            exactly cancels sheet-pad's own 16mm horizontal padding, so
+            both sections render ~12% larger while staying strictly
+            within the physical page (never exceeding it) and still
+            side-by-side, not stacked. */}
+        <div className="flex-1 min-h-0 flex flex-col items-center justify-start pt-[10mm]">
+          <div className="grid grid-cols-2 gap-[10mm]" style={{ width: "calc(100% + 32mm)", marginLeft: "-16mm", marginRight: "-16mm" }}>
             <div>
               <img
                 src={printImagePath(projectId, sectionA.src)}
@@ -61,7 +69,7 @@ export function SectionsOnlySheet({
             </div>
           </div>
         </div>
-        <SheetFooter left={pageLabel} right="Final Architecture" />
+        <SheetFooter left={pageLabel} right="Final Architecture" index={index} />
       </div>
     </Sheet>
   );

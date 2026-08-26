@@ -8,7 +8,7 @@ export function CoverSheetLandscape({ index }: { index: number }) {
     <Sheet index={index} orientation="landscape">
       <div className="relative w-full h-full">
         <img
-          src={printImagePath("villa-red-sun", "A-01-villa-red-sun-exterior-view-01_result.png")}
+          src={printImagePath("villa-red-sun", "A-02-villa-red-sun-exterior-view-02-04-Winter_result.png")}
           alt=""
           className="absolute inset-0 w-full h-full object-cover"
         />

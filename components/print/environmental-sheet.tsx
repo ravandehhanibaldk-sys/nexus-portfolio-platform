@@ -43,7 +43,7 @@ export function EnvironmentalSheet({
             className="max-h-full max-w-full object-contain"
           />
         </div>
-        <SheetFooter left={pageLabel} right="Environmental Analysis — January" />
+        <SheetFooter left={pageLabel} right="Environmental Analysis — January" index={index} />
       </div>
     </Sheet>
   );

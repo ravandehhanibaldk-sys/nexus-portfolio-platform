@@ -75,7 +75,7 @@ export function AboutSheetLandscape({ index }: { index: number }) {
             </div>
           </div>
         </div>
-        <SheetFooter left="Hanibal Ravandeh" right="About" />
+        <SheetFooter left="Hanibal Ravandeh" right="About" index={index} />
       </SheetPad>
     </Sheet>
   );

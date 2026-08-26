@@ -42,13 +42,21 @@ export function PlansGridSheet({
               <PlanCell key={level.id} projectId={projectId} level={level} />
             ))}
           </div>
-          <div className="flex-1 min-h-0 grid grid-cols-3 gap-[6mm]">
+          {/* item 12 — center-align the 2-plan second row under the
+              3-plan first row instead of grid-cols-3 left-anchoring them
+              with an empty third cell. flex+basis matches the exact same
+              per-cell width as row one's grid-cols-3 (100% minus 2 gaps,
+              divided by 3), so cell sizes stay identical — only the
+              row's overall position centers. */}
+          <div className="flex-1 min-h-0 flex justify-center gap-[6mm]">
             {secondRow.map((level) => (
-              <PlanCell key={level.id} projectId={projectId} level={level} />
+              <div key={level.id} className="min-h-0" style={{ flex: "0 0 calc((100% - 12mm) / 3)" }}>
+                <PlanCell projectId={projectId} level={level} />
+              </div>
             ))}
           </div>
         </div>
-        <SheetFooter left={pageLabel} right="Final Architecture" />
+        <SheetFooter left={pageLabel} right="Final Architecture" index={index} />
       </div>
     </Sheet>
   );
@@ -62,7 +70,7 @@ function PlanCell({
   level: { id: string; label: { en: string }; plan: ProjectAsset };
 }) {
   return (
-    <div className="min-h-0 flex flex-col">
+    <div className="min-h-0 h-full flex flex-col">
       <div className="flex-1 min-h-0 w-full flex items-center justify-center">
         <img
           src={printImagePath(projectId, level.plan.src)}

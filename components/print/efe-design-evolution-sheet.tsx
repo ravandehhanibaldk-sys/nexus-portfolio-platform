@@ -17,15 +17,24 @@ export function EfeDesignEvolutionSheet({ index }: { index: number }) {
         <p className="text-meta font-body text-neutral tracking-[0.15em] uppercase mb-5">
           Design Thinking — Design Development
         </p>
+        {/* item 16 — the 8-panel composite's own background is pure
+            white; sitting directly on the sheet's cream page background
+            left a visible mismatched edge. Wrapped in an explicit white
+            card (matching padding on all sides) so the image's white
+            blends seamlessly into the card instead of clashing with
+            cream — reads as a deliberate framed plate, not a color
+            mismatch. */}
         <div className="flex-1 flex items-center">
-          <img
-            src={printImagePath("villa-efe", asset.src)}
-            alt={asset.alt.en}
-            className="w-full aspect-[16/9] object-cover"
-          />
+          <div className="w-full bg-white border border-divider p-[6mm]">
+            <img
+              src={printImagePath("villa-efe", asset.src)}
+              alt={asset.alt.en}
+              className="w-full aspect-[16/9] object-contain"
+            />
+          </div>
         </div>
         <p className="text-caption font-body text-neutral mt-3">{asset.caption?.en}</p>
-        <SheetFooter left="Villa Efe" right="Design Thinking" />
+        <SheetFooter left="Villa Efe" right="Design Thinking" index={index} />
       </div>
     </Sheet>
   );

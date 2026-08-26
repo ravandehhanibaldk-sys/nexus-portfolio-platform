@@ -39,17 +39,36 @@ export function SheetPad({
   return <div className={`sheet-pad ${className}`}>{children}</div>;
 }
 
-/** Small running footer — page context, kept quiet. */
+/**
+ * Total sheet count in the current landscape production document
+ * (app/print/test-full-landscape-redesign/page.tsx) — used for the
+ * "NN / TOTAL" folio number (item 17). Update this if a sheet is ever
+ * added or removed from that page.
+ */
+export const TOTAL_SHEETS = 18;
+
+/** Small running footer — page context, kept quiet. `index` (the same
+ * 0-based Sheet index every sheet already receives) renders a subordinate
+ * "NN / TOTAL" folio number between left/right, without changing the
+ * existing left/right hierarchy — it's the same size/weight as before,
+ * the folio is deliberately smaller and more muted. */
 export function SheetFooter({
   left,
   right,
+  index,
 }: {
   left: string;
   right: string;
+  index?: number;
 }) {
   return (
     <div className="mt-auto pt-4 flex items-baseline justify-between border-t border-divider">
       <span className="text-meta font-body text-neutral tracking-[0.1em] uppercase">{left}</span>
+      {index !== undefined ? (
+        <span className="text-[9px] font-body text-neutral/50 tracking-[0.1em]">
+          {String(index + 1).padStart(2, "0")} / {TOTAL_SHEETS}
+        </span>
+      ) : null}
       <span className="text-meta font-body text-neutral tracking-[0.1em] uppercase">{right}</span>
     </div>
   );

@@ -41,7 +41,7 @@ export function VisualizationSheetLandscape({
             </div>
           ))}
         </div>
-        <SheetFooter left={pageLabel} right="Visualization" />
+        <SheetFooter left={pageLabel} right="Visualization" index={index} />
       </SheetPad>
     </Sheet>
   );
