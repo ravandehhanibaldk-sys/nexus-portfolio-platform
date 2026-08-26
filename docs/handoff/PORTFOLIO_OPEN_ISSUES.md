@@ -1,13 +1,57 @@
 # Portfolio Open Issues
 
-Rewritten 2026-08-25 (originally written 2026-08-25, superseded same-day
-after a long autonomous session closed out most open items). Severity:
-**BLOCKER** (stops publication/launch), **MATERIAL** (real defect or
-risk, not launch-blocking on its own), **MINOR** (cosmetic,
-documentation, or low-impact).
+Updated 2026-08-26 after a 20-item, 6-priority-section external-review
+pass (critical bugs, Danish language quality, a new coded Site/Location
+diagram for Villa Efe, PDF layout fixes, Reflection pages moved to light
+background, wind-data provenance). Rewritten 2026-08-25 before that
+(originally written 2026-08-25, superseded same-day after a long
+autonomous session closed out most open items). Severity: **BLOCKER**
+(stops publication/launch), **MATERIAL** (real defect or risk, not
+launch-blocking on its own), **MINOR** (cosmetic, documentation, or
+low-impact).
 
 Each item is labeled FACT (directly observed) or INFERENCE (reasonable
 conclusion, not independently re-verified this session).
+
+---
+
+## EXTERNAL REVIEW PASS — 2026-08-26
+
+All 20 items from the external-review task are resolved except the one
+genuine content-level limitation below, which needs Hanibal's own
+input/production work, not more code:
+
+- **Villa Red Sun's Site Analysis image** (PDF page 4 / website Site
+  beat) is unchanged — still the photographic-overlay version. The
+  Villa Efe equivalent (PDF page 11 / website Location Plan) was
+  successfully replaced with a new coded diagram
+  (`public/diagrams/10-site-location-efe.svg`,
+  `components/project/site-diagram.tsx`) matching the Solar/Wind
+  instrument-panel visual language, because Efe's reference photo has
+  explicit labeled geometry. Red Sun's does not — see item 1 in
+  `docs/handoff/GENERATED-IMAGE-DISCREPANCIES.md` for the full writeup
+  and what Hanibal needs to confirm/provide to unblock it. This
+  supersedes N3 below for the Efe side; N3's Red Sun limitation stands.
+
+Every other item — the leaked Danish QA warning, the protocol sweep for
+leftover internal text, the "fifth living level" copy error, the full
+Environmental Diagrams Danish translation (not just panel headings — the
+first pass only translated those; a follow-up audit in the same session
+found and fixed ~20 more static SVG chrome strings — subtitles, field
+labels, legend words, month abbreviations), the About page contact
+footer, the Danish language quality pass, the PDF layout fixes (cover
+image, page 3 title, comparison circulation swap, plans grid alignment,
+sections enlargement, design-evolution white card, folio numbers, "luxury"
+language reduction), both Reflection pages moving from dark to light
+background (superseding ADR-006, now ADR-010), and the wind-speed
+MODEL/ANNUAL AVG qualifier consistency — is resolved and verified (lint,
+full production build, real-browser check across both locales and both
+projects, real PDF re-export and visual review of all 18 pages).
+
+Priority 1 item 3 (Villa Efe's Location Plan reportedly showing an empty
+box) was investigated directly and could not be reproduced — the
+underlying image loaded correctly in every test. It's moot regardless,
+since that section now shows the coded diagram, not the old photo.
 
 ---
 
@@ -94,9 +138,21 @@ Local commits only, nothing pushed to `origin/master`, per instruction.
 ## MATERIAL
 
 ### N3 — PDF Site Analysis sheets still photographic
-**ASSESSED IN DEPTH, not implemented — confirmed genuine scope limit,
-full handoff package prepared.** See `SITE-ANALYSIS-ILLUSTRATION-BRIEF.md`
-(repo root) for the complete writeup. Summary:
+**PARTIALLY RESOLVED, 2026-08-26.** Villa Efe's Site Analysis (PDF page 11
+/ website Location Plan) has been replaced with a new coded diagram —
+`public/diagrams/10-site-location-efe.svg`, matching the Solar/Wind
+instrument-panel visual language, built from Efe's own labeled reference
+photo (`B-47-site-spotting-villa-efe_result.png`). See
+`docs/handoff/ENVIRONMENTAL-DIAGRAM-SYSTEM-SPEC.md` for how that system
+works. Villa Red Sun's Site Analysis (PDF page 4) is still the
+photographic-overlay version described below — its reference photo lacks
+the labeled geometry a confident coded redraw needs. See item 1 in
+`docs/handoff/GENERATED-IMAGE-DISCREPANCIES.md` for what's needed to
+unblock it. The original assessment below (painterly-render replacement,
+not the coded-diagram approach that ended up working for Efe) remains
+accurate context for how this was investigated. See
+`SITE-ANALYSIS-ILLUSTRATION-BRIEF.md` (repo root) for that original
+writeup. Summary:
 
 - Investigated how the existing illustrated Final Architecture plates
   (`A-16`, `B-20…24`) were actually produced: no script/pipeline exists
