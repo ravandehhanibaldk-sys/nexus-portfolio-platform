@@ -1,4 +1,25 @@
-# Environmental Diagram System — Reference Spec
+# Environmental Diagram System — Reference Spec (SUPERSEDED)
+
+**Status update, 2026-08-26:** the live system this document describes —
+`components/project/environmental-diagrams.tsx`, `solar-diagram.tsx`,
+`wind-diagram.tsx`, `environmental-massing.tsx`, and their `lib/solar.ts`
+/ `lib/wind.ts` / `lib/environmental-reading.ts` calculation helpers —
+has been **removed from the codebase**. Per Hanibal's repeated request,
+both project pages now show a single static Environmental Analysis image
+instead of the interactive Month/Season Selector + 9-card instrument
+panel this spec describes. `public/diagrams/01-09*.svg` remain on disk,
+unused, in case this approach is revived. `public/diagrams/
+10-site-location-efe.svg` and `components/project/site-diagram.tsx`
+(Villa Efe's Location Plan) are unaffected and still live — they reuse
+the same wiring pattern (`lib/svg-wiring.ts`) this spec documents.
+
+Kept below **as historical reference only** — for the wiring pattern,
+compass-rotation math, and inline-SVG technique, in case a similar coded
+diagram is ever built again (as `site-diagram.tsx` already was once,
+using this same approach). It no longer describes anything live on the
+website.
+
+---
 
 Written 2026-08-25 (Priority 3, item 15 of the external-review pass) as the
 reference Hanibal asked for: a complete, precise account of how the Solar
