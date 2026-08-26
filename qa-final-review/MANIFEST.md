@@ -1,19 +1,20 @@
 # Final Review Package — Manifest
 
-Produced 2026-08-26, regenerated after the full external-review pass (20
-items across 6 priority sections — critical bugs, Danish language quality,
-a new coded Site/Location diagram for Villa Efe, PDF layout fixes,
-Reflection pages moved from dark to light, and a wind-data provenance
-investigation). Full detail is in the consolidated report delivered
-alongside this package. This regeneration reflects every change from that
-pass — lint, full production build, and a real-browser check across both
-locales and both projects all passed before export.
+Produced 2026-08-26, regenerated after a 2nd external-review round. The
+1st round's own regeneration (also 2026-08-26) claimed a full fix but a
+second independent review found 5 concrete remaining issues; this
+package reflects the fixes for all 5, verified this time primarily by a
+scripted, exhaustive audit (`scripts/audit-diagram-translations.mjs`)
+rather than manual spot-checks — see the consolidated report for the
+audit's full findings list and what it caught that manual review missed
+twice. Lint, full production build, and a real-browser check across both
+locales and both projects all passed clean before this export.
 
 ## PDF
 
 | File | Shows |
 |---|---|
-| `pdf-export/PORTFOLIO-FINAL-FOR-REVIEW.pdf` | The complete 18-page portfolio PDF, freshly re-exported from current source. Cover now uses a winter/snow Villa Red Sun hero; page 3's title is shortened; page 4/11 carry the new coded Site/Location diagrams where available (Villa Efe only — Red Sun's Site Analysis is still photographic, by design, see the discrepancy list); page 5's comparison now shows Circulation instead of a repeated Floor Plan row; page 12's image sits in a white card; page 14's plans grid centers its second row; page 15's sections are enlarged; every page carries a small "NN / 18" folio number; both Reflection pages (09, 18) are now light-background with typographic distinction only. |
+| `pdf-export/PORTFOLIO-FINAL-FOR-REVIEW.pdf` | The complete 18-page portfolio PDF, freshly re-exported. Page 12 (Design Development)'s 8-panel composite no longer sits in a visible white card — its own background is now recolored to the page's exact cream so it reads as printed directly on the page, no frame. Every other fix from the 1st round (cover, page 3 title, circulation swap, plans grid, sections, folio numbers, Reflection pages) is unchanged and still verified. |
 
 ## Website screenshots — `website-screenshots/`
 
@@ -24,12 +25,24 @@ captures at 1440px width, English and Danish, four pages each.
 |---|---|
 | `01-home-en.png` | Home / Selected Work index — English. |
 | `01-home-da.png` | Home / Selected Work index — Danish. |
-| `02-about-en.png` | About page — English. No leaked QA text; new contact footer (email + LinkedIn) at the bottom. |
-| `02-about-da.png` | About page — Danish. Same footer; sentence-case headings; "stedsforståelse" corrected. |
-| `03-villa-red-sun-en.png` | Villa Red Sun full project page — English. Wife/husband framing; shortened typology; Reflection now light-background. |
-| `03-villa-red-sun-da.png` | Villa Red Sun full project page — Danish. Environmental Diagrams instrument panel is now fully Danish (headings, subtitles, field labels, month names — not just the panel titles). |
-| `04-villa-efe-en.png` | Villa Efe full project page — English. New coded Location Plan diagram; "fourth living level" (not fifth); "Coastal Villa" (not "Luxury Coastal Villa"). |
-| `04-villa-efe-da.png` | Villa Efe full project page — Danish. Same fixes, plus the full Environmental Diagrams translation pass and the corrected reflection-text passages (privacy-graded levels, coastal proximity wording, the pool/space tension rewrite). |
+| `02-about-en.png` | About page — English. |
+| `02-about-da.png` | About page — Danish. |
+| `03-villa-red-sun-en.png` | Villa Red Sun — English. |
+| `03-villa-red-sun-da.png` | Villa Red Sun — Danish. The Environmental Diagrams instrument panel is now fully translated: the "LEGEND" heading and its 5 field labels (Reference Path, Selected Path, Noon Marker, Building, Shadow (Indicative)) — previously left as a "fixed reference layer" by an earlier decision, now translated per this round's explicit ask — plus the season value ("VINTER" not "WINTER") and the "KLIMAINSTRUMENT FOR GRUNDEN" eyebrow (previously hardcoded English content data, now dictionary-driven). |
+| `04-villa-efe-en.png` | Villa Efe — English. |
+| `04-villa-efe-da.png` | Villa Efe — Danish. The new Location Plan diagram (built in the 1st round) is now fully wired to the dictionary — every label (Kystvej, Sekundær adgangsvej, Tilstødende bygninger, Tilstødende grundgrænser, Projektgrund, Grundforhold, Vandkant, Adgang, 2 veje) was hardcoded English until this round; it was never covered by the original Environmental Diagrams sweep since it didn't exist yet when that sweep ran. |
+
+## Scripted audit
+
+`scripts/audit-diagram-translations.mjs` — a permanent, repeatable check
+added this round (not a one-off). It statically inventories every text
+node in all 10 diagram SVGs, then drives a real browser through both
+projects' EN/DA pages across all 12 months, flagging any visible string
+that's identical between locales (an untranslated leak) or contains a
+curated list of English words specific to this corpus. Run it with `node
+scripts/audit-diagram-translations.mjs` — exit code 0 and "Clean — no
+findings" means nothing is currently leaking; a non-zero exit and a JSON
+findings list means something is. Current state: clean, both projects.
 
 ## Notes for whoever reviews this (including ChatGPT)
 
@@ -37,12 +50,9 @@ captures at 1440px width, English and Danish, four pages each.
   static image per project — unrelated to the "Environmental Diagrams"
   section visible in the website screenshots above.
 - Villa Red Sun's Site Analysis (PDF page 4) is still the photographic-
-  overlay version by design — its only available reference photo is a
-  dense, unlabeled aerial with no distinct building outlines, so a
-  confident coded redraw (the approach used for Villa Efe's Location Plan)
-  isn't available yet. See `docs/handoff/ENVIRONMENTAL-DIAGRAM-SYSTEM-
-  SPEC.md` for how the coded-diagram system works, for whenever better
-  Red Sun reference material exists.
+  overlay version by design — untouched this round per explicit
+  instruction. See `docs/handoff/GENERATED-IMAGE-DISCREPANCIES.md` for
+  what's needed to unblock it; this stays on Hanibal's plate, not code.
 - Nothing in this folder has been pushed anywhere or shared externally —
   it's a local packaging pass, ready for Hanibal to hand off however he
   chooses.
