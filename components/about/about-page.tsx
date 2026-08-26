@@ -48,14 +48,14 @@ export function AboutPage({
               </h2>
             ) : null}
 
-            <div className={i === 0 ? "flex flex-col sm:flex-row gap-6 sm:gap-10" : ""}>
+            <div className={i === 0 ? "flex flex-col sm:flex-row gap-6 sm:gap-12" : ""}>
               {i === 0 ? (
-                <div className="shrink-0 relative w-32 sm:w-40 aspect-[4/5] border border-divider bg-paper overflow-hidden">
+                <div className="shrink-0 relative w-48 sm:w-60 aspect-[4/5] border border-divider bg-paper overflow-hidden">
                   <Image
                     src="/images/about/hanibal-ravandeh.jpg"
                     alt={locale === "en" ? "Portrait of Hanibal Ravandeh" : "Portræt af Hanibal Ravandeh"}
                     fill
-                    sizes="(min-width: 640px) 160px, 128px"
+                    sizes="(min-width: 640px) 240px, 192px"
                     className="object-cover"
                   />
                 </div>
