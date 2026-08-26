@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import { useReducedMotion } from "framer-motion";
-import { imagePath, videoPath } from "@/lib/utils";
+import { imagePath, optimizedImagePath, videoPath } from "@/lib/utils";
 
 /**
  * Homepage project-card media — video-with-image-fallback, same behavior
@@ -41,7 +41,7 @@ export function ProjectCardMedia({
         loop
         playsInline
         preload="auto"
-        poster={imagePath(projectId, imageSrc)}
+        poster={optimizedImagePath(projectId, imageSrc, 1920)}
         onError={() => setVideoFailed(true)}
         className="absolute inset-0 h-full w-full object-cover transition-transform duration-[var(--duration-base)] ease-[var(--ease-editorial)] group-hover:scale-[1.02]"
       >
